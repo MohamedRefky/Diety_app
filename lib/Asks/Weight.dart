@@ -37,14 +37,17 @@ class _HeightState extends State<Weight> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                    "What is your Weight?",
+                    "What\'s your Weight ?",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.white,
                       fontSize: 30,
                     ),
                   ),
-                  const Image(image: AssetImage('Images/weight.jpg')),
+                  const SizedBox(
+                      width: double.infinity,
+                      height: 290,
+                      child: Image(image: AssetImage('Images/weight.jpg'))),
                   TextFormField(
                     onTap: () {},
                     keyboardType: TextInputType.number,

@@ -39,14 +39,14 @@ class _WishesState extends State<Wishes> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'You Want To ..!',
+                'Choos your body shape !',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   color: AppColors.white,
                   fontSize: 30,
                 ),
               ),
-              const Gap(40),
+              const Gap(70),
               SizedBox(
                 width: 320,
                 height: 80,
@@ -94,13 +94,9 @@ class _WishesState extends State<Wishes> {
                           fontWeight: FontWeight.w500),
                     )),
               ),
-                            const Gap(60),
+              const Gap(60),
               Custom_Button(
-                width: double.infinity,
-                  text: 'Continue',
-                  onPressed: () {
-                    
-                  })
+                  width: double.infinity, text: 'Continue', onPressed: () {})
             ],
           ),
         ),

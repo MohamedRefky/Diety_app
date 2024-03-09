@@ -37,14 +37,17 @@ class _AgeState extends State<Age> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
-                    "What is your age",
+                    "What\'s your age ?",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.white,
                       fontSize: 30,
                     ),
                   ),
-                  const Image(image: AssetImage('Images/age.jpg')),
+                  const SizedBox(
+                      width: double.infinity,
+                      height: 290,
+                      child: Image(image: AssetImage('Images/age.jpg'))),
                   TextFormField(
                     onTap: () {},
                     keyboardType: TextInputType.number,
