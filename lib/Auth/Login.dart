@@ -1,5 +1,5 @@
 import 'package:diety/Asks/Gender.dart';
-import 'package:diety/Auth/SuinUp.dart';
+import 'package:diety/Auth/SignUp.dart';
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Core/Custom_Button.dart';
 import 'package:diety/Core/Custom_TextFormFeale.dart';
@@ -37,7 +37,8 @@ class _LoginState extends State<Login> {
                   const SizedBox(
                     height: 30,
                   ),
-                  CusomTextFormFeald(
+                  CusomTextFormFeald( 
+                   
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'PLease Enter Your Email';

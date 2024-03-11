@@ -8,17 +8,19 @@ class CusomTextFormFeald extends StatelessWidget {
     required this.prefixIcon,
     this.suffixIcon,
     this.obscureText,
-    this.validator,
+    this.validator, this.mycontroller,
   });
   final String lable;
   final IconData prefixIcon;
   final Widget? suffixIcon;
   final bool? obscureText;
   final String? Function(String?)? validator;
+  final TextEditingController? mycontroller;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller:mycontroller ,
       obscureText: obscureText ?? false,
       validator: validator,
       keyboardType: TextInputType.emailAddress,

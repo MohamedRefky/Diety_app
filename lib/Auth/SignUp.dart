@@ -82,7 +82,7 @@ class _SingUpState extends State<SingUp> {
                 const SizedBox(
                   height: 20,
                 ),
-                Custom_Button(text: 'SingUp', onPressed: () {}),
+                Custom_Button(text: 'Sign Up', onPressed: () {}),
                 Row(
                     children: [
                       Text('Already I have account',
