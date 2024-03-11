@@ -1,7 +1,4 @@
-import 'package:diety/Asks/Activates.dart';
-import 'package:diety/Asks/Gender.dart';
-import 'package:diety/Asks/wishes.dart';
-import 'package:diety/Auth/Login.dart';
+import 'package:diety/Home/Home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Gender(),
+      home: Home(),
     );
   }
 }
