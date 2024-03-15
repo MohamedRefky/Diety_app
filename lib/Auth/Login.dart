@@ -1,8 +1,9 @@
-import 'package:diety/Asks/Gender.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:diety/Auth/SignUp.dart';
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Core/Custom_Button.dart';
 import 'package:diety/Core/Custom_TextFormFeale.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -13,9 +14,12 @@ class Login extends StatefulWidget {
 }
 
 bool isNotVisable = true;
-final formKey = GlobalKey<FormState>();
 
 class _LoginState extends State<Login> {
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +41,8 @@ class _LoginState extends State<Login> {
                   const SizedBox(
                     height: 30,
                   ),
-                  CusomTextFormFeald( 
-                   
+                  CusomTextFormFeald(
+                    mycontroller: email,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'PLease Enter Your Email';
@@ -53,6 +57,7 @@ class _LoginState extends State<Login> {
                     height: 15,
                   ),
                   CusomTextFormFeald(
+                    mycontroller: password,
                     obscureText: isNotVisable,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -78,16 +83,56 @@ class _LoginState extends State<Login> {
                     height: 20,
                   ),
                   Custom_Button(
-                    text: 'Login',
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                              builder: (context) => const Gender()),
-                        );
-                      }
-                    },
-                  ),
+                      text: 'Login',
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+                          try {
+                            final credential = await FirebaseAuth.instance
+                                .signInWithEmailAndPassword(
+                              email: email.text,
+                              password: password.text,
+                            );
+                            if (credential.user!.emailVerified) {
+                              // ignore: use_build_context_synchronously
+                              Navigator.of(context)
+                                  .pushReplacementNamed('Gender');
+                            } else {
+                              AwesomeDialog(
+                                // ignore: use_build_context_synchronously
+                                context: context,
+                                dialogType: DialogType.warning,
+                                animType: AnimType.rightSlide,
+                                title: 'Error',
+                                desc: 'please verfiy your email !',
+                              ).show();
+                            }
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'user-not-found') {
+                              // ignore: avoid_print
+                              print('No user found for that email.');
+                              AwesomeDialog(
+                                // ignore: use_build_context_synchronously
+                                context: context,
+                                dialogType: DialogType.error,
+                                animType: AnimType.rightSlide,
+                                title: 'email Error',
+                                desc: 'No user found for that email',
+                              ).show();
+                            } else if (e.code == 'wrong-password') {
+                              // ignore: avoid_print
+                              print('Wrong password provided for that user.');
+                              AwesomeDialog(
+                                // ignore: use_build_context_synchronously
+                                context: context,
+                                dialogType: DialogType.error,
+                                animType: AnimType.rightSlide,
+                                title: 'password Error',
+                                desc: 'Wrong password provided for that user',
+                              ).show();
+                            }
+                          }
+                        }
+                      }),
                   const SizedBox(
                     height: 10,
                   ),
