@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10))),
                       child: Text(
-                        'Get Starttt',
+                        'Get Start',
                         style: TextStyle(
                             color: AppColors.text,
                             fontSize: 20,
