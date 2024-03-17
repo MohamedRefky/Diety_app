@@ -17,19 +17,19 @@ class CustomAppBarFood extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: const Color(0xff272f3c),
+      backgroundColor: AppColors.background,
       leading: IconButton(
         onPressed: onPressed,
         icon: Icon(
           Icons.close,
           size: 33,
-          color: AppColors.grey,
+          color: AppColors.button,
         ),
       ),
       title: Text(
         text,
         style: TextStyle(
-          color: AppColors.white,
+          color: AppColors.text,
           fontSize: 25,
           fontWeight: FontWeight.bold,
         ),

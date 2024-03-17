@@ -1,3 +1,5 @@
+import 'package:diety/Core/Colors.dart';
+import 'package:diety/User%20Detials/UserDitails.dart';
 import 'package:diety/User%20Plane/Search%20Food/Breakfast.dart';
 import 'package:diety/User%20Plane/Search%20Food/Dinner.dart';
 import 'package:diety/User%20Plane/Search%20Food/Lunch.dart';
@@ -18,41 +20,59 @@ class _PlaneState extends State<Plane> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff030b18),
+      backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: const Color(0xff272f3c),
+        backgroundColor: AppColors.background,
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.calendar_month,
-                color: Colors.white,
-              )),
+            onPressed: () {},
+            icon: Icon(
+              Icons.calendar_month,
+              color: AppColors.white,
+            ),
+          ),
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.search_rounded,
-                color: Colors.white,
-              )),
+            onPressed: () {},
+            icon: Icon(
+              Icons.search_rounded,
+              color: AppColors.white,
+            ),
+          ),
         ],
         titleSpacing: 20,
-        leadingWidth: 100,
+        leadingWidth: 170,
         leading: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: DropdownButton(
-            dropdownColor: const Color.fromRGBO(39, 47, 60, 1.0),
-            items: const [
-              DropdownMenuItem(
-                  child: Text(
-                "Today",
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
-                ),
-              ))
+          child: Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const UserDitails(),
+                    ));
+                  },
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: AppColors.text,
+                    size: 25,
+                  )), 
+              DropdownButton(
+                dropdownColor: AppColors.text,
+                items: [
+                  DropdownMenuItem(
+                    child: Text(
+                      "Today",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: AppColors.white,
+                      ),
+                    ),
+                  ),
+                ],
+                onChanged: (value) {},
+              ),
             ],
-            onChanged: (value) {},
           ),
         ),
       ),
@@ -68,7 +88,7 @@ class _PlaneState extends State<Plane> {
                       width: 50,
                       child: Image.asset('Images/shap.jpg')),
                   const Gap(10),
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       children: [
                         Row(
@@ -77,14 +97,14 @@ class _PlaneState extends State<Plane> {
                             Text(
                               "Calories Remining",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColors.white,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
                               "2300",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColors.white,
                               ),
                             ),
                           ],
@@ -95,14 +115,14 @@ class _PlaneState extends State<Plane> {
                             Text(
                               "Calories Consumed",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColors.white,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
                               "0",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColors.white,
                               ),
                             ),
                           ],
@@ -119,14 +139,13 @@ class _PlaneState extends State<Plane> {
                       builder: (context) => const Breakfast(),
                     ));
                   },
-                  color: const Color(0xff373b47),
                   text: 'Breakfast',
                   iconData1: CupertinoIcons.sun_dust_fill,
                   iconColor: Colors.yellow,
                   iconData2: CupertinoIcons.plus,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontSize: 20,
-                      color: Colors.white,
+                      color: AppColors.white,
                       fontWeight: FontWeight.bold)),
               const Gap(10),
               CustomContainer(
@@ -135,14 +154,13 @@ class _PlaneState extends State<Plane> {
                     builder: (context) => const Lunch(),
                   ));
                 },
-                color: const Color(0xff373b47),
                 text: 'Lunch',
                 iconData1: CupertinoIcons.sun_max_fill,
                 iconColor: const Color(0xff00b4f2),
                 iconData2: CupertinoIcons.plus,
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
+                    color: AppColors.white,
                     fontWeight: FontWeight.bold),
               ),
               const Gap(10),
@@ -152,35 +170,34 @@ class _PlaneState extends State<Plane> {
                     builder: (context) => const Dinner(),
                   ));
                 },
-                color: const Color(0xff373b47),
                 text: 'Dinner',
                 iconData1: CupertinoIcons.sun_haze,
                 iconColor: const Color(0xfff69875),
                 iconData2: CupertinoIcons.plus,
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
+                    color: AppColors.white,
                     fontWeight: FontWeight.bold),
               ),
               const Gap(10),
               CustomContainer(
-                onTap: () { Navigator.of(context).pushReplacement(MaterialPageRoute(
+                onTap: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => const Snacks(),
-                  ));},
-                color: const Color(0xff373b47),
+                  ));
+                },
                 text: 'Snacks/Other',
                 iconData1: Icons.dark_mode,
                 iconColor: const Color(0xff915bbf),
                 iconData2: CupertinoIcons.plus,
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 20,
-                    color: Colors.white,
+                    color: AppColors.white,
                     fontWeight: FontWeight.bold),
               ),
               const Gap(10),
               CustomContainer(
                 onTap: () {},
-                color: const Color(0xff1a222f),
                 text: 'Add Exercise/Sleep',
                 iconData1: Icons.directions_run_outlined,
                 iconColor: const Color.fromRGBO(105, 111, 125, 1.0),
@@ -191,14 +208,14 @@ class _PlaneState extends State<Plane> {
               ),
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Summary",
                           style: TextStyle(
-                              color: Colors.white,
+                              color: AppColors.white,
                               fontSize: 18,
                               fontWeight: FontWeight.bold),
                         ),
@@ -208,14 +225,14 @@ class _PlaneState extends State<Plane> {
                             Text(
                               "Calories Remining",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColors.white,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
                               "2300",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColors.white,
                               ),
                             ),
                           ],
@@ -226,33 +243,35 @@ class _PlaneState extends State<Plane> {
                             Text(
                               "Calories Consumed",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColors.white,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
                               "0",
                               style: TextStyle(
-                                color: Colors.white,
+                                color: AppColors.white,
                               ),
                             ),
                           ],
                         ),
-                        Divider(),
+                        const Divider(
+                          color: Color(0xff616570),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               "0% of RDI",
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: AppColors.white,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
                               "2300",
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: AppColors.white,
                               ),
                             ),
                           ],
@@ -267,21 +286,23 @@ class _PlaneState extends State<Plane> {
                       child: Image.asset('Images/shap.jpg'))
                 ],
               ),
-              const Divider(),
+              const Divider(
+                color: Color(0xff616570),
+              ),
               const Gap(12),
-              const Row(
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(
                     children: [
                       Icon(
                         CupertinoIcons.chart_bar_alt_fill,
-                        color: Colors.green,
+                        color: AppColors.button,
                         size: 50,
                       ),
                       Text(
                         "Today",
-                        style: TextStyle(color: Colors.green),
+                        style: TextStyle(color: AppColors.button),
                       )
                     ],
                   ),
@@ -289,12 +310,12 @@ class _PlaneState extends State<Plane> {
                     children: [
                       Icon(
                         Icons.image_outlined,
-                        color: Colors.green,
+                        color: AppColors.button,
                         size: 50,
                       ),
                       Text(
                         "Album",
-                        style: TextStyle(color: Colors.green),
+                        style: TextStyle(color: AppColors.button),
                       )
                     ],
                   ),
@@ -302,12 +323,12 @@ class _PlaneState extends State<Plane> {
                     children: [
                       Icon(
                         Icons.map,
-                        color: Colors.green,
+                        color: AppColors.button,
                         size: 50,
                       ),
                       Text(
                         "Meal Plans",
-                        style: TextStyle(color: Colors.green),
+                        style: TextStyle(color: AppColors.button),
                       )
                     ],
                   ),

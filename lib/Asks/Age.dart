@@ -36,11 +36,11 @@ class _AgeState extends State<Age> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
-                    "What\'s your age ?",
+                  Text(
+                    "What's your age ?",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      color: Colors.white,
+                      color: AppColors.white,
                       fontSize: 30,
                     ),
                   ),

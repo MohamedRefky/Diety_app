@@ -1,6 +1,8 @@
 import 'package:diety/Asks/Activates.dart';
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Core/Custom_Button.dart';
+import 'package:diety/User%20Detials/Goal_wight.dart';
+import 'package:diety/User%20Detials/UserDitails.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -23,7 +25,7 @@ class _WishesState extends State<Wishes> {
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => const Activates(),
+                builder: (context) => const UserDitails(),
               ));
             },
             icon: Icon(
@@ -96,7 +98,13 @@ class _WishesState extends State<Wishes> {
               ),
               const Gap(60),
               Custom_Button(
-                  width: double.infinity, text: 'Continue', onPressed: () {})
+                  width: double.infinity,
+                  text: 'Continue',
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const Goal_Weight(),
+                    ));
+                  })
             ],
           ),
         ),

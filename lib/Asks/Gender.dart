@@ -51,7 +51,7 @@ class _GenderState extends State<Gender> {
                   height: 280,
                   width: double.infinity,
                   child: Lottie.asset(('Images/Gender.json'))),
-              //  const Image(image: AssetImage('Images/gender.jpg')),
+              
               SizedBox(
                 width: 320,
                 height: 80,

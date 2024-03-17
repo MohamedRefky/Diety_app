@@ -36,11 +36,11 @@ class _HeightState extends State<Weight> {
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "What\'s your Weight ?",
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
-                      color: Colors.white,
+                      color: AppColors.white,
                       fontSize: 30,
                     ),
                   ),

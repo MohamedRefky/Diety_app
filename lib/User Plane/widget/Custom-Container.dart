@@ -1,4 +1,5 @@
 // ignore: camel_case_types
+import 'package:diety/Core/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -9,7 +10,7 @@ class CustomContainer extends StatelessWidget {
     required this.iconData1,
     this.iconData2,
     required this.text,
-    required this.color,
+    this.color,
     required this.iconColor,
     required this.style,
   }) : super(key: key);
@@ -18,7 +19,7 @@ class CustomContainer extends StatelessWidget {
   final IconData iconData1;
   final IconData? iconData2;
   final String text;
-  final Color color;
+  final Color? color;
   final Color iconColor;
   final TextStyle style;
   @override
@@ -29,7 +30,8 @@ class CustomContainer extends StatelessWidget {
         height: 65,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: color,
+          color: AppColors.background,
+          border: Border.all(color: AppColors.button, width: 1),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Padding(
@@ -46,7 +48,7 @@ class CustomContainer extends StatelessWidget {
               const Spacer(),
               Icon(
                 iconData2,
-                color: Colors.green,
+                color: AppColors.button,
                 size: 30,
               ),
             ],
