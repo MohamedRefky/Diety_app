@@ -2,6 +2,7 @@ import 'package:diety/Asks/Height.dart';
 import 'package:diety/Auth/Login.dart';
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Core/Custom_Button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
@@ -23,6 +24,7 @@ class _GenderState extends State<Gender> {
         backgroundColor: AppColors.background,
         leading: IconButton(
             onPressed: () {
+              FirebaseAuth.instance.signOut();
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (context) => const Login(),
               ));
@@ -51,7 +53,6 @@ class _GenderState extends State<Gender> {
                   height: 280,
                   width: double.infinity,
                   child: Lottie.asset(('Images/Gender.json'))),
-              
               SizedBox(
                 width: 320,
                 height: 80,

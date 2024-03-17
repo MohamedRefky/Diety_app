@@ -93,7 +93,6 @@ class _LoginState extends State<Login> {
                               password: password.text,
                             );
                             if (credential.user!.emailVerified) {
-                              // ignore: use_build_context_synchronously
                               Navigator.of(context)
                                   .pushReplacementNamed('Gender');
                             } else {
@@ -102,8 +101,8 @@ class _LoginState extends State<Login> {
                                 context: context,
                                 dialogType: DialogType.warning,
                                 animType: AnimType.rightSlide,
-                                title: 'Error',
-                                desc: 'please verfiy your email !',
+                                title: 'email worning',
+                                desc: 'please verfiy your email ♥',
                               ).show();
                             }
                           } on FirebaseAuthException catch (e) {

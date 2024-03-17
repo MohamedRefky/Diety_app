@@ -2,7 +2,6 @@ import 'package:diety/Asks/Gender.dart';
 import 'package:diety/Auth/Login.dart';
 import 'package:diety/Auth/SignUp.dart';
 import 'package:diety/Home/Home.dart';
-import 'package:diety/User%20Plane/plane.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -42,14 +41,14 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: (FirebaseAuth.instance.currentUser != null &&
-                FirebaseAuth.instance.currentUser!.emailVerified)
+        home: (FirebaseAuth.instance.currentUser != null &&FirebaseAuth.instance.currentUser!.emailVerified)
             ? const Gender()
-            : const Gender(),
+            : const Login(),
         routes: {
-          "SignUp": (context) => const SingUp(),
-          "login": (context) => const Login(),
-          "homepage": (context) => const Home()
+          "SingUp": (context) => const SingUp(),
+          "Login": (context) => const Login(),
+          "home": (context) => const Home(),
+          "Gender": (context) => const Gender(),
         });
   }
 }

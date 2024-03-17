@@ -39,11 +39,17 @@ class _Goal_WeightState extends State<Goal_Weight> {
                   border: Border.all(color: AppColors.button, width: 1),
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child:  Padding(
-                  padding: EdgeInsets.all(8.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      Text('Lose 0.25 Kg Per Week',style: TextStyle(fontSize: 20, color:  AppColors.text,),),
+                      Text(
+                        'Lose 0.25 Kg Per Week',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: AppColors.text,
+                        ),
+                      ),
                     ],
                   ),
                 ))
