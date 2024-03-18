@@ -1,5 +1,6 @@
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/User%20Detials/UserDitails.dart';
+import 'package:diety/User%20Goal/Goal_wight.dart';
 import 'package:diety/User%20Plane/Search%20Food/Breakfast.dart';
 import 'package:diety/User%20Plane/Search%20Food/Dinner.dart';
 import 'package:diety/User%20Plane/Search%20Food/Lunch.dart';
@@ -49,7 +50,7 @@ class _PlaneState extends State<Plane> {
               IconButton(
                   onPressed: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const UserDitails(),
+                      builder: (context) => const Goal_Weight(),
                     ));
                   },
                   icon: Icon(

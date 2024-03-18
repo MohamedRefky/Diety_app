@@ -1,7 +1,7 @@
 import 'package:diety/Asks/Activates.dart';
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Core/Custom_Button.dart';
-import 'package:diety/User%20Detials/Goal_wight.dart';
+import 'package:diety/User%20Goal/Goal_wight.dart';
 import 'package:diety/User%20Detials/UserDitails.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';

@@ -8,7 +8,8 @@ class CusomTextFormFeald extends StatelessWidget {
     required this.prefixIcon,
     this.suffixIcon,
     this.obscureText,
-    this.validator, this.mycontroller,
+    this.validator,
+    this.mycontroller, this.onTap,
   });
   final String lable;
   final IconData prefixIcon;
@@ -16,11 +17,12 @@ class CusomTextFormFeald extends StatelessWidget {
   final bool? obscureText;
   final String? Function(String?)? validator;
   final TextEditingController? mycontroller;
-
+  final Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller:mycontroller ,
+      onTap: onTap,
+      controller: mycontroller,
       obscureText: obscureText ?? false,
       validator: validator,
       keyboardType: TextInputType.emailAddress,
