@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home: (FirebaseAuth.instance.currentUser != null &&FirebaseAuth.instance.currentUser!.emailVerified)
             ? const Gender()
-            : const Login(),
+            : const Gender(),
         routes: {
           "SingUp": (context) => const SingUp(),
           "Login": (context) => const Login(),
