@@ -1,3 +1,4 @@
+import 'package:diety/Core/Colors.dart';
 import 'package:diety/User%20Plane/plane.dart';
 import 'package:diety/User%20Plane/widget/AppBar.dart';
 import 'package:diety/User%20Plane/widget/CustomSearchFood.dart';
@@ -14,7 +15,7 @@ class _LunchState extends State<Lunch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff030b18),
+      backgroundColor: AppColors.background,
       appBar: CustomAppBarFood(
         text: 'Lunch',
         onPressed: () {

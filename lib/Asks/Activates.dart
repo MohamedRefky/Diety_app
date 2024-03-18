@@ -1,8 +1,9 @@
 import 'package:diety/Asks/Age.dart';
-import 'package:diety/Asks/wishes.dart';
+import 'package:diety/User%20Detials/wishes.dart';
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Core/Container_Activites.dart';
 import 'package:diety/Core/Custom_Button.dart';
+import 'package:diety/User%20Detials/UserDitails.dart';
 import 'package:flutter/material.dart';
 
 class Activates extends StatefulWidget {
@@ -117,7 +118,7 @@ class _ActivatesState extends State<Activates> {
                   text: 'Continue',
                   onPressed: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const Wishes(),
+                      builder: (context) => const UserDitails(),
                     ));
                   })
             ],

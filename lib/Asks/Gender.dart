@@ -2,8 +2,10 @@ import 'package:diety/Asks/Height.dart';
 import 'package:diety/Auth/Login.dart';
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Core/Custom_Button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 
 class Gender extends StatefulWidget {
@@ -22,7 +24,10 @@ class _GenderState extends State<Gender> {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         leading: IconButton(
-            onPressed: () {
+            onPressed: () async {
+              GoogleSignIn googleSignIn = GoogleSignIn();
+              googleSignIn.disconnect();
+              await FirebaseAuth.instance.signOut();
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (context) => const Login(),
               ));
@@ -51,7 +56,6 @@ class _GenderState extends State<Gender> {
                   height: 280,
                   width: double.infinity,
                   child: Lottie.asset(('Images/Gender.json'))),
-              //  const Image(image: AssetImage('Images/gender.jpg')),
               SizedBox(
                 width: 320,
                 height: 80,

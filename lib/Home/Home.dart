@@ -17,34 +17,29 @@ class _HomeState extends State<Home> {
       backgroundColor: AppColors.background,
       body: Padding(
         padding: const EdgeInsets.all(20),
-        child: Center(
+        child:  Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Lottie.asset(('Images/Logo_Animation .json')),
-              const SizedBox(
-                height: 60,
-              ),
-              SizedBox(
-                height: 60,
-                width: 160,
+            children: [ Lottie.asset(('Images/Logo_Animation .json')),SizedBox(height: 60,)
+              ,SizedBox(height: 60,width: 160,
                 child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const Login(),
-                      ));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.button,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    child: Text(
-                      'Get Start',
-                      style: TextStyle(
-                          color: AppColors.text,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500),
-                    )),
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const Login(),
+                    ));
+                      },
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor:
+                              AppColors.button,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                      child: Text(
+                        'Get Start',
+                        style: TextStyle(
+                            color: AppColors.text,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500),
+                      )),
               ),
             ],
           ),

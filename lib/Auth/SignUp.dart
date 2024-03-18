@@ -109,8 +109,19 @@ class _SingUpState extends State<SingUp> {
                               .sendEmailVerification();
                           // ignore: use_build_context_synchronously
                           Navigator.of(context).pushReplacementNamed("Login");
+                          print("saved");
                         } on FirebaseAuthException catch (e) {
-                          if (e.code == 'weak-password') {
+                          if (e.code == 'invalid-email') {
+                            AwesomeDialog(
+                              // ignore: use_build_context_synchronously
+                              context: context,
+                              dialogType: DialogType.error,
+                              animType: AnimType.rightSlide,
+                              title: 'email Error',
+                              desc:
+                                  'The email address is badly formatted \n make sure that email include xxx@xxx.xx',
+                            ).show();
+                          } else if (e.code == 'weak-password') {
                             // ignore: avoid_print
                             print('The password provided is too weak.');
                             AwesomeDialog(
@@ -119,7 +130,8 @@ class _SingUpState extends State<SingUp> {
                               dialogType: DialogType.error,
                               animType: AnimType.rightSlide,
                               title: 'password Error',
-                              desc: 'The password provided is too weak',
+                              desc:
+                                  'The password provided is too weak \n Password should be at least 6 characters',
                             ).show();
                           } else if (e.code == 'email-already-in-use') {
                             // ignore: avoid_print

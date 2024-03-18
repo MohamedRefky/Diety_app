@@ -17,7 +17,7 @@ class CustomSearchFood extends StatelessWidget {
             prefixIcon: Icon(
               Icons.search,
               size: 30,
-              color: AppColors.grey,
+              color: AppColors.button
             ),
             hintText: hintText,
             hintStyle: TextStyle(fontSize: 18, color: AppColors.text),
