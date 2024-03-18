@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Gender extends StatefulWidget {
   const Gender({super.key});
@@ -23,8 +24,10 @@ class _GenderState extends State<Gender> {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         leading: IconButton(
-            onPressed: () {
-              FirebaseAuth.instance.signOut();
+            onPressed: () async{
+              GoogleSignIn googleSignIn = GoogleSignIn();
+              googleSignIn.disconnect();
+              await FirebaseAuth.instance.signOut();
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (context) => const Login(),
               ));
