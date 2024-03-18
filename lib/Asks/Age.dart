@@ -3,6 +3,8 @@ import 'package:diety/Asks/Weight.dart';
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Core/Custom_Button.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 
 class Age extends StatefulWidget {
   const Age({super.key});
@@ -12,6 +14,7 @@ class Age extends StatefulWidget {
 }
 
 class _AgeState extends State<Age> {
+  var date = DateFormat.yMd().format(DateTime.now());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,12 +51,40 @@ class _AgeState extends State<Age> {
                       width: double.infinity,
                       height: 290,
                       child: Image(image: AssetImage('Images/age.jpg'))),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   children: [
+                  //     Text(
+                  //       'Enter your age',
+                  //       style: TextStyle(color: AppColors.text, fontSize: 20),
+                  //     ),
+                  //   ],
+                  // ),
+                  // const Gap(5),
                   TextFormField(
-                    onTap: () {},
+                    readOnly: true,
+                    onTap: () {
+                      showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1950),
+                              lastDate: DateTime.now())
+                          .then((value) {
+                        if (value != null) {
+                          setState(() {
+                            date = DateFormat.yMd().format(value);
+                          });
+                        }
+                      });
+                    },
                     keyboardType: TextInputType.number,
                     style: TextStyle(color: AppColors.text),
                     decoration: InputDecoration(
-                        hintText: ' Enter your age',
+                        suffixIcon: Icon(
+                          Icons.calendar_month,
+                          color: AppColors.white,
+                        ),
+                        hintText: date,
                         hintStyle:
                             TextStyle(fontSize: 20, color: AppColors.text),
                         border: const UnderlineInputBorder(),
