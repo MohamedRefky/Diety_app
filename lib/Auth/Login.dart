@@ -5,7 +5,9 @@ import 'package:diety/Core/Custom_Button.dart';
 import 'package:diety/Core/Custom_TextFormFeale.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:lottie/lottie.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -30,13 +32,13 @@ class _LoginState extends State<Login> {
       return;
     }
     // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
 
     // Create a new credential
     final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
     );
 
     // Once signed in, return the UserCredential
@@ -158,22 +160,8 @@ class _LoginState extends State<Login> {
                           }
                         }
                       }),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  MaterialButton(
-                    height: 40,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    color: Colors.red[700],
-                    textColor: AppColors.text,
-                    onPressed: () {
-                      signInWithGoogle();
-                    },
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                 
+                  const Gap(10),
                   Row(
                     children: [
                       Text('If you don\'t have account.',

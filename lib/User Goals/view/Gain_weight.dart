@@ -6,16 +6,16 @@ import 'package:diety/User%20Plane/plane.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-class Goal_Weight extends StatefulWidget {
-  const Goal_Weight({super.key});
+class gain_Weight extends StatefulWidget {
+  const gain_Weight({super.key});
 
   @override
-  State<Goal_Weight> createState() => _Goal_WeightState();
+  State<gain_Weight> createState() => _gain_WeightState();
 }
 
 List<bool> isSelected = List.generate(4, (index) => false);
 
-class _Goal_WeightState extends State<Goal_Weight> {
+class _gain_WeightState extends State<gain_Weight> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +54,7 @@ class _Goal_WeightState extends State<Goal_Weight> {
                 });
               },
               color: isSelected[0] ? AppColors.button : AppColors.background,
-              text: 'Lose 0.25 Kg per week',
+              text: 'Gain 0.25 Kg per week',
             ),
             const Gap(15),
             Container_Goal(
@@ -64,7 +64,7 @@ class _Goal_WeightState extends State<Goal_Weight> {
                 });
               },
               color: isSelected[1] ? AppColors.button : AppColors.background,
-              text: 'Lose 0.5 Kg per week (Recommended)',
+              text: 'Gain 0.5 Kg per week (Recommended)',
             ),
             const Gap(15),
             Container_Goal(
@@ -74,7 +74,7 @@ class _Goal_WeightState extends State<Goal_Weight> {
                 });
               },
               color: isSelected[2] ? AppColors.button : AppColors.background,
-              text: 'Lose 0.75 Kg per week',
+              text: 'Gain 0.75 Kg per week',
             ),
             const Gap(15),
             Container_Goal(
@@ -84,7 +84,7 @@ class _Goal_WeightState extends State<Goal_Weight> {
                 });
               },
               color: isSelected[3] ? AppColors.button : AppColors.background,
-              text: 'Lose 1 Kg per week',
+              text: 'Gain 1 Kg per week',
             ),
             const Gap(40),
             Custom_Button(

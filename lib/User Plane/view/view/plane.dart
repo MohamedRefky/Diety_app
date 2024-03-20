@@ -1,10 +1,11 @@
 import 'package:diety/Core/Colors.dart';
+// ignore: unused_import
 import 'package:diety/User%20Detials/UserDitails.dart';
 import 'package:diety/User%20Goal/Goal_wight.dart';
-import 'package:diety/User%20Plane/Search%20Food/Breakfast.dart';
-import 'package:diety/User%20Plane/Search%20Food/Dinner.dart';
-import 'package:diety/User%20Plane/Search%20Food/Lunch.dart';
-import 'package:diety/User%20Plane/Search%20Food/Snacks.dart';
+import 'package:diety/Search%20Food/view/Breakfast.dart';
+import 'package:diety/Search%20Food/view/Dinner.dart';
+import 'package:diety/Search%20Food/view/Lunch.dart';
+import 'package:diety/Search%20Food/view/Snacks.dart';
 import 'package:diety/User%20Plane/widget/Custom-Container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
