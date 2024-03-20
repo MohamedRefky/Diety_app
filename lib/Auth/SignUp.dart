@@ -107,43 +107,42 @@ class _SingUpState extends State<SingUp> {
                           );
                           FirebaseAuth.instance.currentUser!
                               .sendEmailVerification();
+                              // ignore: use_build_context_synchronously
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("saved successfuly"),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.green,
+                                )
+                              );
                           // ignore: use_build_context_synchronously
                           Navigator.of(context).pushReplacementNamed("Login");
-                          print("saved");
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'invalid-email') {
-                            AwesomeDialog(
-                              // ignore: use_build_context_synchronously
-                              context: context,
-                              dialogType: DialogType.error,
-                              animType: AnimType.rightSlide,
-                              title: 'email Error',
-                              desc:
-                                  'The email address is badly formatted \n make sure that email include xxx@xxx.xx',
-                            ).show();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("The email address is badly formatted \n make sure that email include xxx@xxx.xx"),
+                                duration: Duration(seconds: 5),
+                                backgroundColor: Colors.red
+                                
+                                ),
+                              );
                           } else if (e.code == 'weak-password') {
                             // ignore: avoid_print
                             print('The password provided is too weak.');
-                            AwesomeDialog(
-                              // ignore: use_build_context_synchronously
-                              context: context,
-                              dialogType: DialogType.error,
-                              animType: AnimType.rightSlide,
-                              title: 'password Error',
-                              desc:
-                                  'The password provided is too weak \n Password should be at least 6 characters',
-                            ).show();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("The password provided is too weak \n Password should be at least 6 characters"),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.red
+                                ),
+                              );
                           } else if (e.code == 'email-already-in-use') {
                             // ignore: avoid_print
                             print('The account already exists for that email.');
-                            AwesomeDialog(
-                              // ignore: use_build_context_synchronously
-                              context: context,
-                              dialogType: DialogType.error,
-                              animType: AnimType.rightSlide,
-                              title: 'email Error',
-                              desc: 'The account already exists for that email',
-                            ).show();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("The account already exists for that email"),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.red
+                                ),
+                              );
                           }
                         } catch (e) {
                           // ignore: avoid_print

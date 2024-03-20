@@ -1,11 +1,12 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:diety/Auth/SignUp.dart';
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Core/Custom_Button.dart';
 import 'package:diety/Core/Custom_TextFormFeale.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -15,12 +16,16 @@ class Login extends StatefulWidget {
 }
 
 bool isNotVisable = true;
+  FirebaseAuth auth = FirebaseAuth.instance;
 
 class _LoginState extends State<Login> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+
+
 
 //google signin
 Future signInWithGoogle() async {
@@ -44,7 +49,20 @@ await FirebaseAuth.instance.signInWithCredential(credential);
 }
 
 //-----------------------------------------------------------
+//facebock signin
 
+Future<UserCredential> signInWithFacebook() async {
+  // Trigger the sign-in flow
+  final LoginResult loginResult = await FacebookAuth.instance.login();
+
+  // Create a credential from the access token
+  final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+  // Once signed in, return the UserCredential
+  return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+}
+
+//---------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +77,7 @@ await FirebaseAuth.instance.signInWithCredential(credential);
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  
                   const Image(image: AssetImage('Images/logo.jpg')),
                   Text(
                     'Login',
@@ -105,8 +124,55 @@ await FirebaseAuth.instance.signInWithCredential(credential);
                       color: AppColors.text,
                     ),
                   ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 5,bottom: 10),
+                    alignment: Alignment.topRight,
+                    child: InkWell(
+                      onTap: () async{
+                        if (email.text=="") {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("please enter your email first",),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.yellow,
+                                )
+                              );
+                              return;
+                        }
+                        try {
+                          await FirebaseAuth.instance.sendPasswordResetEmail(email: email.text);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("we sent Reset password link to your email"),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.green,
+                                )
+                              );
+                        }on FirebaseAuthException catch (e) {
+                          if (e.code == 'invalid-email') {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.red,
+                                )
+                              );
+                        }else if (e.code == 'user-not-found') {
+                              // ignore: avoid_print
+                              print('No user found for that email.');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("No user found for that email"),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.red,
+                                )
+                              );
+                            }
+                        }
+                      },
+                      child: Text("Forget Password ?",
+                      style: TextStyle(fontSize: 12, color: AppColors.text),
+                      ),
+                    ),
+                  ),
                   const SizedBox(
-                    height: 20,
+                    height: 5,
                   ),
                   Custom_Button(
                       text: 'Login',
@@ -119,57 +185,93 @@ await FirebaseAuth.instance.signInWithCredential(credential);
                               password: password.text,
                             );
                             if (credential.user!.emailVerified) {
+                              /*Center(
+                                child: Container(
+                                  child: AnimatedSplashScreen(splash: splash, nextScreen: Gender()),
+                                ),
+                              );*/
                               Navigator.of(context)
                                   .pushReplacementNamed('Gender');
                             } else {
-                              AwesomeDialog(
-                                // ignore: use_build_context_synchronously
-                                context: context,
-                                dialogType: DialogType.warning,
-                                animType: AnimType.rightSlide,
-                                title: 'email worning',
-                                desc: 'please verfiy your email ♥',
-                              ).show();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("please verfiy your email  ♥"),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.yellow,
+                                )
+                              );
                             }
                           } on FirebaseAuthException catch (e) {
                             if (e.code == 'user-not-found') {
                               // ignore: avoid_print
                               print('No user found for that email.');
-                              AwesomeDialog(
-                                // ignore: use_build_context_synchronously
-                                context: context,
-                                dialogType: DialogType.error,
-                                animType: AnimType.rightSlide,
-                                title: 'email Error',
-                                desc: 'No user found for that email',
-                              ).show();
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("No user found for that email"),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.red,
+                                )
+                              );
                             } else if (e.code == 'wrong-password') {
                               // ignore: avoid_print
                               print('Wrong password provided for that user.');
-                              AwesomeDialog(
-                                // ignore: use_build_context_synchronously
-                                context: context,
-                                dialogType: DialogType.error,
-                                animType: AnimType.rightSlide,
-                                title: 'password Error',
-                                desc: 'Wrong password provided for that user',
-                              ).show();
-                            }
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Wrong password provided for that user"),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.red,
+                                )
+                              );
+                            } else if (e.code == 'invalid-email') {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
+                                duration: Duration(seconds: 5),
+                                backgroundColor: Colors.red,
+                                ),
+                              );
                           }
                         }
+                      }
                       }),
                       const SizedBox(
                     height: 10,
                   ),
                   MaterialButton(
-              height: 40,
+              height: 50,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               color: Colors.red[700],
               textColor: AppColors.text,
-              onPressed: () {
-                signInWithGoogle();
-              },),
+              onPressed: () async{
+                await signInWithGoogle();
+              },
+              child:  Row(
+                children: [
+                  const Text("signin with Google  "),
+                  Image.asset("googleicon.png",
+                  height: 10,
+                  )
+                ],
+              ),
+              ),
+              const SizedBox(
+                    height: 10,
+                  ),
+                  MaterialButton(
+              height: 50,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              color: Colors.red[700],
+              textColor: AppColors.text,
+              onPressed: () async{
+                await signInWithFacebook();
+              },
+              child:  Row(
+                children: [
+                  const Text("signin with Facebook  "),
+                  Image.asset("googleicon.png",
+                  height: 10,
+                  )
+                ],
+              ),
+              ),
                   const SizedBox(
                     height: 10,
                   ),
@@ -203,3 +305,28 @@ await FirebaseAuth.instance.signInWithCredential(credential);
     );
   }
 }
+
+
+/*
+void phoneauth () async{
+  await FirebaseAuth.instance.verifyPhoneNumber(
+  phoneNumber: '+44 7123 123 456',
+  verificationCompleted: (PhoneAuthCredential credential) {},
+  verificationFailed: (FirebaseAuthException e) {},
+  codeSent: (String verificationId, int? resendToken) async{
+    try {
+  String smsCode = 'xxxx';
+  
+  PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
+  
+  await auth.signInWithCredential(credential);
+} on Exception catch (e) {
+  
+}
+  },
+  codeAutoRetrievalTimeout: (String verificationId) {},
+);
+
+
+}
+*/
