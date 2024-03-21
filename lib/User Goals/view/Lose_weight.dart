@@ -1,8 +1,9 @@
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Core/Custom_Button.dart';
 import 'package:diety/User%20Detials/wishes.dart';
-import 'package:diety/User%20Goal/Widget/Container_Goal.dart';
-import 'package:diety/User%20Plane/plane.dart';
+import 'package:diety/User%20Goals/Widget/Container_Goal.dart';
+
+import 'package:diety/User%20Plane/view/view/plane.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

@@ -16,7 +16,7 @@ class Wishes extends StatefulWidget {
 
 class _WishesState extends State<Wishes> {
   bool isLose = true;
-  bool LoseWeight = true;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -59,42 +59,14 @@ class _WishesState extends State<Wishes> {
                   onPressed: () {
                     setState(() {
                       isLose = true;
-                      LoseWeight = true;
                     });
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const lose_Weight(),
+                    ));
                   },
                   style: ElevatedButton.styleFrom(
                     side: BorderSide(color: AppColors.button, width: 2),
                     backgroundColor: (isLose)
-                        ? AppColors.button
-                        : AppColors.background,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                  ),
-                  child: Text(
-                    'Gain Weight',
-                    style: TextStyle(
-                      color: AppColors.text,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                ),
-              ),
-              const Gap(20),
-              SizedBox(
-                width: 320,
-                height: 80,
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      isLose = false;
-                      LoseWeight = false;
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    side: BorderSide(color: AppColors.button, width: 2),
-                    backgroundColor: (!isLose)
                         ? AppColors.button
                         : AppColors.background,
                     shape: RoundedRectangleBorder(
@@ -111,17 +83,49 @@ class _WishesState extends State<Wishes> {
                   ),
                 ),
               ),
+              const Gap(20),
+              SizedBox(
+                width: 320,
+                height: 80,
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      isLose = false;
+                    });
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const gain_Weight(),
+                    ));
+                  },
+                  style: ElevatedButton.styleFrom(
+                    side: BorderSide(color: AppColors.button, width: 2),
+                    backgroundColor: (!isLose)
+                        ? AppColors.button
+                        : AppColors.background,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: Text(
+                    'Gain Weight',
+                    style: TextStyle(
+                      color: AppColors.text,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ),
               const Gap(60),
               Custom_Button(
                 width: double.infinity,
                 text: 'Continue',
                 onPressed: () {
-                  if (LoseWeight) {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  if (isLose==true) {
+                    Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const lose_Weight(),
                     ));
                   } else {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const gain_Weight(),
                     ));
                   }

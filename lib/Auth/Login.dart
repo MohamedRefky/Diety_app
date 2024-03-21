@@ -5,6 +5,7 @@ import 'package:diety/Core/Custom_TextFormFeale.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:gap/gap.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
@@ -45,8 +46,7 @@ class _LoginState extends State<Login> {
     Navigator.of(context).pushNamedAndRemoveUntil("Gender", (route) => false);
   }
 
-//-----------------------------------------------------------
-//facebock signin
+  //facebock signin
 
   Future<UserCredential> signInWithFacebook() async {
     // Trigger the sign-in flow
@@ -64,147 +64,102 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: SingleChildScrollView(
-            child: Form(
-              key: formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Image(image: AssetImage('Images/logo.jpg')),
-                  Text(
-                    'Login',
-                    style: TextStyle(fontSize: 30, color: AppColors.text),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  CusomTextFormFeald(
-                    mycontroller: email,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'PLease Enter Your Email';
-                      }
-                      return null;
-                    },
-                    prefixIcon: Icons.email,
-                    lable: 'Email',
-                    suffixIcon: null,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  CusomTextFormFeald(
-                    mycontroller: password,
-                    obscureText: isNotVisable,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'PLease Enter Your Password';
-                      }
-                      return null;
-                    },
-                    prefixIcon: Icons.lock,
-                    lable: 'Password',
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isNotVisable = !isNotVisable;
-                        });
-                      },
-                      icon: Icon((isNotVisable)
-                          ? Icons.visibility_off
-                          : Icons.remove_red_eye_rounded),
-                      color: AppColors.text,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: AppColors.background,
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: SingleChildScrollView(
+              child: Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Login',
+                      style: TextStyle(
+                          fontSize: 40,
+                          color: AppColors.text,
+                          fontWeight: FontWeight.w600),
                     ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 5, bottom: 10),
-                    alignment: Alignment.topRight,
-                    child: InkWell(
-                      onTap: () async {
-                        if (email.text == "") {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text(
-                              "please enter your email first",
-                            ),
-                            duration: Duration(seconds: 2),
-                            backgroundColor: Colors.yellow,
-                          ));
-                          return;
+                    const Gap(40),
+                    //Email
+                    CusomTextFormFeald(
+                      mycontroller: email,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'PLease Enter Your Email';
                         }
-                        try {
-                          await FirebaseAuth.instance
-                              .sendPasswordResetEmail(email: email.text);
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text(
-                                "we sent Reset password link to your email"),
-                            duration: Duration(seconds: 2),
-                            backgroundColor: Colors.green,
-                          ));
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'invalid-email') {
+                        return null;
+                      },
+                      prefixIcon: Icons.email,
+                      lable: 'Email',
+                      suffixIcon: null,
+                    ),
+                    const Gap(25),
+                    //Pasword
+                    CusomTextFormFeald(
+                      mycontroller: password,
+                      obscureText: isNotVisable,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'PLease Enter Your Password';
+                        }
+                        return null;
+                      },
+                      prefixIcon: Icons.lock,
+                      lable: 'Password',
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            isNotVisable = !isNotVisable;
+                          });
+                        },
+                        icon: Icon((isNotVisable)
+                            ? Icons.visibility_off
+                            : Icons.remove_red_eye_rounded),
+                        color: AppColors.text,
+                      ),
+                    ),
+                    const Gap(5),
+                    //Forget Password
+                    Container(
+                      margin: const EdgeInsets.only(top: 5, bottom: 10),
+                      alignment: Alignment.topRight,
+                      child: InkWell(
+                        onTap: () async {
+                          if (email.text == "") {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
                               content: Text(
-                                  "The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
+                                "please enter your email first",
+                              ),
                               duration: Duration(seconds: 2),
                               backgroundColor: Colors.red,
                             ));
-                          } else if (e.code == 'user-not-found') {
-                            // ignore: avoid_print
-                            print('No user found for that email.');
+                            return;
+                          }
+                          try {
+                            await FirebaseAuth.instance
+                                .sendPasswordResetEmail(email: email.text);
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
-                              content: Text("No user found for that email"),
+                              content: Text(
+                                  "we sent Reset password link to your email"),
                               duration: Duration(seconds: 2),
-                              backgroundColor: Colors.red,
+                              backgroundColor: Colors.green,
                             ));
-                          }
-                        }
-                      },
-                      child: Text(
-                        "Forget Password ?",
-                        style: TextStyle(fontSize: 12, color: AppColors.text),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  Custom_Button(
-                      text: 'Login',
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          try {
-                            final credential = await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                              email: email.text,
-                              password: password.text,
-                            );
-                            if (credential.user!.emailVerified) {
-                              /*Center(
-                                child: Container(
-                                  child: AnimatedSplashScreen(splash: splash, nextScreen: Gender()),
-                                ),
-                              );*/
-                              Navigator.of(context)
-                                  .pushReplacementNamed('Gender');
-                            } else {
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'invalid-email') {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(const SnackBar(
-                                content: Text("please verfiy your email  ♥"),
+                                content: Text(
+                                    "The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
                                 duration: Duration(seconds: 2),
-                                backgroundColor: Colors.yellow,
+                                backgroundColor: Colors.red,
                               ));
-                            }
-                          } on FirebaseAuthException catch (e) {
-                            if (e.code == 'user-not-found') {
+                            } else if (e.code == 'user-not-found') {
                               // ignore: avoid_print
                               print('No user found for that email.');
                               ScaffoldMessenger.of(context)
@@ -213,98 +168,173 @@ class _LoginState extends State<Login> {
                                 duration: Duration(seconds: 2),
                                 backgroundColor: Colors.red,
                               ));
-                            } else if (e.code == 'wrong-password') {
-                              // ignore: avoid_print
-                              print('Wrong password provided for that user.');
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text(
-                                    "Wrong password provided for that user"),
-                                duration: Duration(seconds: 2),
-                                backgroundColor: Colors.red,
-                              ));
-                            } else if (e.code == 'invalid-email') {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                      "The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
-                                  duration: Duration(seconds: 5),
-                                  backgroundColor: Colors.red,
-                                ),
-                              );
                             }
                           }
-                        }
-                      }),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  MaterialButton(
-                    height: 50,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    color: Colors.red[700],
-                    textColor: AppColors.text,
-                    onPressed: () async {
-                      await signInWithGoogle();
-                    },
-                    child: Row(
-                      children: [
-                        const Text("signin with Google  "),
-                        Image.asset(
-                          "googleicon.png",
-                          height: 10,
-                        )
-                      ],
+                        },
+                        child: Text(
+                          "Forget Password ?",
+                          style: TextStyle(fontSize: 12, color: AppColors.text),
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  MaterialButton(
-                    height: 50,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    color: Colors.red[700],
-                    textColor: AppColors.text,
-                    onPressed: () async {
-                      await signInWithFacebook();
-                    },
-                    child: Row(
-                      children: [
-                        const Text("signin with Facebook  "),
-                        Image.asset(
-                          "googleicon.png",
-                          height: 10,
-                        )
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Text('If you don\'t have account.',
-                          style: TextStyle(
-                              color: AppColors.text,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w500)),
-                      TextButton(
-                          onPressed: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const SingUp()));
-                          },
+                    const Gap(15),
+                    //Login Buttom
+                    Custom_Button(
+                        text: 'Login',
+                        onPressed: () async {
+                          if (formKey.currentState!.validate()) {
+                            try {
+                              final credential = await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                email: email.text,
+                                password: password.text,
+                              );
+                              if (credential.user!.emailVerified) {
+                                // Center(
+                                //   child: Container(
+                                //     child: AnimatedSplashScreen(splash: splash, nextScreen: Gender()),
+                                //   ),
+                                // );
+                                Navigator.of(context)
+                                    .pushReplacementNamed('Gender');
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text("please verfiy your email ♥"),
+                                  duration: Duration(seconds: 2),
+                                  backgroundColor: Colors.blueAccent,
+                                ));
+                              }
+                            } on FirebaseAuthException catch (e) {
+                              if (e.code == 'user-not-found') {
+                                // ignore: avoid_print
+                                print('No user found for that email.');
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text("No user found for that email"),
+                                  duration: Duration(seconds: 2),
+                                  backgroundColor: Colors.red,
+                                ));
+                              } else if (e.code == 'wrong-password') {
+                                // ignore: avoid_print
+                                print('Wrong password provided for that user.');
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text(
+                                      "Wrong password provided for that user"),
+                                  duration: Duration(seconds: 2),
+                                  backgroundColor: Colors.red,
+                                ));
+                              } else if (e.code == 'invalid-email') {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                        "The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
+                                    duration: Duration(seconds: 5),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            }
+                          }
+                        }),
+                    const Gap(40),
+                    //Divider
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: Divider(color: AppColors.text),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: Text(
-                            'Create one !',
+                            'or',
+                            style:
+                                TextStyle(color: AppColors.text, fontSize: 18),
+                          ),
+                        ),
+                        Expanded(
+                          child: Divider(color: AppColors.text),
+                        ),
+                      ],
+                    ),
+                    const Gap(20),
+                    // login with Google and facebook
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () async {
+                            await signInWithGoogle();
+                          },
+                          child: Container(
+                            height: 60,
+                            width: 60,
+                            decoration: BoxDecoration(
+                              color: AppColors.background,
+                            ),
+                            child: const Padding(
+                                padding: EdgeInsets.all(5),
+                                child: CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage('Images/Google.png'),
+                                )),
+                          ),
+                        ),
+                        const Gap(10),
+                        InkWell(
+                          onTap: () async {
+                            await signInWithFacebook();
+                          },
+                          child: Container(
+                            height: 60,
+                            width: 60,
+                            decoration: BoxDecoration(
+                              color: AppColors.background,
+                            ),
+                            child: const Padding(
+                                padding: EdgeInsets.all(5),
+                                child: CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage('Images/facebook.jpg'),
+                                )),
+                          ),
+                        ),
+                        // const Gap(10),
+                        // InkWell(
+                        //   onTap: () {},
+                        //   child: SizedBox(
+                        //     height: 65,
+                        //     width: 65,
+                        //     child: Lottie.asset(('Images/Gogle.json'))),
+                        // ),
+                      ],
+                    ),
+                    const Gap(20),
+                    //Create Acc
+                    Row(
+                      children: [
+                        Text('If you don\'t have account.',
                             style: TextStyle(
-                                color: AppColors.button,
-                                fontSize: 19,
-                                fontWeight: FontWeight.w500),
-                          ))
-                    ],
-                  )
-                ],
+                                color: AppColors.text,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w500)),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const SignUp()));
+                            },
+                            child: Text(
+                              'Create one !',
+                              style: TextStyle(
+                                  color: AppColors.button,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w500),
+                            ))
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
