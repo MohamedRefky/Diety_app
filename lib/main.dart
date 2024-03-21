@@ -2,6 +2,7 @@ import 'package:diety/Asks/Gender.dart';
 import 'package:diety/Auth/Login.dart';
 import 'package:diety/Auth/SignUp.dart';
 import 'package:diety/Home/Home.dart';
+// ignore: unused_import
 import 'package:diety/User%20Detials/wishes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -44,8 +45,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home: (FirebaseAuth.instance.currentUser != null &&FirebaseAuth.instance.currentUser!.emailVerified)
             ? const Gender()
-            : const Wishes(),
-
+            : const Home(),
         routes: {
           "SingUp": (context) => const SingUp(),
           "Login": (context) => const Login(),

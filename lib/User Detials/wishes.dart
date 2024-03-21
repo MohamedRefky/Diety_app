@@ -1,37 +1,32 @@
-import 'package:diety/Asks/Height.dart';
-import 'package:diety/Auth/Login.dart';
+// ignore: unused_import
+import 'package:diety/Asks/Activates.dart';
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Core/Custom_Button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:diety/User%20Goal/Goal_wight.dart';
+import 'package:diety/User%20Detials/UserDitails.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:lottie/lottie.dart';
-// ignore: duplicate_import
-import 'package:google_sign_in/google_sign_in.dart';
 
-class Gender extends StatefulWidget {
-  const Gender({super.key});
+class Wishes extends StatefulWidget {
+  const Wishes({super.key});
 
   @override
-  State<Gender> createState() => _GenderState();
+  State<Wishes> createState() => _WishesState();
 }
 
-bool isMale = true;
+bool isLose = true;
 
-class _GenderState extends State<Gender> {
+class _WishesState extends State<Wishes> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
         leading: IconButton(
-            onPressed: () async{
-              GoogleSignIn googleSignIn = GoogleSignIn();
-              googleSignIn.disconnect();
-              await FirebaseAuth.instance.signOut();
+            onPressed: () {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => const Login(),
+                builder: (context) => const UserDitails(),
               ));
             },
             icon: Icon(
@@ -40,84 +35,81 @@ class _GenderState extends State<Gender> {
               size: 30,
             )),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(30),
-        child: SingleChildScrollView(
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(30),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "Choose your gender.. ",
+                'Choos your body shape !',
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   color: AppColors.white,
                   fontSize: 30,
                 ),
               ),
-              SizedBox(
-                  height: 280,
-                  width: double.infinity,
-                  child: Lottie.asset(('Images/Gender.json'))),
+              const Gap(70),
               SizedBox(
                 width: 320,
                 height: 80,
                 child: ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        isMale = true;
+                        isLose = true;
                       });
                     },
                     style: ElevatedButton.styleFrom(
                         side: BorderSide(color: AppColors.button, width: 2),
                         backgroundColor:
-                            (isMale) ? AppColors.button : AppColors.background,
+                            (isLose) ? AppColors.button : AppColors.background,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12))),
                     child: Text(
-                      'Male',
+                      'Gain Weight',
                       style: TextStyle(
                           color: AppColors.text,
                           fontSize: 20,
                           fontWeight: FontWeight.w500),
                     )),
               ),
-              const Gap(15),
+              const Gap(20),
               SizedBox(
                 width: 320,
                 height: 80,
                 child: ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        isMale = false;
+                        isLose = false;
                       });
                     },
                     style: ElevatedButton.styleFrom(
                         side: BorderSide(color: AppColors.button, width: 2),
                         backgroundColor:
-                            (!isMale) ? AppColors.button : AppColors.background,
+                            (!isLose) ? AppColors.button : AppColors.background,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12))),
                     child: Text(
-                      'Female',
+                      'Lose Weight',
                       style: TextStyle(
                           color: AppColors.text,
                           fontSize: 20,
                           fontWeight: FontWeight.w500),
                     )),
               ),
-              const Gap(30),
+              const Gap(60),
               Custom_Button(
+                  width: double.infinity,
                   text: 'Continue',
                   onPressed: () {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const Height(),
+                      builder: (context) => const Goal_Weight(),
                     ));
                   })
             ],
           ),
         ),
       ),
-      backgroundColor: const Color.fromARGB(255, 0, 0, 0),
     );
   }
 }
