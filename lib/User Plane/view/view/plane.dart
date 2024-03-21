@@ -1,4 +1,3 @@
-import 'package:diety/Asks/Activates.dart';
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Search%20Food/view/Breakfast.dart';
 import 'package:diety/Search%20Food/view/Dinner.dart';
@@ -6,12 +5,11 @@ import 'package:diety/Search%20Food/view/Lunch.dart';
 import 'package:diety/Search%20Food/view/Snacks.dart';
 // ignore: unused_import
 import 'package:diety/User%20Detials/UserDitails.dart';
-
 import 'package:diety/User%20Plane/view/widget/Custom-Container.dart';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:intl/intl.dart';
 
 class Plane extends StatefulWidget {
   const Plane({super.key});
@@ -21,16 +19,31 @@ class Plane extends StatefulWidget {
 }
 
 class _PlaneState extends State<Plane> {
+  var date = DateFormat.yMd().format(DateTime.now());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
-        centerTitle: true,
+        
+
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime.now().add(const Duration(days: 7)))
+                  .then((value) {
+                if (value != null) {
+                  setState(() {
+                    date = DateFormat.yMd().format(value);
+                  });
+                }
+              });
+            },
             icon: Icon(
               Icons.calendar_month,
               color: AppColors.white,
@@ -44,10 +57,10 @@ class _PlaneState extends State<Plane> {
             ),
           ),
         ],
-        titleSpacing: 20,
+       
         leadingWidth: 170,
         leading: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
               IconButton(
@@ -61,20 +74,21 @@ class _PlaneState extends State<Plane> {
                     color: AppColors.text,
                     size: 25,
                   )),
-              DropdownButton(
-                dropdownColor: AppColors.text,
-                items: [
-                  DropdownMenuItem(
-                    child: Text(
-                      "Today",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: AppColors.white,
-                      ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Today',
+                    style: TextStyle(
+                      color: AppColors.white,
+                      //fontSize: 15,
                     ),
                   ),
+                  Text(
+                    DateFormat.yMEd().format(DateTime.now()),
+                    style: TextStyle(color: AppColors.white),
+                  )
                 ],
-                onChanged: (value) {},
               ),
             ],
           ),

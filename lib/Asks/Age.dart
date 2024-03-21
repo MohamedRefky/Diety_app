@@ -52,16 +52,7 @@ class _AgeState extends State<Age> {
                       width: double.infinity,
                       height: 290,
                       child: Image(image: AssetImage('Images/age.jpg'))),
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.start,
-                  //   children: [
-                  //     Text(
-                  //       'Enter your age',
-                  //       style: TextStyle(color: AppColors.text, fontSize: 20),
-                  //     ),
-                  //   ],
-                  // ),
-                  // const Gap(5),
+                 
                   TextFormField(
                     readOnly: true,
                     onTap: () {
