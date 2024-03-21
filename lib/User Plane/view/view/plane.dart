@@ -1,3 +1,4 @@
+// ignore_for_file: depend_on_referenced_packages
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Search%20Food/view/Breakfast.dart';
 import 'package:diety/Search%20Food/view/Dinner.dart';
@@ -71,7 +72,7 @@ class _PlaneState extends State<Plane> {
                   },
                   icon: Icon(
                     Icons.arrow_back_ios,
-                    color: AppColors.text,
+                    color: AppColors.white,
                     size: 25,
                   )),
               Column(
