@@ -1,10 +1,11 @@
-import 'package:diety/Asks/Gender.dart';
-import 'package:diety/Auth/Login.dart';
-import 'package:diety/Auth/SignUp.dart';
 import 'package:diety/Home/Home.dart';
+import 'package:diety/features/Asks/Gender.dart';
+import 'package:diety/features/Auth/Login.dart';
+import 'package:diety/features/Auth/SignUp.dart';
+
 // ignore: unused_import
-import 'package:diety/User%20Detials/wishes.dart';
-import 'package:diety/Onboarding/view/onbording_screan.dart';
+import 'package:diety/features/User%20Detials/wishes.dart';
+import 'package:diety/features/Onboarding/view/onbording_screan.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
