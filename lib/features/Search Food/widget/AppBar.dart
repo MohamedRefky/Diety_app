@@ -29,7 +29,7 @@ class CustomAppBarFood extends StatelessWidget implements PreferredSizeWidget {
       title: Text(
         text,
         style: TextStyle(
-          color: AppColors.text,
+          color: AppColors.white,
           fontSize: 25,
           fontWeight: FontWeight.bold,
         ),

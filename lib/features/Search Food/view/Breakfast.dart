@@ -2,7 +2,6 @@ import 'package:diety/Core/Colors.dart';
 import 'package:diety/features/Search%20Food/widget/AppBar.dart';
 import 'package:diety/features/Search%20Food/widget/CustomSearchFood.dart';
 import 'package:diety/features/User%20Plane/view/view/plane.dart';
-
 import 'package:flutter/material.dart';
 
 class Breakfast extends StatefulWidget {
@@ -13,6 +12,7 @@ class Breakfast extends StatefulWidget {
 }
 
 class _BreakfastState extends State<Breakfast> {
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,13 +27,7 @@ class _BreakfastState extends State<Breakfast> {
       ),
       body: const Padding(
         padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            CustomSearchFood(
-              hintText: 'Search for Food',
-            )
-          ],
-        ),
+        child: CustomSearchFood(),
       ),
     );
   }

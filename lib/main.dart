@@ -2,7 +2,7 @@ import 'package:diety/features/Asks/Gender.dart';
 import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Home/Home.dart';
-import 'package:diety/features/Onboarding/view/onbording_screan.dart';
+import 'package:diety/features/Search%20Food/view/Breakfast.dart';
 // ignore: unused_import
 import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,6 +14,7 @@ void main() async {
   await Firebase.initializeApp(
       options: const FirebaseOptions(
           apiKey: "AIzaSyAS10mEL7gbI3V5d10dHz3qWc98KR8SrgI",
+          databaseURL: 'https://dietyapp-c69c7-default-rtdb.firebaseio.com/',
           appId: "1:674799164198:android:7463b52021bccf9571ffe7",
           messagingSenderId: '674799164198',
           projectId: 'DIETYAPP'));
@@ -47,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         home: (FirebaseAuth.instance.currentUser != null &&
                 FirebaseAuth.instance.currentUser!.emailVerified)
             ? const Gender()
-            : const OnboardingScreen(),
+            : const Breakfast(),
         routes: {
           "SingUp": (context) => const SignUp(),
           "Login": (context) => const Login(),

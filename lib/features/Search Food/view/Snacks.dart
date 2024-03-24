@@ -26,12 +26,8 @@ class _SnacksState extends State<Snacks> {
       ),
       body: const Padding(
         padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            CustomSearchFood(
-              hintText: 'Search for Food',
-            )
-          ],
+        child: CustomSearchFood(
+         
         ),
       ),
     );
