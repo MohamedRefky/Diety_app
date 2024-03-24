@@ -1,7 +1,7 @@
-import 'package:diety/Onboarding/widget/Constants.dart';
 import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/Core/Colors.dart';
+import 'package:diety/features/Onboarding/widget/Constants.dart';
 import 'package:flutter/material.dart';
 
 class OnboardingScreen extends StatefulWidget {

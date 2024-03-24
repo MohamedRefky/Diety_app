@@ -1,8 +1,7 @@
 import 'package:diety/Core/Colors.dart';
-import 'package:diety/Search%20Food/widget/AppBar.dart';
-import 'package:diety/Search%20Food/widget/CustomSearchFood.dart';
-
-import 'package:diety/User%20Plane/view/view/plane.dart';
+import 'package:diety/features/Search%20Food/widget/AppBar.dart';
+import 'package:diety/features/Search%20Food/widget/CustomSearchFood.dart';
+import 'package:diety/features/User%20Plane/view/view/plane.dart';
 
 import 'package:flutter/material.dart';
 

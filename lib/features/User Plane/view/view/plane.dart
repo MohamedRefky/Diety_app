@@ -6,7 +6,7 @@ import 'package:diety/features/Search%20Food/view/Lunch.dart';
 import 'package:diety/features/Search%20Food/view/Snacks.dart';
 // ignore: unused_import
 import 'package:diety/features/User%20Detials/UserDitails.dart';
-import 'package:diety/User%20Plane/view/widget/Custom-Container.dart';
+import 'package:diety/features/User%20Plane/view/widget/Custom-Container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -27,8 +27,6 @@ class _PlaneState extends State<Plane> {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
-        
-
         actions: [
           IconButton(
             onPressed: () {
@@ -58,7 +56,6 @@ class _PlaneState extends State<Plane> {
             ),
           ),
         ],
-       
         leadingWidth: 170,
         leading: Padding(
           padding: const EdgeInsets.all(8.0),

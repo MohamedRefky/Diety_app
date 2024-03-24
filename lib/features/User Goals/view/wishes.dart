@@ -1,8 +1,8 @@
 import 'package:diety/Core/Colors.dart';
 import 'package:diety/Core/Custom_Button.dart';
 import 'package:diety/features/User%20Detials/UserDitails.dart';
-import 'package:diety/User%20Goals/view/Gain_weight.dart';
-import 'package:diety/User%20Goals/view/Lose_weight.dart';
+import 'package:diety/features/User%20Goals/view/Gain_weight.dart';
+import 'package:diety/features/User%20Goals/view/Lose_weight.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -15,7 +15,6 @@ class Wishes extends StatefulWidget {
 
 class _WishesState extends State<Wishes> {
   bool isLose = true;
-  
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +64,8 @@ class _WishesState extends State<Wishes> {
                   },
                   style: ElevatedButton.styleFrom(
                     side: BorderSide(color: AppColors.button, width: 2),
-                    backgroundColor: (isLose)
-                        ? AppColors.button
-                        : AppColors.background,
+                    backgroundColor:
+                        (isLose) ? AppColors.button : AppColors.background,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -97,9 +95,8 @@ class _WishesState extends State<Wishes> {
                   },
                   style: ElevatedButton.styleFrom(
                     side: BorderSide(color: AppColors.button, width: 2),
-                    backgroundColor: (!isLose)
-                        ? AppColors.button
-                        : AppColors.background,
+                    backgroundColor:
+                        (!isLose) ? AppColors.button : AppColors.background,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -119,7 +116,7 @@ class _WishesState extends State<Wishes> {
                 width: double.infinity,
                 text: 'Continue',
                 onPressed: () {
-                  if (isLose==true) {
+                  if (isLose == true) {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const lose_Weight(),
                     ));
