@@ -2,7 +2,7 @@ import 'package:diety/features/Asks/Gender.dart';
 import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Home/Home.dart';
-import 'package:diety/features/Search%20Food/view/Breakfast.dart';
+import 'package:diety/features/Onboarding/view/onbording_screan.dart';
 // ignore: unused_import
 import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
         home: (FirebaseAuth.instance.currentUser != null &&
                 FirebaseAuth.instance.currentUser!.emailVerified)
             ? const Gender()
-            : const Breakfast(),
+            : const OnboardingScreen(),
         routes: {
           "SingUp": (context) => const SignUp(),
           "Login": (context) => const Login(),
