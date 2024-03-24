@@ -54,29 +54,18 @@ class _AgeState extends State<Age> {
                       child: Image(image: AssetImage('Images/age.jpg'))),
                  
                   TextFormField(
-                    readOnly: true,
+                    //readOnly: true,
                     onTap: () {
-                      showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(1950),
-                              lastDate: DateTime.now())
-                          .then((value) {
-                        if (value != null) {
-                          setState(() {
-                            date = DateFormat.yMd().format(value);
-                          });
-                        }
-                      });
+                  
                     },
                     keyboardType: TextInputType.number,
                     style: TextStyle(color: AppColors.text),
                     decoration: InputDecoration(
-                        suffixIcon: Icon(
-                          Icons.calendar_month,
-                          color: AppColors.white,
-                        ),
-                        hintText: date,
+                        // suffixIcon: Icon(
+                        //   Icons.calendar_month,
+                        //   color: AppColors.white,
+                        // ),
+                        hintText: 'Enter Your age',
                         hintStyle:
                             TextStyle(fontSize: 20, color: AppColors.text),
                         border: const UnderlineInputBorder(),
