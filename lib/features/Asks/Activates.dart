@@ -6,6 +6,7 @@ import 'package:diety/Core/Container_Activites.dart';
 import 'package:diety/Core/Custom_Button.dart';
 import 'package:diety/features/User%20Detials/UserDitails.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class Activates extends StatefulWidget {
   const Activates({super.key});
