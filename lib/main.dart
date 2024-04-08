@@ -1,4 +1,6 @@
+
 import 'package:diety/features/Asks/Gender.dart';
+import 'package:diety/features/Asks/cubit/cubit.dart';
 import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Home/Home.dart';
@@ -8,6 +10,7 @@ import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -43,17 +46,20 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: (FirebaseAuth.instance.currentUser != null &&
-                FirebaseAuth.instance.currentUser!.emailVerified)
-            ? const Gender()
-            : const OnboardingScreen(),
-        routes: {
-          "SingUp": (context) => const SignUp(),
-          "Login": (context) => const Login(),
-          "home": (context) => const Home(),
-          "Gender": (context) => const Gender(),
-        });
+    return BlocProvider(
+      create: (context) => AgeStateCubit(age:0),
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: (FirebaseAuth.instance.currentUser != null &&
+                  FirebaseAuth.instance.currentUser!.emailVerified)
+              ? const Gender()
+              : const OnboardingScreen(),
+          routes: {
+            "SingUp": (context) => const SignUp(),
+            "Login": (context) => const Login(),
+            "home": (context) => const Home(),
+            "Gender": (context) => const Gender(),
+          }),
+    );
   }
 }

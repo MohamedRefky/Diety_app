@@ -1,6 +1,7 @@
+
+import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
-import 'package:diety/Core/Colors.dart';
 import 'package:diety/features/Onboarding/widget/Constants.dart';
 import 'package:flutter/material.dart';
 

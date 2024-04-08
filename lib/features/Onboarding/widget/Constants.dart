@@ -1,4 +1,5 @@
-import 'package:diety/Core/Colors.dart';
+
+import 'package:diety/Core/utils/Colors.dart';
 // ignore: unused_import
 import 'package:flutter/material.dart';
 

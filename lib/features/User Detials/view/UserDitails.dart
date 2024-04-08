@@ -1,7 +1,8 @@
+
+import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Asks/Activates.dart';
 import 'package:diety/features/User%20Detials/wishes.dart';
-import 'package:diety/Core/Colors.dart';
-import 'package:diety/Core/Custom_Button.dart';
+import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';

@@ -1,11 +1,12 @@
 // ignore_for_file: depend_on_referenced_packages
-import 'package:diety/Core/Colors.dart';
+
+import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Search%20Food/view/Breakfast.dart';
 import 'package:diety/features/Search%20Food/view/Dinner.dart';
 import 'package:diety/features/Search%20Food/view/Lunch.dart';
 import 'package:diety/features/Search%20Food/view/Snacks.dart';
+import 'package:diety/features/User%20Detials/view/UserDitails.dart';
 // ignore: unused_import
-import 'package:diety/features/User%20Detials/UserDitails.dart';
 import 'package:diety/features/User%20Plane/view/widget/Custom-Container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

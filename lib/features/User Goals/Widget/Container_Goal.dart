@@ -1,4 +1,4 @@
-import 'package:diety/Core/Colors.dart';
+import 'package:diety/Core/utils/Colors.dart';
 import 'package:flutter/material.dart';
 
 class Container_Goal extends StatelessWidget {

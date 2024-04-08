@@ -1,5 +1,5 @@
-import 'package:diety/Core/Colors.dart';
-import 'package:diety/Core/Custom_Button.dart';
+import 'package:diety/Core/utils/Colors.dart';
+import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:diety/features/User%20Goals/Widget/Container_Goal.dart';
 import 'package:diety/features/User%20Plane/view/view/plane.dart';

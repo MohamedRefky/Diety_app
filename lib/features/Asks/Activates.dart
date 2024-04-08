@@ -1,10 +1,11 @@
+
+import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Asks/Age.dart';
+import 'package:diety/features/User%20Detials/view/UserDitails.dart';
 // ignore: unused_import
 import 'package:diety/features/User%20Detials/wishes.dart';
-import 'package:diety/Core/Colors.dart';
-import 'package:diety/Core/Container_Activites.dart';
-import 'package:diety/Core/Custom_Button.dart';
-import 'package:diety/features/User%20Detials/UserDitails.dart';
+import 'package:diety/Core/widget/Container_Activites.dart';
+import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 

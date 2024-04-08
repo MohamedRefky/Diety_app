@@ -1,4 +1,5 @@
-import 'package:diety/Core/Colors.dart';
+
+import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Search%20Food/widget/AppBar.dart';
 import 'package:diety/features/Search%20Food/widget/CustomSearchFood.dart';
 import 'package:diety/features/User%20Plane/view/view/plane.dart';

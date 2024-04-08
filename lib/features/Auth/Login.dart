@@ -1,6 +1,6 @@
-import 'package:diety/Core/Colors.dart';
-import 'package:diety/Core/Custom_Button.dart';
-import 'package:diety/Core/Custom_TextFormFealed.dart';
+import 'package:diety/Core/utils/Colors.dart';
+import 'package:diety/Core/widget/Custom_Button.dart';
+import 'package:diety/Core/widget/Custom_TextFormFealed.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -190,11 +190,7 @@ class _LoginState extends State<Login> {
                                 password: password.text,
                               );
                               if (credential.user!.emailVerified) {
-                                // Center(
-                                //   child: Container(
-                                //     child: AnimatedSplashScreen(splash: splash, nextScreen: Gender()),
-                                //   ),
-                                // );
+                                
                                 Navigator.of(context)
                                     .pushReplacementNamed('Gender');
                               } else {

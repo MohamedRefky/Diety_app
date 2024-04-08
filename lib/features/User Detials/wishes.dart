@@ -1,6 +1,6 @@
-import 'package:diety/Core/Colors.dart';
-import 'package:diety/Core/Custom_Button.dart';
-import 'package:diety/features/User%20Detials/UserDitails.dart';
+import 'package:diety/Core/utils/Colors.dart';
+import 'package:diety/Core/widget/Custom_Button.dart';
+import 'package:diety/features/User%20Detials/view/UserDitails.dart';
 import 'package:diety/features/User%20Goals/view/Gain_weight.dart';
 import 'package:diety/features/User%20Goals/view/Lose_weight.dart';
 import 'package:flutter/material.dart';
