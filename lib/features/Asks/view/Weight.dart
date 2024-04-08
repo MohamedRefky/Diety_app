@@ -1,8 +1,8 @@
-
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
-import 'package:diety/features/Asks/Age.dart';
-import 'package:diety/features/Asks/Height.dart';
+import 'package:diety/features/Asks/view/Age.dart';
+import 'package:diety/features/Asks/view/Height.dart';
+import 'package:diety/features/Asks/widget/textFormfield.dart';
 import 'package:flutter/material.dart';
 
 class Weight extends StatefulWidget {
@@ -53,7 +53,7 @@ class _HeightState extends State<Weight> {
                         width: double.infinity,
                         height: 290,
                         child: Image(image: AssetImage('Images/weight.jpg'))),
-                    TextFormField(
+                    textFormField(
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'PLease Enter Your Weight';
@@ -65,29 +65,8 @@ class _HeightState extends State<Weight> {
                         }
                         return null;
                       },
-                      controller: weight,
-                      onTap: () {},
-                      keyboardType: TextInputType.number,
-                      style: TextStyle(color: AppColors.text),
-                      decoration: InputDecoration(
-                          hintText: ' Enter your Weight',
-                          hintStyle:
-                              TextStyle(fontSize: 20, color: AppColors.text),
-                          border: const UnderlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(color: AppColors.button)),
-                          focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(color: AppColors.button)),
-                          errorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(color: Colors.red)),
-                          focusedErrorBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: const BorderSide(color: Colors.red))
-                              
-                              ),
+                      hintText: 'Enter your Weight',
+                      mycontroller: weight,
                     ),
                     const SizedBox(
                       height: 30,

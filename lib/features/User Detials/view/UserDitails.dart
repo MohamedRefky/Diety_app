@@ -1,8 +1,7 @@
-
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Asks/Activates.dart';
-import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
+import 'package:diety/features/Asks/view/Activates.dart';
+import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
@@ -45,8 +44,9 @@ class UserDitails extends StatelessWidget {
               SizedBox(
                   width: 300,
                   height: 280,
-                  child: Lottie.asset('Images/Ditails_Animation.json',
-                      )),
+                  child: Lottie.asset(
+                    'Images/Ditails_Animation.json',
+                  )),
               const Gap(20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

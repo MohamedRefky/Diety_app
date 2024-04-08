@@ -1,6 +1,5 @@
-
-import 'package:diety/features/Asks/Gender.dart';
 import 'package:diety/features/Asks/cubit/cubit.dart';
+import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Home/Home.dart';

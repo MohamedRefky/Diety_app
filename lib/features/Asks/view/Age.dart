@@ -1,9 +1,10 @@
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
-import 'package:diety/features/Asks/Activates.dart';
-import 'package:diety/features/Asks/Weight.dart';
+import 'package:diety/features/Asks/view/Activates.dart';
+import 'package:diety/features/Asks/view/Weight.dart';
 import 'package:diety/features/Asks/cubit/cubit.dart';
 import 'package:diety/features/Asks/cubit/stateManagemen.dart';
+import 'package:diety/features/Asks/widget/textFormfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: unused_import
@@ -63,7 +64,7 @@ class _AgeState extends State<Age> {
                             width: double.infinity,
                             height: 290,
                             child: Image(image: AssetImage('Images/age.jpg'))),
-                        TextFormField(
+                        textFormField(
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'PLease Enter Your Age';
@@ -77,31 +78,8 @@ class _AgeState extends State<Age> {
                             }
                             return null;
                           },
-                          controller: age,
-                          onTap: () {},
-                          keyboardType: TextInputType.number,
-                          style: TextStyle(color: AppColors.text),
-                          decoration: InputDecoration(
-                              hintText: 'Enter Your age',
-                              hintStyle: TextStyle(
-                                  fontSize: 20, color: AppColors.text),
-                              border: const UnderlineInputBorder(),
-                              enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide:
-                                      BorderSide(color: AppColors.button)),
-                              focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide:
-                                      BorderSide(color: AppColors.button)),
-                              errorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide:
-                                      const BorderSide(color: Colors.red)),
-                              focusedErrorBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                  borderSide:
-                                      const BorderSide(color: Colors.red))),
+                          hintText: 'Enter Your age',
+                          mycontroller: age,
                         ),
                         const SizedBox(
                           height: 30,

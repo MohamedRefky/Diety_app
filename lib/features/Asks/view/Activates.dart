@@ -1,6 +1,6 @@
 
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Asks/Age.dart';
+import 'package:diety/features/Asks/view/Age.dart';
 import 'package:diety/features/User%20Detials/view/UserDitails.dart';
 // ignore: unused_import
 import 'package:diety/features/User%20Detials/wishes.dart';
