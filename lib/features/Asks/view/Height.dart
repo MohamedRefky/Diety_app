@@ -1,8 +1,12 @@
+// ignore_for_file: avoid_print
+
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Asks/view/Weight.dart';
 import 'package:diety/features/Asks/widget/textFormfield.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
@@ -14,8 +18,41 @@ class Height extends StatefulWidget {
 }
 
 class _HeightState extends State<Height> {
-  TextEditingController heightController = TextEditingController();
+  // Firestore instance
+  //final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  // TextEditingController for height input
+  final TextEditingController _heightController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  // Function to save height data to Firestore
+  // Future<void> _saveHeightToFirestore() async {
+  //   try {
+  //     // Check if the user is signed in
+  //     if (FirebaseAuth.instance.currentUser == null) {
+  //       print('User is not signed in');
+  //       // Handle the case where the user is not signed in
+  //       return;
+  //     }
+
+  //     // Get current user's UID
+  //     String uid = FirebaseAuth.instance.currentUser!.uid;
+
+  //     // Get height value from text field
+  //     String height = _heightController.text;
+
+  //     // Add height data to Firestore
+  //     await _firestore.collection('users').doc(uid).set({
+  //       'height': height,
+  //     });
+
+  //     // Log success message
+  //     print('Height data saved to Firestore');
+  //   } catch (error) {
+  //     // Log error message
+  //     print('Error saving height data: $error');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +62,11 @@ class _HeightState extends State<Height> {
         backgroundColor: AppColors.background,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => const Gender(),
-            ));
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const Gender(),
+              ),
+            );
           },
           icon: Icon(
             Icons.arrow_back,
@@ -44,11 +83,11 @@ class _HeightState extends State<Height> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   "What's your height ?",
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    color: AppColors.white,
+                    color: Colors.white,
                     fontSize: 30,
                   ),
                 ),
@@ -60,31 +99,34 @@ class _HeightState extends State<Height> {
                 ),
                 const Gap(30),
                 textFormField(
-                  mycontroller: heightController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter Your Height';
-                    } else {
-                      final height = double.tryParse(value);
-                      if (height == null || height < 90 || height > 210) {
-                        return 'Please Enter A Valid Height';
+                    hintText: 'Enter your Height',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please Enter Your Height';
+                      } else {
+                        final height = double.tryParse(value);
+                        if (height == null || height < 90 || height > 210) {
+                          return 'Please Enter A Valid Height';
+                        }
                       }
-                    }
-                    return null;
-                  },
-                  hintText: 'Enter your Height',
-                ),
+                      return null;
+                    },
+                    mycontroller: _heightController),
                 const SizedBox(
                   height: 30,
                 ),
                 Custom_Button(
                   text: 'Continue',
                   onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    // _saveHeightToFirestore(); // Call function to save height to Firestore
+                    if(formKey.currentState!.validate()) {
+                      Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
                         builder: (context) => const Weight(),
-                      ));
+                      ),
+                    );
                     }
+                    
                   },
                 ),
               ],
