@@ -46,7 +46,7 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
                 },
                 keyboardType: TextInputType.text,
                 cursorColor: AppColors.button,
-                style: TextStyle(color: AppColors.white),
+                style: TextStyle(color: AppColors.white, fontSize: 18),
                 controller: _searchController,
                 decoration: InputDecoration(
                   hintText: 'Enter your food or drink',
@@ -87,7 +87,10 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
             const Gap(20),
             Text(
               _searchResult,
-              style: TextStyle(color: AppColors.white, fontSize: 18),
+              style: TextStyle(
+                  color: AppColors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600),
             ),
             Expanded(
               child: ListView.builder(
@@ -96,7 +99,7 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
                   return ListTile(
                     title: Text(
                       _suggestedValues[index],
-                      style: TextStyle(color: AppColors.white),
+                      style: TextStyle(color: AppColors.white, fontSize: 18),
                     ),
                     onTap: () {
                       _searchController.text = _suggestedValues[index];

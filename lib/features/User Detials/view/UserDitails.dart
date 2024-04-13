@@ -1,16 +1,19 @@
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Asks/view/Activates.dart';
+import 'package:diety/features/Asks/widget/UserInfoProvider.dart';
 import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class UserDitails extends StatelessWidget {
   const UserDitails({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final userInfo = Provider.of<UserInfoProvider>(context).userInfo;
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -60,7 +63,7 @@ class UserDitails extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    ' 3000',
+                    userInfo.activity ,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: AppColors.white,

@@ -2,103 +2,106 @@ import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Asks/view/Activates.dart';
 import 'package:diety/features/Asks/view/Weight.dart';
-import 'package:diety/features/Asks/cubit/cubit.dart';
-import 'package:diety/features/Asks/cubit/stateManagemen.dart';
+import 'package:diety/features/Asks/widget/UserInfoProvider.dart';
 import 'package:diety/features/Asks/widget/textFormfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-// ignore: unused_import
-import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 class Age extends StatefulWidget {
-  const Age({super.key});
+  const Age({Key? key}) : super(key: key);
 
   @override
   State<Age> createState() => _AgeState();
 }
 
 class _AgeState extends State<Age> {
-  TextEditingController age = TextEditingController();
+  TextEditingController ageController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  //AgeStateCubit ageStateCubit = AgeStateCubit(age: 0.0);
+
+  // Create an instance of UserInputModel to store user input
+
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AgeStateCubit, AgeState>(
-      listener: (context, state) {
-        //ageStateCubit.age = double.parse(age.text);
-      },
-      builder: (context, state) {
-        return Scaffold(
-            backgroundColor: AppColors.background,
-            appBar: AppBar(
-              backgroundColor: AppColors.background,
-              leading: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const Weight(),
-                    ));
-                  },
-                  icon: Icon(
-                    Icons.arrow_back,
-                    color: AppColors.text,
-                    size: 30,
-                  )),
-            ),
-            body: Padding(
-              padding: const EdgeInsets.all(30),
-              child: SingleChildScrollView(
-                child: Form(
-                  key: formKey,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          "What's your age ?",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.white,
-                            fontSize: 30,
-                          ),
-                        ),
-                        const SizedBox(
-                            width: double.infinity,
-                            height: 290,
-                            child: Image(image: AssetImage('Images/age.jpg'))),
-                        textFormField(
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'PLease Enter Your Age';
-                            } else {
-                              final age = double.tryParse(value);
-                              if (age == null || age > 70) {
-                                return 'Please Enter A Valid Age';
-                              } else if (age <= 18) {
-                                return 'You should be atleast 18 years old';
-                              }
-                            }
-                            return null;
-                          },
-                          hintText: 'Enter Your age',
-                          mycontroller: age,
-                        ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Custom_Button(
-                            text: 'Continue',
-                            onPressed: () {
-                              if (formKey.currentState!.validate()) {
-                                Navigator.of(context)
-                                    .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => const Activates(),
-                                ));
-                              }
-                            })
-                      ]),
-                ),
-              ),
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      appBar: AppBar(
+        backgroundColor: AppColors.background,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => const Weight(),
             ));
-      },
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColors.text,
+            size: 30,
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(30),
+        child: SingleChildScrollView(
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  "What's your age ?",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    color: AppColors.white,
+                    fontSize: 30,
+                  ),
+                ),
+                const SizedBox(
+                  width: double.infinity,
+                  height: 290,
+                  child: Image(image: AssetImage('Images/age.jpg')),
+                ),
+                textFormField(
+                  onChanged: (value) {
+                    final userInfoProvider =
+                        Provider.of<UserInfoProvider>(context, listen: false);
+                    userInfoProvider.updateUserInfo(
+                        age: double.tryParse(value!) ?? 0.0);
+                    return null;
+                  },
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please Enter Your Age';
+                    } else {
+                      final age = double.tryParse(value);
+                      if (age == null || age > 70) {
+                        return 'Please Enter A Valid Age';
+                      } else if (age <= 18) {
+                        return 'You should be at least 18 years old';
+                      }
+                    }
+                    return null;
+                  },
+                  hintText: 'Enter Your age',
+                  mycontroller: ageController,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Custom_Button(
+                  text: 'Continue',
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const Activates(),
+                      ));
+                    }
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

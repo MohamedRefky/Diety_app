@@ -1,13 +1,14 @@
-
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Asks/view/Height.dart';
+import 'package:diety/features/Asks/widget/UserInfoProvider.dart';
 import 'package:diety/features/Auth/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 
 class Gender extends StatefulWidget {
   const Gender({
@@ -120,6 +121,10 @@ class _GenderState extends State<Gender> {
               Custom_Button(
                 text: 'Continue',
                 onPressed: () {
+                  final userInfoProvider =
+                      Provider.of<UserInfoProvider>(context, listen: false);
+                  userInfoProvider.updateUserInfo(
+                      gender: isMale ? 'Male' : 'Female');
                   Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                       builder: (context) => const Height(),

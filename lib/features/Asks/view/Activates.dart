@@ -1,16 +1,16 @@
-
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Asks/view/Age.dart';
-import 'package:diety/features/User%20Detials/view/UserDitails.dart';
-// ignore: unused_import
-import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:diety/Core/widget/Container_Activites.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
+import 'package:diety/features/Asks/view/Age.dart';
+import 'package:diety/features/Asks/widget/UserInfoProvider.dart';
+import 'package:diety/features/User%20Detials/view/UserDitails.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 
 class Activates extends StatefulWidget {
-  const Activates({super.key});
+  const Activates({
+    super.key,
+  }); // Removed duplicate parameter
 
   @override
   State<Activates> createState() => _ActivatesState();
@@ -26,16 +26,17 @@ class _ActivatesState extends State<Activates> {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => const Age(),
-              ));
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: AppColors.text,
-              size: 30,
-            )),
+          onPressed: () {
+            Navigator.of(context).pushReplacement(MaterialPageRoute(
+              builder: (context) => const Age(),
+            ));
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: AppColors.text,
+            size: 30,
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -43,20 +44,20 @@ class _ActivatesState extends State<Activates> {
           child: Column(
             children: [
               Countainer_activites(
-                onTap: () {
-                  setState(() {
-                    isSelected = [true, false, false, false, false];
-                  });
-                },
-                color: isSelected[0] ? AppColors.button : AppColors.background,
-                height: 140,
-                title: 'Sedentary 🪑',
-                text:
-                    'for people who spent most of their time \nsitting or lying down ex:Programmer, Bank\nTeller, Office Admin',
-              ),
-              const SizedBox(
-                height: 15,
-              ),
+                  onTap: () {
+                    setState(() {
+                      isSelected = [true, false, false, false, false];
+                    });
+                  },
+                  color:
+                      isSelected[0] ? AppColors.button : AppColors.background,
+                  height: 130,
+                  title: 'Sedentary 🪑',
+                  text: '''
+for people who spent most of their time
+sitting or lying down ex: Programmer, Bank
+Teller, Office Admin'''),
+              const SizedBox(height: 15),
               Countainer_activites(
                 onTap: () {
                   setState(() {
@@ -64,14 +65,15 @@ class _ActivatesState extends State<Activates> {
                   });
                 },
                 color: isSelected[1] ? AppColors.button : AppColors.background,
-                height: 170,
+                height: 160,
                 title: 'Lightly Active 🚶',
-                text:
-                    'for people who engage in light physical \nactivities throughout the day, such as \nwalking or household chores ex:Teacher \nSalesman, school student',
+                text: '''
+for people who engage in light physical
+activities throughout the day, such as
+walking or household chores ex: Teacher
+Salesman, school student''',
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
               Countainer_activites(
                 onTap: () {
                   setState(() {
@@ -79,14 +81,15 @@ class _ActivatesState extends State<Activates> {
                   });
                 },
                 color: isSelected[2] ? AppColors.button : AppColors.background,
-                height: 170,
+                height: 160,
                 title: 'Moderately Active 🏃',
-                text:
-                    'for people who participate in moderate \nphysical activities regularly, such as \ncycling, or playing sports ex:Personal \nTrainer, Waiter University student',
+                text: '''
+For people who participate in moderate      
+physical activities regularly, such as
+cycling, or playing sports ex: Personal
+Trainer, Waiter University student''',
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
               Countainer_activites(
                 onTap: () {
                   setState(() {
@@ -94,14 +97,16 @@ class _ActivatesState extends State<Activates> {
                   });
                 },
                 color: isSelected[3] ? AppColors.button : AppColors.background,
-                height: 200,
+                height: 190,
                 title: 'Very Active 🐎',
-                text:
-                    'for people who engage in intense physical\nactivities on a daily basis, such as high-\nintensity workouts, competitive sports, or\nphysically demanding occuptions\nex:Athlete, Constrution,Fitness\nInstractor',
+                text: '''
+For people who engage in intense physical
+activities on a daily basis, such as high-
+intensity workouts, competitive sports, or
+physically demanding occupations
+ex: Athlete, Construction, Fitness Instructor''',
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SizedBox(height: 15),
               Countainer_activites(
                 onTap: () {
                   setState(() {
@@ -109,25 +114,46 @@ class _ActivatesState extends State<Activates> {
                   });
                 },
                 color: isSelected[4] ? AppColors.button : AppColors.background,
-                height: 230,
+                height: 220,
                 title: 'Extra active 🏋️',
-                text:
-                    'for people have an exceptionally active\nlifestyle, involving vigorous physical\nactivities for extended periods, such as\nprofessional athletes or indivduals with\nphyssioal athletes or individuals with\nphysically demanding jobs ex:policeman ,\nfirefighter',
+                text: '''
+For people who have an exceptionally active
+lifestyle, involving vigorous physical
+activities for extended periods, such as
+professional athletes or individuals with
+physically demanding jobs ex: policeman,
+firefighter''',
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               Custom_Button(
-                  text: 'Continue',
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const UserDitails(),
-                    ));
-                  })
+                text: 'Continue',
+                onPressed: () {
+                  String selectedActivityLevel = _getSelectedActivityLevel();
+                  final userInfoProvider =
+                      Provider.of<UserInfoProvider>(context, listen: false);
+                  userInfoProvider.updateUserInfo(
+                      activity: selectedActivityLevel);
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const UserDitails(),
+                  ));
+                },
+              )
             ],
           ),
         ),
       ),
     );
+  }
+
+  String _getSelectedActivityLevel() {
+    List<String> activityLevels = [
+      'Sedentary',
+      'Lightly Active',
+      'Moderately Active',
+      'Very Active',
+      'Extra Active',
+    ];
+    int selectedIndex = isSelected.indexOf(true);
+    return activityLevels[selectedIndex];
   }
 }

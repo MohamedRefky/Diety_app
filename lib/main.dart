@@ -4,12 +4,13 @@ import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Home/Home.dart';
 import 'package:diety/features/Onboarding/view/onbording_screan.dart';
-// ignore: unused_import
 import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart'; // Import Provider package
+import 'features/Asks/widget/UserInfoProvider.dart'; // Import UserInfoProvider class
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,7 +22,12 @@ void main() async {
           messagingSenderId: '674799164198',
           projectId: 'DIETYAPP'));
 
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => UserInfoProvider(), // Create an instance of UserInfoProvider
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
