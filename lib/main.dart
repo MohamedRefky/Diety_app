@@ -1,16 +1,14 @@
-import 'package:diety/features/Asks/cubit/cubit.dart';
+import 'package:diety/features/Asks/model/UserInfoProvider.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Home/Home.dart';
 import 'package:diety/features/Onboarding/view/onbording_screan.dart';
-import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart'; // Import Provider package
-import 'features/Asks/widget/UserInfoProvider.dart'; // Import UserInfoProvider class
+ 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,7 +22,8 @@ void main() async {
 
   runApp(
     ChangeNotifierProvider(
-      create: (context) => UserInfoProvider(), // Create an instance of UserInfoProvider
+      create: (context) =>
+          UserInfoProvider(), // Create an instance of UserInfoProvider
       child: const MyApp(),
     ),
   );
@@ -51,20 +50,17 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AgeStateCubit(age:0),
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: (FirebaseAuth.instance.currentUser != null &&
-                  FirebaseAuth.instance.currentUser!.emailVerified)
-              ? const Gender()
-              : const OnboardingScreen(),
-          routes: {
-            "SingUp": (context) => const SignUp(),
-            "Login": (context) => const Login(),
-            "home": (context) => const Home(),
-            "Gender": (context) => const Gender(),
-          }),
-    );
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: (FirebaseAuth.instance.currentUser != null &&
+                FirebaseAuth.instance.currentUser!.emailVerified)
+            ? const Gender()
+            : const OnboardingScreen(),
+        routes: {
+          "SingUp": (context) => const SignUp(),
+          "Login": (context) => const Login(),
+          "home": (context) => const Home(),
+          "Gender": (context) => const Gender(),
+        });
   }
 }

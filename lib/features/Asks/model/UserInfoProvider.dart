@@ -1,13 +1,13 @@
-import 'package:diety/features/Asks/widget/UserInfo.dart';
+import 'package:diety/features/Asks/model/UserInfo.dart';
 import 'package:flutter/material.dart';
 
 class UserInfoProvider extends ChangeNotifier {
   // Define a private variable to store the user information
   UserInfo _userInfo = UserInfo(
     gender: '',
-    age: 0,
     height: 0,
     weight: 0,
+    age: 0,
     activity: '',
   );
 
@@ -17,16 +17,17 @@ class UserInfoProvider extends ChangeNotifier {
   // Method to update the user information
   void updateUserInfo({
     String? gender,
-    double? age,
     double? height,
     double? weight,
+    double? age,
     String? activity,
   }) {
+    // Update only the fields that are not null
     _userInfo = UserInfo(
       gender: gender ?? _userInfo.gender,
-      age: age ?? _userInfo.age,
       height: height ?? _userInfo.height,
       weight: weight ?? _userInfo.weight,
+      age: age ?? _userInfo.age,
       activity: activity ?? _userInfo.activity,
     );
 

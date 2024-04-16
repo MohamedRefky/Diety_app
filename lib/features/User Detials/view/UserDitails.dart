@@ -1,7 +1,8 @@
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
+import 'package:diety/features/Asks/model/UserInfoProvider.dart';
 import 'package:diety/features/Asks/view/Activates.dart';
-import 'package:diety/features/Asks/widget/UserInfoProvider.dart';
+import 'package:diety/features/User%20Detials/widget/viewDitails.dart';
 import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -17,6 +18,15 @@ class UserDitails extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Your Body Details',
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            color: AppColors.white,
+            fontSize: 25,
+          ),
+        ),
         backgroundColor: AppColors.background,
         leading: IconButton(
             onPressed: () {
@@ -33,121 +43,83 @@ class UserDitails extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Your Body Details',
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.white,
-                  fontSize: 30,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                
+                SizedBox(
+                    width: 300,
+                    height: 280,
+                    child: Lottie.asset(
+                      'Images/Ditails_Animation.json',
+                    )),
+                const Gap(20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      userInfo.gender,
+                      style: TextStyle(color: AppColors.white),
+                    ),
+                    Text(userInfo.height.toString(),
+                        style: TextStyle(color: AppColors.white)),
+                    Text(userInfo.weight.toString(),
+                        style: TextStyle(color: AppColors.white)),
+                    Text(userInfo.activity,
+                        style: TextStyle(color: AppColors.white)),
+                    Text(userInfo.age.toString(),
+                        style: TextStyle(color: AppColors.white))
+                  ],
                 ),
-              ),
-              SizedBox(
-                  width: 300,
-                  height: 280,
-                  child: Lottie.asset(
-                    'Images/Ditails_Animation.json',
-                  )),
-              const Gap(20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Your daily calorie needed :',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.white,
-                      fontSize: 19,
-                    ),
-                  ),
-                  Text(
-                    userInfo.activity ,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.white,
-                      fontSize: 19,
-                    ),
-                  )
-                ],
-              ),
-              const Gap(15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Body Mass Index (BMI) :',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.white,
-                      fontSize: 19,
-                    ),
-                  ),
-                  Text(
-                    'Obesity',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.white,
-                      fontSize: 19,
-                    ),
-                  )
-                ],
-              ),
-              const Gap(15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Your Ideal Weight :',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.white,
-                      fontSize: 19,
-                    ),
-                  ),
-                  Text(
-                    '60',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.white,
-                      fontSize: 19,
-                    ),
-                  )
-                ],
-              ),
-              const Gap(15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Your body fat :',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.white,
-                      fontSize: 19,
-                    ),
-                  ),
-                  Text(
-                    '20 %',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.white,
-                      fontSize: 19,
-                    ),
-                  )
-                ],
-              ),
-              const Gap(50),
-              Custom_Button(
-                  width: 300,
-                  text: 'My Plane',
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const Wishes(),
-                    ));
-                  })
-            ],
+                customRowVeiwDitails(
+                  userInfo: userInfo,
+                  title: 'Your daily calorie needed :',
+                  value: userInfo.dailyCalories.toStringAsFixed(1),
+                ),
+                const Gap(15),
+                customRowVeiwDitails(
+                  userInfo: userInfo,
+                  title: 'Your Body Mass Index (BMI) :',
+                  value: userInfo.calculateBMI().toStringAsFixed(1),
+                ),
+                const Gap(15),
+                customRowVeiwDitails(
+                  userInfo: userInfo,
+                  title: 'Health Status :',
+                  value: userInfo.calculateAndDetermineBMI().toString(),
+                ),
+                const Gap(15),
+                customRowVeiwDitails(
+                  userInfo: userInfo,
+                  title: 'Ideal Weight :',
+                  value:
+                      '${userInfo.calculateIdealWeight().toStringAsFixed(1)} kg',
+                ),
+                const Gap(15),
+                customRowVeiwDitails(
+                  userInfo: userInfo,
+                  title: 'Water Intake :',
+                  value:
+                      '${userInfo.calculateWaterIntake().toStringAsFixed(1)} L',
+                ),
+                const Gap(15),
+                customRowVeiwDitails(
+                  userInfo: userInfo,
+                  title: 'Optimal Sleep Duration :',
+                  value: '${userInfo.calculateOptimalSleepDuration()} hrs',
+                ),
+                const Gap(50),
+                Custom_Button(
+                    width: 300,
+                    text: 'My Plane',
+                    onPressed: () {
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => const Wishes(),
+                      ));
+                    })
+              ],
+            ),
           ),
         ),
       ),

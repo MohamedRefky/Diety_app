@@ -1,8 +1,8 @@
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
+import 'package:diety/features/Asks/model/UserInfoProvider.dart';
 import 'package:diety/features/Asks/view/Activates.dart';
 import 'package:diety/features/Asks/view/Weight.dart';
-import 'package:diety/features/Asks/widget/UserInfoProvider.dart';
 import 'package:diety/features/Asks/widget/textFormfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

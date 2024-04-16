@@ -3,10 +3,9 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
+import 'package:diety/features/Asks/model/UserInfoProvider.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Asks/view/Weight.dart';
-import 'package:diety/features/Asks/widget/UserInfo.dart';
-import 'package:diety/features/Asks/widget/UserInfoProvider.dart';
 import 'package:diety/features/Asks/widget/textFormfield.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

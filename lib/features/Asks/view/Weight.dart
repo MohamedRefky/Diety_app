@@ -1,9 +1,8 @@
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
+import 'package:diety/features/Asks/model/UserInfoProvider.dart';
 import 'package:diety/features/Asks/view/Age.dart';
 import 'package:diety/features/Asks/view/Height.dart';
-import 'package:diety/features/Asks/widget/UserInfo.dart';
-import 'package:diety/features/Asks/widget/UserInfoProvider.dart';
 import 'package:diety/features/Asks/widget/textFormfield.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -89,13 +88,12 @@ class _WeightState extends State<Weight> {
                 Custom_Button(
                   text: 'Continue',
                   onPressed: () {
-                    if (formKey.currentState!.validate()) { 
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => const Age(),
-                          ),
-                        );
-                      
+                    if (formKey.currentState!.validate()) {
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const Age(),
+                        ),
+                      );
                     }
                   },
                 ),
