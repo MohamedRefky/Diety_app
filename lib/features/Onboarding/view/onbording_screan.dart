@@ -1,5 +1,6 @@
 
 import 'package:diety/Core/utils/Colors.dart';
+import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Onboarding/widget/Constants.dart';
@@ -29,8 +30,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: InkWell(
               onTap: () {
                 Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) => const Login()));
+                    context, MaterialPageRoute(builder: (_) => const Gender()));
               }, //to login screen. We will update later
+              
               child: const Text(
                 'Skip',
                 style: TextStyle(
