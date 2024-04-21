@@ -1,7 +1,9 @@
 import 'package:diety/Core/utils/Colors.dart';
+import 'package:diety/features/Asks/model/UserInfoProvider.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 class CustomSearchFood extends StatefulWidget {
   const CustomSearchFood({Key? key}) : super(key: key);
@@ -16,7 +18,8 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   List<String> _suggestedValues = [];
   bool _isKeyboardVisible = false;
-
+  String CaloriesConsumed = '';
+  String? storedValue;
   @override
   void initState() {
     super.initState();
@@ -84,13 +87,44 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
                 focusNode: FocusNode()..addListener(_onFocusChange),
               ),
             ),
-            const Gap(20),
-            Text(
-              _searchResult,
-              style: TextStyle(
-                  color: AppColors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600),
+            const Gap(10),
+            Container(
+              padding: const EdgeInsets.only(
+                left: 10,
+              ),
+              height: 60,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: AppColors.button,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Row(
+                children: [
+                  Text(
+                    _searchResult,
+                    style: TextStyle(
+                      color: AppColors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () {
+                      setState(() {
+                        CaloriesConsumed = storedValue.toString();
+                        print("Searched Value: $CaloriesConsumed");
+                        //print(storedValue);
+                      });
+                    },
+                    icon: Icon(
+                      Icons.add,
+                      color: AppColors.white,
+                      size: 30,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Expanded(
               child: ListView.builder(
@@ -121,11 +155,15 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
     try {
       // Call the searchByKey function to search for the value in the Firebase Realtime Database
       String? value = await searchByKey(valueToSearch);
-
+      storedValue = value;
       // Update state with the search result
       setState(() {
+        value = value;
         if (value != null) {
           _searchResult = 'Every 100 grams of $valueToSearch is : $value';
+            Provider.of<UserInfoProvider>(context, listen: false)
+            .updateCaloriesConsumed(value!);
+          //CaloriesConsumed = value.toString();
         } else {
           _searchResult = 'Value not found.';
         }

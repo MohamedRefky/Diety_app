@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class textFormField extends StatelessWidget {
   const textFormField({
-    Key? key, // Use Key? instead of super.key
+    super.key,
+    // Use Key? instead of super.key
     required this.hintText,
     required this.validator,
     this.onChanged,
@@ -27,6 +28,7 @@ class textFormField extends StatelessWidget {
       controller: mycontroller,
       keyboardType: TextInputType.number,
       style: TextStyle(color: AppColors.text),
+      cursorColor: AppColors.button,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: TextStyle(fontSize: 20, color: AppColors.text),

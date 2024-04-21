@@ -1,4 +1,5 @@
 class UserInfo {
+  
   String gender;
   double height;
   double weight;
@@ -12,6 +13,10 @@ class UserInfo {
     required this.age,
     required this.activity,
   });
+
+ 
+
+  set caloriseRemining(double caloriseRemining) {}
 
   // Method to update activity level
   UserInfo updateActivity(String newActivity) {

@@ -1,17 +1,19 @@
 // ignore_for_file: depend_on_referenced_packages
-
 import 'package:diety/Core/utils/Colors.dart';
+import 'package:diety/features/Asks/model/UserInfoProvider.dart';
 import 'package:diety/features/Search%20Food/view/Breakfast.dart';
 import 'package:diety/features/Search%20Food/view/Dinner.dart';
 import 'package:diety/features/Search%20Food/view/Lunch.dart';
 import 'package:diety/features/Search%20Food/view/Snacks.dart';
 import 'package:diety/features/User%20Detials/view/UserDitails.dart';
+import 'package:diety/features/User%20Goals/view/Lose_weight.dart';
 // ignore: unused_import
 import 'package:diety/features/User%20Plane/view/widget/Custom-Container.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class Plane extends StatefulWidget {
   const Plane({super.key});
@@ -21,9 +23,12 @@ class Plane extends StatefulWidget {
 }
 
 class _PlaneState extends State<Plane> {
+  UserInfoProvider userInfoProvider = UserInfoProvider();
   var date = DateFormat.yMd().format(DateTime.now());
   @override
   Widget build(BuildContext context) {
+    String caloriesConsumed =
+        Provider.of<UserInfoProvider>(context).caloriesConsumed;
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -119,7 +124,7 @@ class _PlaneState extends State<Plane> {
                               ),
                             ),
                             Text(
-                              "2300",
+                              '${CaloriseRemining.toInt().toString()} cal',
                               style: TextStyle(
                                 color: AppColors.white,
                               ),
@@ -137,7 +142,7 @@ class _PlaneState extends State<Plane> {
                               ),
                             ),
                             Text(
-                              "0",
+                              caloriesConsumed.toString(),
                               style: TextStyle(
                                 color: AppColors.white,
                               ),
