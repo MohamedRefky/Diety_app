@@ -9,7 +9,8 @@ class CusomTextFormFeald extends StatelessWidget {
     this.suffixIcon,
     this.obscureText,
     this.validator,
-    this.mycontroller, this.onTap,
+    this.mycontroller,
+    this.onTap,
   });
   final String lable;
   final IconData prefixIcon;
@@ -21,6 +22,7 @@ class CusomTextFormFeald extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      cursorColor: AppColors.button,
       onTap: onTap,
       controller: mycontroller,
       obscureText: obscureText ?? false,

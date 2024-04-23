@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Asks/model/UserInfoProvider.dart';
@@ -20,7 +21,8 @@ class Gender extends StatefulWidget {
 }
 
 bool isMale = true;
-
+CollectionReference users = FirebaseFirestore.instance.collection('users');
+String uid = FirebaseAuth.instance.currentUser!.uid;
 class _GenderState extends State<Gender> {
   @override
   Widget build(BuildContext context) {
@@ -121,6 +123,7 @@ class _GenderState extends State<Gender> {
               Custom_Button(
                 text: 'Continue',
                 onPressed: () {
+                  test();
                   final userInfoProvider =
                       Provider.of<UserInfoProvider>(context, listen: false);
                   userInfoProvider.updateUserInfo(
@@ -138,5 +141,14 @@ class _GenderState extends State<Gender> {
       ),
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
     );
+  }
+  Future<void> test() async {
+    return users
+        .doc(uid)
+        .set({
+          "email": FirebaseAuth.instance.currentUser!.email,
+        })
+        .then((value) => print('user added'))
+        .catchError((error) => print(error));
   }
 }

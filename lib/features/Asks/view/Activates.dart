@@ -156,4 +156,5 @@ firefighter''',
     int selectedIndex = isSelected.indexOf(true);
     return activityLevels[selectedIndex];
   }
+  
 }

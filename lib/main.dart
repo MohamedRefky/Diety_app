@@ -18,7 +18,7 @@ void main() async {
           databaseURL: 'https://dietyapp-c69c7-default-rtdb.firebaseio.com/',
           appId: "1:674799164198:android:7463b52021bccf9571ffe7",
           messagingSenderId: '674799164198',
-          projectId: 'DIETYAPP'));
+          projectId: 'dietyapp-c69c7'));
 
   runApp(
     ChangeNotifierProvider(

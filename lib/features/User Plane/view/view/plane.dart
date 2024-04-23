@@ -14,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
 class Plane extends StatefulWidget {
   const Plane({super.key});
 
