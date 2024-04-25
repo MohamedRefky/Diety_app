@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/Core/widget/Custom_TextFormFealed.dart';
@@ -15,8 +16,10 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
+bool isInternetAvailable = true;
 bool isNotVisable = true;
 FirebaseAuth auth = FirebaseAuth.instance;
+bool isLoading = false;
 
 class _LoginState extends State<Login> {
   TextEditingController email = TextEditingController();
@@ -61,6 +64,21 @@ class _LoginState extends State<Login> {
   }
 
 //---------------------------------
+  Future<bool> checkInternetConnectivity() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    return connectivityResult != ConnectivityResult.none;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the connectivity plugin
+    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      setState(() {
+        isInternetAvailable = (result != ConnectivityResult.none);
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,116 +142,153 @@ class _LoginState extends State<Login> {
                     ),
                     const Gap(5),
                     //Forget Password
-                    Container(
-                      margin: const EdgeInsets.only(top: 5, bottom: 10),
-                      alignment: Alignment.topRight,
-                      child: InkWell(
-                        onTap: () async {
-                          if (email.text == "") {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text(
-                                "please enter your email first",
+                    isLoading
+                        ? CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(AppColors.button),
+                          )
+                        : Container(
+                            margin: const EdgeInsets.only(top: 5, bottom: 10),
+                            alignment: Alignment.topRight,
+                            child: InkWell(
+                              onTap: () async {
+                                if (email.text == "") {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text(
+                                      "please enter your email first",
+                                    ),
+                                    duration: Duration(seconds: 2),
+                                    backgroundColor: Colors.red,
+                                  ));
+                                  return;
+                                }
+                                try {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  await FirebaseAuth.instance
+                                      .sendPasswordResetEmail(
+                                          email: email.text);
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text(
+                                        "we sent Reset password link to your email"),
+                                    duration: Duration(seconds: 2),
+                                    backgroundColor: Colors.green,
+                                  ));
+
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                } on FirebaseAuthException catch (e) {
+                                  if (e.code == 'invalid-email') {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content: Text(
+                                          "The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: Colors.red,
+                                    ));
+                                  } else if (e.code == 'user-not-found') {
+                                    // ignore: avoid_print
+                                    print('No user found for that email.');
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content:
+                                          Text("No user found for that email"),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: Colors.red,
+                                    ));
+                                  }
+                                }
+                              },
+                              child: Text(
+                                "Forget Password ?",
+                                style: TextStyle(
+                                    fontSize: 12, color: AppColors.text),
                               ),
-                              duration: Duration(seconds: 2),
-                              backgroundColor: Colors.red,
-                            ));
-                            return;
-                          }
-                          try {
-                            await FirebaseAuth.instance
-                                .sendPasswordResetEmail(email: email.text);
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text(
-                                  "we sent Reset password link to your email"),
-                              duration: Duration(seconds: 2),
-                              backgroundColor: Colors.green,
-                            ));
-                          } on FirebaseAuthException catch (e) {
-                            if (e.code == 'invalid-email') {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text(
-                                    "The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
-                                duration: Duration(seconds: 2),
-                                backgroundColor: Colors.red,
-                              ));
-                            } else if (e.code == 'user-not-found') {
-                              // ignore: avoid_print
-                              print('No user found for that email.');
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text("No user found for that email"),
-                                duration: Duration(seconds: 2),
-                                backgroundColor: Colors.red,
-                              ));
-                            }
-                          }
-                        },
-                        child: Text(
-                          "Forget Password ?",
-                          style: TextStyle(fontSize: 12, color: AppColors.text),
-                        ),
-                      ),
-                    ),
+                            ),
+                          ),
                     const Gap(15),
                     //Login Buttom
-                    Custom_Button(
-                        text: 'Login',
-                        onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            try {
-                              final credential = await FirebaseAuth.instance
-                                  .signInWithEmailAndPassword(
-                                email: email.text,
-                                password: password.text,
-                              );
-                              if (credential.user!.emailVerified) {
-                                
-                                Navigator.of(context)
-                                    .pushReplacementNamed('Gender');
-                              } else {
+                    // Show CircularProgressIndicator when loading
+                    isLoading
+                        ? CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(AppColors.button),
+                          )
+                        : Custom_Button(
+                            text: 'Login',
+                            onPressed: () async {
+                              if (!await checkInternetConnectivity()) {
                                 ScaffoldMessenger.of(context)
                                     .showSnackBar(const SnackBar(
-                                  content: Text("please verfiy your email ♥"),
-                                  duration: Duration(seconds: 2),
-                                  backgroundColor: Colors.blueAccent,
-                                ));
-                              }
-                            } on FirebaseAuthException catch (e) {
-                              if (e.code == 'user-not-found') {
-                                // ignore: avoid_print
-                                print('No user found for that email.');
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(const SnackBar(
-                                  content: Text("No user found for that email"),
+                                  content:
+                                      Text("No internet connection available"),
                                   duration: Duration(seconds: 2),
                                   backgroundColor: Colors.red,
                                 ));
-                              } else if (e.code == 'wrong-password') {
-                                // ignore: avoid_print
-                                print('Wrong password provided for that user.');
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(const SnackBar(
-                                  content: Text(
-                                      "Wrong password provided for that user"),
-                                  duration: Duration(seconds: 2),
-                                  backgroundColor: Colors.red,
-                                ));
-                              } else if (e.code == 'invalid-email') {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                        "The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
-                                    duration: Duration(seconds: 5),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
+                                return; // Return early if no internet connection
                               }
-                            }
-                          }
-                        }),
+
+                              if (formKey.currentState!.validate()) {
+                                setState(() {
+                                  isLoading = true; // Set loading state to true
+                                });
+                                try {
+                                  final credential = await FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                    email: email.text,
+                                    password: password.text,
+                                  );
+                                  if (credential.user!.emailVerified) {
+                                    Navigator.of(context)
+                                        .pushReplacementNamed('Gender');
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content:
+                                          Text("Please verify your email ♥"),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: Colors.blueAccent,
+                                    ));
+                                  }
+                                } on FirebaseAuthException catch (e) {
+                                  if (e.code == 'user-not-found') {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content:
+                                          Text("No user found for that email"),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: Colors.red,
+                                    ));
+                                  } else if (e.code == 'wrong-password') {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content: Text(
+                                          "Wrong password provided for that user"),
+                                      duration: Duration(seconds: 2),
+                                      backgroundColor: Colors.red,
+                                    ));
+                                  } else if (e.code == 'invalid-email') {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content: Text(
+                                          "The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
+                                      duration: Duration(seconds: 5),
+                                      backgroundColor: Colors.red,
+                                    ));
+                                  }
+                                } finally {
+                                  setState(() {
+                                    isLoading =
+                                        false; // Set loading state to false
+                                  });
+                                }
+                              }
+                            },
+                          ),
                     const Gap(40),
                     //Divider
                     Row(
@@ -296,14 +351,6 @@ class _LoginState extends State<Login> {
                                 )),
                           ),
                         ),
-                        // const Gap(10),
-                        // InkWell(
-                        //   onTap: () {},
-                        //   child: SizedBox(
-                        //     height: 65,
-                        //     width: 65,
-                        //     child: Lottie.asset(('Images/Gogle.json'))),
-                        // ),
                       ],
                     ),
                     const Gap(20),

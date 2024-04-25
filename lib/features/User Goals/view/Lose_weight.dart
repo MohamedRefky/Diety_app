@@ -1,6 +1,6 @@
+import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
-import 'package:diety/features/Asks/model/UserInfoProvider.dart';
 import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:diety/features/User%20Goals/Widget/Container_Goal.dart';
 import 'package:diety/features/User%20Plane/view/view/plane.dart';
@@ -21,6 +21,15 @@ double CaloriseRemining = 0;
 
 // ignore: camel_case_types
 class _lose_WeightState extends State<lose_Weight> {
+  @override
+  void initState() {
+    super.initState();
+    isSelected = [false, true, false, false];
+    final userInfo =
+        Provider.of<UserInfoProvider>(context, listen: false).userInfo;
+    CaloriseRemining = userInfo.dailyCalories - 500;
+  }
+
   @override
   Widget build(BuildContext context) {
     final userInfo = Provider.of<UserInfoProvider>(context).userInfo;

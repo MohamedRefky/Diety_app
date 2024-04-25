@@ -1,4 +1,4 @@
-import 'package:diety/features/Asks/model/UserInfoProvider.dart';
+import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
@@ -7,7 +7,9 @@ import 'package:diety/features/Onboarding/view/onbording_screan.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart'; // Import Provider package
+import 'package:provider/provider.dart';
+
+import 'features/Asks/view/Height.dart'; // Import Provider package
  
 
 void main() async {
@@ -61,6 +63,7 @@ class _MyAppState extends State<MyApp> {
           "Login": (context) => const Login(),
           "home": (context) => const Home(),
           "Gender": (context) => const Gender(),
+          "Height" :(context) => const Height(),
         });
   }
 }

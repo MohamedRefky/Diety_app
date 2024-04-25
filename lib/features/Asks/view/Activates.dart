@@ -1,7 +1,7 @@
+import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Container_Activites.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
-import 'package:diety/features/Asks/model/UserInfoProvider.dart';
 import 'package:diety/features/Asks/view/Age.dart';
 import 'package:diety/features/User%20Detials/view/UserDitails.dart';
 import 'package:flutter/material.dart';

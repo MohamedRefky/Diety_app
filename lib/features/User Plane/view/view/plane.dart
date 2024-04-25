@@ -1,6 +1,7 @@
 // ignore_for_file: depend_on_referenced_packages
+import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Asks/model/UserInfoProvider.dart';
+import 'package:diety/Core/widget/navbar.dart';
 import 'package:diety/features/Search%20Food/view/Breakfast.dart';
 import 'package:diety/features/Search%20Food/view/Dinner.dart';
 import 'package:diety/features/Search%20Food/view/Lunch.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+
 class Plane extends StatefulWidget {
   const Plane({super.key});
 
@@ -97,6 +99,7 @@ class _PlaneState extends State<Plane> {
           ),
         ),
       ),
+      bottomNavigationBar: const salomon_bottom_bar(),
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: SingleChildScrollView(
@@ -251,7 +254,7 @@ class _PlaneState extends State<Plane> {
                               ),
                             ),
                             Text(
-                              "2300",
+                              '${CaloriseRemining.toInt().toString()} cal',
                               style: TextStyle(
                                 color: AppColors.white,
                               ),
@@ -269,7 +272,7 @@ class _PlaneState extends State<Plane> {
                               ),
                             ),
                             Text(
-                              "0",
+                              caloriesConsumed.toString(),
                               style: TextStyle(
                                 color: AppColors.white,
                               ),
@@ -290,7 +293,7 @@ class _PlaneState extends State<Plane> {
                               ),
                             ),
                             Text(
-                              "2300",
+                              '${CaloriseRemining.toInt().toString()} cal',
                               style: TextStyle(
                                 color: AppColors.white,
                               ),

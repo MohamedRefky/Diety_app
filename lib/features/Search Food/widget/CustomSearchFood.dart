@@ -1,5 +1,5 @@
+import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Asks/model/UserInfoProvider.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -114,7 +114,6 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
                       setState(() {
                         CaloriesConsumed = storedValue.toString();
                         print("Searched Value: $CaloriesConsumed");
-                        //print(storedValue);
                       });
                     },
                     icon: Icon(
@@ -161,8 +160,8 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
         value = value;
         if (value != null) {
           _searchResult = 'Every 100 grams of $valueToSearch is : $value';
-            Provider.of<UserInfoProvider>(context, listen: false)
-            .updateCaloriesConsumed(value!);
+          Provider.of<UserInfoProvider>(context, listen: false)
+              .updateCaloriesConsumed(value!);
           //CaloriesConsumed = value.toString();
         } else {
           _searchResult = 'Value not found.';

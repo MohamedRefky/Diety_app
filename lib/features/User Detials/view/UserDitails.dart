@@ -1,6 +1,6 @@
+import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
-import 'package:diety/features/Asks/model/UserInfoProvider.dart';
 import 'package:diety/features/Asks/view/Activates.dart';
 import 'package:diety/features/User%20Detials/widget/viewDitails.dart';
 import 'package:diety/features/User%20Detials/wishes.dart';
@@ -9,9 +9,10 @@ import 'package:gap/gap.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 
+
 class UserDitails extends StatelessWidget {
   const UserDitails({super.key});
-
+ 
   @override
   Widget build(BuildContext context) {
     final userInfo = Provider.of<UserInfoProvider>(context).userInfo;
@@ -41,20 +42,18 @@ class UserDitails extends StatelessWidget {
             )),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(15),
+        padding: const EdgeInsets.all(20),
         child: Center(
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                
                 SizedBox(
                     width: 300,
                     height: 280,
                     child: Lottie.asset(
                       'Images/Ditails_Animation.json',
                     )),
-                const Gap(20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

@@ -1,10 +1,9 @@
 // ignore: unused_import
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:diety/Core/utils/Colors.dart';
-
-import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/Core/widget/Custom_TextFormFealed.dart';
+import 'package:diety/features/Auth/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -24,9 +23,8 @@ class _SignUpState extends State<SignUp> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController Confirmpassword = TextEditingController();
-
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -138,12 +136,32 @@ class _SignUpState extends State<SignUp> {
                   ),
                   const Gap(20),
                   //Sign Up Buttom
+                  isLoading
+                      ? CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(AppColors.button),
+                        )
+                      : const SizedBox(),
                   Custom_Button(
                     text: 'Sign Up',
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
+                        // Check if passwords match
+                        if (password.text != Confirmpassword.text) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text("Passwords do not match"),
+                              duration: Duration(seconds: 2),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                          return;
+                        }
+
+                        setState(() {
+                          isLoading = true; // Set loading state to true
+                        });
                         try {
-                          // ignore: unused_local_variable
                           final credential = await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                             email: email.text,
@@ -151,48 +169,51 @@ class _SignUpState extends State<SignUp> {
                           );
                           FirebaseAuth.instance.currentUser!
                               .sendEmailVerification();
-                          // ignore: use_build_context_synchronously
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(
-                            content: Text("saved successfuly"),
+                            content: Text("saved successfully"),
                             duration: Duration(seconds: 2),
                             backgroundColor: Colors.green,
                           ));
-                          // ignore: use_build_context_synchronously
                           Navigator.of(context).pushReplacementNamed("Login");
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'invalid-email') {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content: Text(
-                                      "The email address is badly formatted \n make sure that email include xxx@xxx.xx"),
-                                  duration: Duration(seconds: 5),
-                                  backgroundColor: Colors.red),
+                                content: Text(
+                                    "The email address is badly formatted \n make sure that email includes xxx@xxx.xx"),
+                                duration: Duration(seconds: 5),
+                                backgroundColor: Colors.red,
+                              ),
                             );
                           } else if (e.code == 'weak-password') {
-                            // ignore: avoid_print
                             print('The password provided is too weak.');
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content: Text(
-                                      "The password provided is too weak \n Password should be at least 6 characters"),
-                                  duration: Duration(seconds: 2),
-                                  backgroundColor: Colors.red),
+                                content: Text(
+                                    "The password provided is too weak \n Password should be at least 6 characters"),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.red,
+                              ),
                             );
                           } else if (e.code == 'email-already-in-use') {
-                            // ignore: avoid_print
                             print('The account already exists for that email.');
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content: Text(
-                                      "The account already exists for that email"),
-                                  duration: Duration(seconds: 2),
-                                  backgroundColor: Colors.red),
+                                content: Text(
+                                    "The account already exists for that email"),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.red,
+                              ),
                             );
                           }
+                          // Handle other Firebase Auth exceptions here
+                        } finally {
+                          setState(() {
+                            isLoading = false; // Set loading state to false
+                          });
                         }
                       }
-                      return null;
                     },
                   ),
                   const Gap(20),
@@ -221,7 +242,7 @@ class _SignUpState extends State<SignUp> {
                     children: [
                       InkWell(
                         onTap: () async {
-                         //await signInWithFacebook();
+                          //await signInWithFacebook();
                         },
                         child: Container(
                           height: 60,
@@ -240,7 +261,7 @@ class _SignUpState extends State<SignUp> {
                       const Gap(10),
                       InkWell(
                         onTap: () async {
-                           //await signInWithGoogle();
+                          //await signInWithGoogle();
                         },
                         child: Container(
                           height: 60,

@@ -1,4 +1,4 @@
-import 'package:diety/features/Asks/model/UserInfo.dart';
+import 'package:diety/Core/model/UserInfo.dart';
 import 'package:flutter/material.dart';
 // Adjust the path as per your project structure
 
@@ -47,7 +47,7 @@ class UserInfoProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-   void updateCaloriesConsumed(String value) {
+  void updateCaloriesConsumed(String value) {
     _caloriesConsumed = value;
     notifyListeners();
   }

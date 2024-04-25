@@ -1,5 +1,5 @@
+import 'package:diety/Core/model/UserInfo.dart';
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Asks/model/UserInfo.dart';
 import 'package:flutter/material.dart';
 
 class customRowVeiwDitails extends StatelessWidget {
@@ -8,7 +8,8 @@ class customRowVeiwDitails extends StatelessWidget {
     required this.userInfo,
     required this.title,
     required this.value,
-   this.titlefontSize, this.valuefontSize,
+    this.titlefontSize,
+    this.valuefontSize,
   });
 
   final UserInfo userInfo;

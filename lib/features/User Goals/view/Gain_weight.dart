@@ -1,6 +1,6 @@
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
-import 'package:diety/features/Asks/model/UserInfoProvider.dart';
+import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:diety/features/User%20Goals/Widget/Container_Goal.dart';
 import 'package:diety/features/User%20Goals/view/Lose_weight.dart';
@@ -19,6 +19,13 @@ class gain_Weight extends StatefulWidget {
 List<bool> isSelected = List.generate(4, (index) => false);
 
 class _gain_WeightState extends State<gain_Weight> {
+  void initState() {
+    super.initState();
+    isSelected = [false, true, false, false];
+    final userInfo =
+        Provider.of<UserInfoProvider>(context, listen: false).userInfo;
+    CaloriseRemining = userInfo.dailyCalories + 500;
+  }
   @override
   Widget build(BuildContext context) {
     final userInfo = Provider.of<UserInfoProvider>(context).userInfo;

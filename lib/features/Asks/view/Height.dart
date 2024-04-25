@@ -1,9 +1,9 @@
 // ignore_for_file: avoid_print
 
 //import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
-import 'package:diety/features/Asks/model/UserInfoProvider.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Asks/view/Weight.dart';
 import 'package:diety/features/Asks/widget/textFormfield.dart';
@@ -19,6 +19,7 @@ class Height extends StatefulWidget {
   State<Height> createState() => _HeightState();
 }
 
+// late String height;
 class _HeightState extends State<Height> {
   // TextEditingController for height input
   final TextEditingController _heightController = TextEditingController();

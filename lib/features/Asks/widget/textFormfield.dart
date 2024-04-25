@@ -9,7 +9,7 @@ class textFormField extends StatelessWidget {
     required this.validator,
     this.onChanged,
     this.onTap,
-    required this.mycontroller, // Make this required
+     this.mycontroller,  // Make this required
   });
 
   final String hintText;
