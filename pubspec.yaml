@@ -38,7 +38,7 @@ dependencies:
   firebase_auth: ^4.17.9
   firebase_core: ^2.27.1
   firebase_database: ^10.4.10
-  firebase_messaging: ^14.7.20
+  firebase_messaging: ^14.9.1
   firebase_storage: ^11.6.10
   flutter:
     sdk: flutter
@@ -55,11 +55,24 @@ dependencies:
   provider: ^6.1.2
   salomon_bottom_bar: ^3.3.2
   shared_preferences: ^2.2.3
+  card_loading: ^0.3.2
+  awesome_notifications: ^0.9.3+1
+  flutter_local_notifications: ^17.1.0
+  timezone: ^0.9.3
+  flutter_timezone: ^1.0.8
+  workmanager: ^0.5.2
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "Images/logo.jpg"
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

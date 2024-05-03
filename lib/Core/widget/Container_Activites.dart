@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';

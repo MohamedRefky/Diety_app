@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
+import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -20,7 +22,7 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
   bool _isKeyboardVisible = false;
   String CaloriesConsumed = '';
   String? storedValue;
-  
+
   @override
   void initState() {
     super.initState();
@@ -113,6 +115,7 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
                   IconButton(
                     onPressed: () {
                       setState(() {
+                        test();
                         CaloriesConsumed = storedValue.toString();
                         print("Searched Value: $CaloriesConsumed");
                       });
@@ -266,5 +269,28 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
         _suggestedValues.clear();
       }
     });
+  }
+
+  Future<void> test() async {
+    try {
+      // Get the current document snapshot to preserve existing data
+      DocumentSnapshot snapshot = await users.doc(uid).get();
+      // Extract the existing data, cast to Map<String, dynamic>
+      Map<String, dynamic> existingData =
+          (snapshot.data() as Map<String, dynamic>);
+
+      // Merge the existing data with the new data
+      Map<String, dynamic> newData = {
+        ...existingData,
+        "CaloriesConsumed": storedValue,
+      };
+
+      // Update the document with the merged data
+      await users.doc(uid).set(newData, SetOptions(merge: true));
+
+      print('User updated in Firestore');
+    } catch (error) {
+      print('Failed to update user: $error');
+    }
   }
 }

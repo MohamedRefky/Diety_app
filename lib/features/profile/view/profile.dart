@@ -1,9 +1,10 @@
-// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, unused_field, unused_local_variable, unused_element
 
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
+import 'package:diety/features/profile/view/contact%20us%20.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -187,6 +188,18 @@ class _ProfileState extends State<Profile> {
         appBar: AppBar(
           backgroundColor: const Color(0xff151724),
           centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (context) => const contactus(),
+                ));
+              },
+              icon: const Icon(
+                Icons.message_outlined,
+              ),
+            )
+          ],
           leading: IconButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(

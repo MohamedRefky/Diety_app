@@ -13,13 +13,14 @@ import 'package:diety/features/User%20Plane/view/widget/navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class Plane extends StatefulWidget {
-  const Plane({super.key});
-
+  const Plane({super.key, this.response});
+  final NotificationResponse? response;
   @override
   State<Plane> createState() => _PlaneState();
 }
@@ -152,8 +153,9 @@ class _PlaneState extends State<Plane> {
                                 fontSize: 16,
                               ),
                             ),
+                            
                             Text(
-                              '${caloriesRemining.toString()} cal',
+                              '$caloriesRemining cal',
                               style: TextStyle(
                                 color: AppColors.white,
                               ),

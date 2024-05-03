@@ -1,3 +1,5 @@
+// ignore_for_file: camel_case_types
+
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/User%20Plane/view/view/plane.dart';
@@ -8,7 +10,6 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../../Search Food/view/Breakfast.dart';
 import '../../../Search Food/view/Dinner.dart';
-
 
 class salomon_bottom_bar extends StatefulWidget {
   const salomon_bottom_bar({Key? key}) : super(key: key);

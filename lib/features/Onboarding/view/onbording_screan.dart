@@ -1,8 +1,11 @@
+// ignore_for_file: camel_case_types
+
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Onboarding/widget/Constants.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -103,10 +106,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       }
                     });
                   },
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.arrow_forward_ios,
                     size: 24,
-                    color: Colors.white,
+                    color: AppColors.white,
                   )),
             ),
           ),
@@ -162,42 +165,38 @@ class createPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.only(left: 50, right: 50, bottom: 80),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              height: 350,
-              child: Image.asset(image),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: Constants.primaryColor,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
+        padding:
+            const EdgeInsets.only(top: 50, left: 50, right: 50, bottom: 80),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 280,
+                child: Image.asset(image),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              description,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w400,
-                color: Colors.grey,
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Constants.primaryColor,
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-          ],
+              const Gap(15),
+              Text(
+                description,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.white,
+                ),
+              ),
+              const Gap(20),
+            ],
+          ),
         ));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:flutter/material.dart';
 
+// ignore: camel_case_types
 class Container_Goal extends StatelessWidget {
   const Container_Goal({
     super.key,

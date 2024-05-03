@@ -144,6 +144,7 @@ class _SetupPageState extends State {
                     onPressed: () async {
                       await _pickImage();
                       test();
+                      // ignore: use_build_context_synchronously
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const Gender(),
                       ));
