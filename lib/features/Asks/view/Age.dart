@@ -4,8 +4,11 @@ import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Asks/view/Activates.dart';
 import 'package:diety/features/Asks/view/Weight.dart';
 import 'package:diety/features/Asks/widget/textFormfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'Gender.dart';
 
 class Age extends StatefulWidget {
   const Age({Key? key}) : super(key: key);
@@ -13,6 +16,8 @@ class Age extends StatefulWidget {
   @override
   State<Age> createState() => _AgeState();
 }
+
+late String age;
 
 class _AgeState extends State<Age> {
   TextEditingController ageController = TextEditingController();
@@ -91,6 +96,8 @@ class _AgeState extends State<Age> {
                   text: 'Continue',
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
+                      age = ageController.text;
+                      test();
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const Activates(),
                       ));
@@ -103,5 +110,16 @@ class _AgeState extends State<Age> {
         ),
       ),
     );
+  }
+
+  Future<void> test() async {
+    return users
+        .doc(uid)
+        .update({
+          "email": FirebaseAuth.instance.currentUser!.email,
+          "age": age,
+        })
+        .then((value) => print('User added to Firestore'))
+        .catchError((error) => print('Failed to add user: $error'));
   }
 }

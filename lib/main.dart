@@ -1,16 +1,15 @@
+
 import 'package:diety/Core/model/UserInfoProvider.dart';
-import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Home/Home.dart';
 import 'package:diety/features/Onboarding/view/onbording_screan.dart';
+import 'package:diety/features/User%20Plane/view/view/plane.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
-import 'features/Asks/view/Height.dart'; // Import Provider package
- 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,8 +23,7 @@ void main() async {
 
   runApp(
     ChangeNotifierProvider(
-      create: (context) =>
-          UserInfoProvider(), // Create an instance of UserInfoProvider
+      create: (context) => UserInfoProvider(),
       child: const MyApp(),
     ),
   );
@@ -53,17 +51,19 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        title: 'Diety',
+        theme: ThemeData(
+          fontFamily: GoogleFonts.aBeeZee().fontFamily,
+        ),
         debugShowCheckedModeBanner: false,
         home: (FirebaseAuth.instance.currentUser != null &&
                 FirebaseAuth.instance.currentUser!.emailVerified)
-            ? const Gender()
+            ? const Plane()
             : const OnboardingScreen(),
         routes: {
           "SingUp": (context) => const SignUp(),
           "Login": (context) => const Login(),
           "home": (context) => const Home(),
-          "Gender": (context) => const Gender(),
-          "Height" :(context) => const Height(),
         });
   }
 }

@@ -1,5 +1,4 @@
 class UserInfo {
-  
   String gender;
   double height;
   double weight;
@@ -13,8 +12,6 @@ class UserInfo {
     required this.age,
     required this.activity,
   });
-
- 
 
   set caloriseRemining(double caloriseRemining) {}
 
@@ -96,11 +93,11 @@ class UserInfo {
     } else if (bmi >= 25.0 && bmi < 29.9) {
       return 'Overweight';
     } else if (bmi >= 30.0 && bmi < 34.9) {
-      return 'Obesity class I (Moderate)';
+      return 'Obesity class I\n    (Moderate)';
     } else if (bmi >= 35.0 && bmi < 39.9) {
-      return 'Obesity class II (severe)';
+      return 'Obesity class II\n   (severe)';
     } else {
-      return 'Obesity class II (Very severe)';
+      return 'Obesity class II\n   (Very severe)';
     }
   }
 

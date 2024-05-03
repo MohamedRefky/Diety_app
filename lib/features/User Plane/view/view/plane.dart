@@ -1,15 +1,16 @@
 // ignore_for_file: depend_on_referenced_packages
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/Core/widget/navbar.dart';
 import 'package:diety/features/Search%20Food/view/Breakfast.dart';
 import 'package:diety/features/Search%20Food/view/Dinner.dart';
 import 'package:diety/features/Search%20Food/view/Lunch.dart';
 import 'package:diety/features/Search%20Food/view/Snacks.dart';
 import 'package:diety/features/User%20Detials/view/UserDitails.dart';
 import 'package:diety/features/User%20Goals/view/Lose_weight.dart';
-// ignore: unused_import
 import 'package:diety/features/User%20Plane/view/widget/Custom-Container.dart';
+import 'package:diety/features/User%20Plane/view/widget/navbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -24,8 +25,35 @@ class Plane extends StatefulWidget {
 }
 
 class _PlaneState extends State<Plane> {
-  UserInfoProvider userInfoProvider = UserInfoProvider();
+  @override
+  void initState() {
+    super.initState();
+    _getUserdData();
+  }
+
+  late String caloriesRemining = '';
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late String _uid;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   var date = DateFormat.yMd().format(DateTime.now());
+
+  Future<void> _getUserdData() async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      setState(() {
+        _uid = user.uid;
+      });
+
+      // Query Firestore for the user document using UID
+      DocumentSnapshot userDoc =
+          await _firestore.collection('users').doc(_uid).get();
+      setState(() {
+        caloriesRemining = userDoc.get('Calories Remining');
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     String caloriesConsumed =
@@ -86,7 +114,6 @@ class _PlaneState extends State<Plane> {
                     'Today',
                     style: TextStyle(
                       color: AppColors.white,
-                      //fontSize: 15,
                     ),
                   ),
                   Text(
@@ -126,7 +153,7 @@ class _PlaneState extends State<Plane> {
                               ),
                             ),
                             Text(
-                              '${CaloriseRemining.toInt().toString()} cal',
+                              '${caloriesRemining.toString()} cal',
                               style: TextStyle(
                                 color: AppColors.white,
                               ),
@@ -254,7 +281,7 @@ class _PlaneState extends State<Plane> {
                               ),
                             ),
                             Text(
-                              '${CaloriseRemining.toInt().toString()} cal',
+                              '${caloriesRemining.toString()} cal',
                               style: TextStyle(
                                 color: AppColors.white,
                               ),

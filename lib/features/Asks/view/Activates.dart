@@ -5,7 +5,10 @@ import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Asks/view/Age.dart';
 import 'package:diety/features/User%20Detials/view/UserDitails.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
+
+import 'Gender.dart';
 
 class Activates extends StatefulWidget {
   const Activates({
@@ -16,9 +19,16 @@ class Activates extends StatefulWidget {
   State<Activates> createState() => _ActivatesState();
 }
 
+late String activity;
 List<bool> isSelected = List.generate(5, (index) => false);
 
 class _ActivatesState extends State<Activates> {
+  @override
+  void initState() {
+    super.initState();
+    isSelected = [false, true, false, false, false];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +67,7 @@ class _ActivatesState extends State<Activates> {
 for people who spent most of their time
 sitting or lying down ex: Programmer, Bank
 Teller, Office Admin'''),
-              const SizedBox(height: 15),
+              const Gap(15),
               Countainer_activites(
                 onTap: () {
                   setState(() {
@@ -65,7 +75,7 @@ Teller, Office Admin'''),
                   });
                 },
                 color: isSelected[1] ? AppColors.button : AppColors.background,
-                height: 160,
+                height: 150,
                 title: 'Lightly Active 🚶',
                 text: '''
 for people who engage in light physical
@@ -73,7 +83,7 @@ activities throughout the day, such as
 walking or household chores ex: Teacher
 Salesman, school student''',
               ),
-              const SizedBox(height: 15),
+              const Gap(15),
               Countainer_activites(
                 onTap: () {
                   setState(() {
@@ -81,7 +91,7 @@ Salesman, school student''',
                   });
                 },
                 color: isSelected[2] ? AppColors.button : AppColors.background,
-                height: 160,
+                height: 150,
                 title: 'Moderately Active 🏃',
                 text: '''
 For people who participate in moderate      
@@ -89,7 +99,7 @@ physical activities regularly, such as
 cycling, or playing sports ex: Personal
 Trainer, Waiter University student''',
               ),
-              const SizedBox(height: 15),
+              const Gap(15),
               Countainer_activites(
                 onTap: () {
                   setState(() {
@@ -97,7 +107,7 @@ Trainer, Waiter University student''',
                   });
                 },
                 color: isSelected[3] ? AppColors.button : AppColors.background,
-                height: 190,
+                height: 180,
                 title: 'Very Active 🐎',
                 text: '''
 For people who engage in intense physical
@@ -106,7 +116,7 @@ intensity workouts, competitive sports, or
 physically demanding occupations
 ex: Athlete, Construction, Fitness Instructor''',
               ),
-              const SizedBox(height: 15),
+              const Gap(15),
               Countainer_activites(
                 onTap: () {
                   setState(() {
@@ -114,7 +124,7 @@ ex: Athlete, Construction, Fitness Instructor''',
                   });
                 },
                 color: isSelected[4] ? AppColors.button : AppColors.background,
-                height: 220,
+                height: 200,
                 title: 'Extra active 🏋️',
                 text: '''
 For people who have an exceptionally active
@@ -128,6 +138,8 @@ firefighter''',
               Custom_Button(
                 text: 'Continue',
                 onPressed: () {
+                  test();
+
                   String selectedActivityLevel = _getSelectedActivityLevel();
                   final userInfoProvider =
                       Provider.of<UserInfoProvider>(context, listen: false);
@@ -156,5 +168,16 @@ firefighter''',
     int selectedIndex = isSelected.indexOf(true);
     return activityLevels[selectedIndex];
   }
-  
+
+  Future<void> test() async {
+    final String activity = _getSelectedActivityLevel();
+
+    return users
+        .doc(uid)
+        .update({
+          "activity": activity,
+        })
+        .then((value) => print('User added to Firestore'))
+        .catchError((error) => print('Failed to add user: $error'));
+  }
 }

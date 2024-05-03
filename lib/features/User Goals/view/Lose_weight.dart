@@ -1,12 +1,14 @@
-import 'package:diety/Core/model/UserInfoProvider.dart';
+// ignore_for_file: non_constant_identifier_names
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
-import 'package:diety/features/User%20Detials/wishes.dart';
 import 'package:diety/features/User%20Goals/Widget/Container_Goal.dart';
+import 'package:diety/features/User%20Goals/view/wishes.dart';
 import 'package:diety/features/User%20Plane/view/view/plane.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:provider/provider.dart';
 
 // ignore: camel_case_types
 class lose_Weight extends StatefulWidget {
@@ -17,22 +19,40 @@ class lose_Weight extends StatefulWidget {
 }
 
 List<bool> isSelected = List.generate(4, (index) => false);
-double CaloriseRemining = 0;
+String dailyCal = '';
+
+double CaloriseRemining = 0.0;
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+late String _uid;
 
 // ignore: camel_case_types
 class _lose_WeightState extends State<lose_Weight> {
+  Future<void> _getUserdData() async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      setState(() {
+        _uid = user.uid;
+      });
+
+      // Query Firestore for the user document using UID
+      DocumentSnapshot userDoc =
+          await _firestore.collection('users').doc(_uid).get();
+      setState(() {
+        dailyCal = userDoc.get('dailyCalories');
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    isSelected = [false, true, false, false];
-    final userInfo =
-        Provider.of<UserInfoProvider>(context, listen: false).userInfo;
-    CaloriseRemining = userInfo.dailyCalories - 500;
+    _getUserdData();
+ 
   }
 
   @override
   Widget build(BuildContext context) {
-    final userInfo = Provider.of<UserInfoProvider>(context).userInfo;
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -66,8 +86,8 @@ class _lose_WeightState extends State<lose_Weight> {
               onTap: () {
                 setState(() {
                   isSelected = [true, false, false, false];
-                  CaloriseRemining = userInfo.dailyCalories - 250;
-                  print(CaloriseRemining.toInt());
+                  CaloriseRemining = double.parse(dailyCal) - 250;
+                  print(CaloriseRemining);
                 });
               },
               color: isSelected[0] ? AppColors.button : AppColors.background,
@@ -78,8 +98,8 @@ class _lose_WeightState extends State<lose_Weight> {
               onTap: () {
                 setState(() {
                   isSelected = [false, true, false, false];
-                  CaloriseRemining = userInfo.dailyCalories - 500;
-                  print(CaloriseRemining.toInt());
+                  CaloriseRemining = double.parse(dailyCal) - 500;
+                  print(CaloriseRemining);
                 });
               },
               color: isSelected[1] ? AppColors.button : AppColors.background,
@@ -90,7 +110,7 @@ class _lose_WeightState extends State<lose_Weight> {
               onTap: () {
                 setState(() {
                   isSelected = [false, false, true, false];
-                  CaloriseRemining = userInfo.dailyCalories - 750;
+                  CaloriseRemining = double.parse(dailyCal) - 750;
                 });
               },
               color: isSelected[2] ? AppColors.button : AppColors.background,
@@ -101,7 +121,7 @@ class _lose_WeightState extends State<lose_Weight> {
               onTap: () {
                 setState(() {
                   isSelected = [false, false, false, true];
-                  CaloriseRemining = userInfo.dailyCalories - 1000;
+                  CaloriseRemining = double.parse(dailyCal) - 1000;
                 });
               },
               color: isSelected[3] ? AppColors.button : AppColors.background,
@@ -112,13 +132,45 @@ class _lose_WeightState extends State<lose_Weight> {
                 width: double.infinity,
                 text: 'Continue',
                 onPressed: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const Plane(),
-                  ));
+                  if (isSelected.contains(true)) {
+                    test();
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const Plane(),
+                    ));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        backgroundColor: Colors.red,
+                        content: Text('Please Select Your Goal'),
+                      ),
+                    );
+                  }
                 })
           ],
         ),
       ),
     );
+  }
+
+  Future<void> test() async {
+    String currentData = '';
+    if (isSelected[0]) {
+      currentData = 'Lose 0.25 Kg per week';
+    } else if (isSelected[1]) {
+      currentData = 'Lose 0.5 Kg per week';
+    } else if (isSelected[2]) {
+      currentData = 'Lose 0.75 Kg per week';
+    } else if (isSelected[3]) {
+      currentData = 'Lose 1 Kg per week';
+    }
+    return _firestore
+        .collection('users')
+        .doc(_uid)
+        .update({
+          "Calories Remining": CaloriseRemining.toString(),
+          "Goal Weight": currentData,
+        })
+        .then((value) => print('User data updated in Firestore'))
+        .catchError((error) => print('Failed to update user data: $error'));
   }
 }

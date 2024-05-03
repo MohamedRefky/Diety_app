@@ -5,7 +5,8 @@ class Container_Goal extends StatelessWidget {
   const Container_Goal({
     super.key,
     required this.text,
-    required this.onTap, required this.color,
+    required this.onTap,
+    required this.color,
   });
   final String text;
   final Function() onTap;
@@ -15,7 +16,7 @@ class Container_Goal extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-          width: double.infinity,
+          width: MediaQuery.of(context).size.width,
           height: 60,
           decoration: BoxDecoration(
             color: color,
@@ -26,13 +27,13 @@ class Container_Goal extends StatelessWidget {
             padding: const EdgeInsets.all(9),
             child: Row(
               children: [
-                Text(
-                  text,
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: AppColors.text,
-                  ),
-                ),
+                RichText(
+                    text: TextSpan(
+                        style: const TextStyle(fontSize: 20),
+                        children: [
+                      TextSpan(
+                          text: text, style: TextStyle(color: AppColors.text))
+                    ])),
               ],
             ),
           )),

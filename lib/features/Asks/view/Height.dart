@@ -19,7 +19,8 @@ class Height extends StatefulWidget {
   State<Height> createState() => _HeightState();
 }
 
-// late String height;
+late String height;
+
 class _HeightState extends State<Height> {
   // TextEditingController for height input
   final TextEditingController _heightController = TextEditingController();
@@ -68,7 +69,7 @@ class _HeightState extends State<Height> {
                   height: 290,
                   child: Image(image: AssetImage('Images/height2.jpg')),
                 ),
-                const Gap(30),  
+                const Gap(30),
                 textFormField(
                   onChanged: (value) {
                     final userInfoProvider =
@@ -98,7 +99,8 @@ class _HeightState extends State<Height> {
                   text: 'Continue',
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                  
+                      height = _heightController.text;
+                      test();
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => const Weight(),
@@ -113,5 +115,13 @@ class _HeightState extends State<Height> {
         ),
       ),
     );
+  }
+
+  Future<void> test() async {
+    return users
+        .doc(uid)
+        .update({"height": height})
+        .then((value) => print('user added $height'))
+        .catchError((error) => print(error));
   }
 }

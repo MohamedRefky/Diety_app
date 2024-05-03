@@ -20,6 +20,7 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
   bool _isKeyboardVisible = false;
   String CaloriesConsumed = '';
   String? storedValue;
+  
   @override
   void initState() {
     super.initState();

@@ -1,4 +1,3 @@
-
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/User%20Detials/view/UserDitails.dart';
@@ -59,9 +58,6 @@ class _WishesState extends State<Wishes> {
                     setState(() {
                       isLose = true;
                     });
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const lose_Weight(),
-                    ));
                   },
                   style: ElevatedButton.styleFrom(
                     side: BorderSide(color: AppColors.button, width: 2),
@@ -90,9 +86,6 @@ class _WishesState extends State<Wishes> {
                     setState(() {
                       isLose = false;
                     });
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const gain_Weight(),
-                    ));
                   },
                   style: ElevatedButton.styleFrom(
                     side: BorderSide(color: AppColors.button, width: 2),
@@ -117,12 +110,12 @@ class _WishesState extends State<Wishes> {
                 width: double.infinity,
                 text: 'Continue',
                 onPressed: () {
-                  if (isLose == true) {
-                    Navigator.of(context).push(MaterialPageRoute(
+                  if (isLose) {
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const lose_Weight(),
                     ));
                   } else {
-                    Navigator.of(context).push(MaterialPageRoute(
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
                       builder: (context) => const gain_Weight(),
                     ));
                   }

@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:connectivity/connectivity.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/Core/widget/Custom_TextFormFealed.dart';
+import 'package:diety/features/Auth/SetupPage%20.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -142,77 +145,69 @@ class _LoginState extends State<Login> {
                     ),
                     const Gap(5),
                     //Forget Password
-                    isLoading
-                        ? CircularProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(AppColors.button),
-                          )
-                        : Container(
-                            margin: const EdgeInsets.only(top: 5, bottom: 10),
-                            alignment: Alignment.topRight,
-                            child: InkWell(
-                              onTap: () async {
-                                if (email.text == "") {
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
-                                    content: Text(
-                                      "please enter your email first",
-                                    ),
-                                    duration: Duration(seconds: 2),
-                                    backgroundColor: Colors.red,
-                                  ));
-                                  return;
-                                }
-                                try {
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-                                  await FirebaseAuth.instance
-                                      .sendPasswordResetEmail(
-                                          email: email.text);
-                                  ScaffoldMessenger.of(context)
-                                      .showSnackBar(const SnackBar(
-                                    content: Text(
-                                        "we sent Reset password link to your email"),
-                                    duration: Duration(seconds: 2),
-                                    backgroundColor: Colors.green,
-                                  ));
-
-                                  setState(() {
-                                    isLoading = false;
-                                  });
-                                } on FirebaseAuthException catch (e) {
-                                  if (e.code == 'invalid-email') {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                      content: Text(
-                                          "The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
-                                      duration: Duration(seconds: 2),
-                                      backgroundColor: Colors.red,
-                                    ));
-                                  } else if (e.code == 'user-not-found') {
-                                    // ignore: avoid_print
-                                    print('No user found for that email.');
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                      content:
-                                          Text("No user found for that email"),
-                                      duration: Duration(seconds: 2),
-                                      backgroundColor: Colors.red,
-                                    ));
-                                  }
-                                }
-                              },
-                              child: Text(
-                                "Forget Password ?",
-                                style: TextStyle(
-                                    fontSize: 12, color: AppColors.text),
+                    Container(
+                      margin: const EdgeInsets.only(top: 5, bottom: 10),
+                      alignment: Alignment.topRight,
+                      child: InkWell(
+                        onTap: () async {
+                          if (email.text == "") {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text(
+                                "please enter your email first",
                               ),
-                            ),
-                          ),
+                              duration: Duration(seconds: 2),
+                              backgroundColor: Colors.red,
+                            ));
+                            return;
+                          }
+                          try {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await FirebaseAuth.instance
+                                .sendPasswordResetEmail(email: email.text);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text(
+                                  "we sent Reset password link to your email"),
+                              duration: Duration(seconds: 2),
+                              backgroundColor: Colors.green,
+                            ));
+
+                            setState(() {
+                              isLoading = false;
+                            });
+                          } on FirebaseAuthException catch (e) {
+                            if (e.code == 'invalid-email') {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                    "The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.red,
+                              ));
+                            } else if (e.code == 'user-not-found') {
+                              // ignore: avoid_print
+                              print('No user found for that email.');
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text("No user found for that email"),
+                                duration: Duration(seconds: 2),
+                                backgroundColor: Colors.red,
+                              ));
+                            }
+                          }
+                        },
+                        child: Text(
+                          "Forget Password ?",
+                          style: TextStyle(fontSize: 12, color: AppColors.text),
+                        ),
+                      ),
+                    ),
                     const Gap(15),
                     //Login Buttom
-                    // Show CircularProgressIndicator when loading
+
                     isLoading
                         ? CircularProgressIndicator(
                             valueColor:
@@ -244,7 +239,14 @@ class _LoginState extends State<Login> {
                                   );
                                   if (credential.user!.emailVerified) {
                                     Navigator.of(context)
-                                        .pushReplacementNamed('Gender');
+                                        .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => const SetupPage(),
+                                    ));
+                                  } else if (!credential.user!.emailVerified) {
+                                    Navigator.of(context)
+                                        .pushReplacement(MaterialPageRoute(
+                                      builder: (context) => const SetupPage(),
+                                    ));
                                   } else {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(

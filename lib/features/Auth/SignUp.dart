@@ -1,5 +1,6 @@
 // ignore: unused_import
-import 'package:awesome_dialog/awesome_dialog.dart';
+// ignore_for_file: unused_local_variable, use_build_context_synchronously, non_constant_identifier_names
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/Core/widget/Custom_TextFormFealed.dart';
@@ -162,19 +163,34 @@ class _SignUpState extends State<SignUp> {
                           isLoading = true; // Set loading state to true
                         });
                         try {
+                          // Create user with email and password
                           final credential = await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                             email: email.text,
                             password: password.text,
                           );
-                          FirebaseAuth.instance.currentUser!
-                              .sendEmailVerification();
+
+                          // Save additional user data to Firebase Firestore
+                          await FirebaseFirestore.instance
+                              .collection('users')
+                              .doc(credential.user!.uid)
+                              .set({
+                            'first Name': firstname.text,
+                            'last Name': lastname.text,
+                            'email': email.text,
+                          });
+
+                          // Send email verification
+                          await credential.user!.sendEmailVerification();
+
                           ScaffoldMessenger.of(context)
                               .showSnackBar(const SnackBar(
-                            content: Text("saved successfully"),
+                            content: Text("Saved successfully"),
                             duration: Duration(seconds: 2),
                             backgroundColor: Colors.green,
                           ));
+
+                          // Navigate to login screen
                           Navigator.of(context).pushReplacementNamed("Login");
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'invalid-email') {
@@ -235,51 +251,7 @@ class _SignUpState extends State<SignUp> {
                       ),
                     ],
                   ),
-                  const Gap(25),
-                  // login with Google and facebook
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () async {
-                          //await signInWithFacebook();
-                        },
-                        child: Container(
-                          height: 60,
-                          width: 60,
-                          decoration: BoxDecoration(
-                            color: AppColors.background,
-                          ),
-                          child: const Padding(
-                              padding: EdgeInsets.all(5),
-                              child: CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('Images/Google.png'),
-                              )),
-                        ),
-                      ),
-                      const Gap(10),
-                      InkWell(
-                        onTap: () async {
-                          //await signInWithGoogle();
-                        },
-                        child: Container(
-                          height: 60,
-                          width: 60,
-                          decoration: BoxDecoration(
-                            color: AppColors.background,
-                          ),
-                          child: const Padding(
-                              padding: EdgeInsets.all(5),
-                              child: CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('Images/facebook.jpg'),
-                              )),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Gap(10),
+                  const Gap(15),
                   //have Acc
                   Row(
                     children: [

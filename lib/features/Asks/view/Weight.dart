@@ -4,8 +4,11 @@ import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Asks/view/Age.dart';
 import 'package:diety/features/Asks/view/Height.dart';
 import 'package:diety/features/Asks/widget/textFormfield.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'Gender.dart';
 
 class Weight extends StatefulWidget {
   const Weight({Key? key}) : super(key: key);
@@ -13,6 +16,8 @@ class Weight extends StatefulWidget {
   @override
   State<Weight> createState() => _WeightState();
 }
+
+late String weight;
 
 class _WeightState extends State<Weight> {
   TextEditingController weightController = TextEditingController();
@@ -73,7 +78,7 @@ class _WeightState extends State<Weight> {
                       return 'Please Enter Your Weight';
                     } else {
                       final weight = double.tryParse(value);
-                      if (weight == null || weight > 300 || weight <= 20) {
+                      if (weight == null || weight > 400 || weight <= 20) {
                         return 'Please Enter A Valid Weight';
                       }
                     }
@@ -87,8 +92,10 @@ class _WeightState extends State<Weight> {
                 ),
                 Custom_Button(
                   text: 'Continue',
-                  onPressed: () {
+                  onPressed: () { 
                     if (formKey.currentState!.validate()) {
+                      weight = weightController.text;
+                      test();
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => const Age(),
@@ -103,5 +110,16 @@ class _WeightState extends State<Weight> {
         ),
       ),
     );
+  }
+
+  Future<void> test( ) async {
+    return users
+        .doc(uid)
+        .update({
+          "email": FirebaseAuth.instance.currentUser!.email,
+          "weight": weight,
+        })
+        .then((value) => print('User added to Firestore'))
+        .catchError((error) => print('Failed to add user: $error'));
   }
 }

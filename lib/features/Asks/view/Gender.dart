@@ -20,9 +20,11 @@ class Gender extends StatefulWidget {
   State<Gender> createState() => _GenderState();
 }
 
+late String gender;
 bool isMale = true;
 CollectionReference users = FirebaseFirestore.instance.collection('users');
 String uid = FirebaseAuth.instance.currentUser!.uid;
+
 class _GenderState extends State<Gender> {
   @override
   Widget build(BuildContext context) {
@@ -124,6 +126,7 @@ class _GenderState extends State<Gender> {
                 text: 'Continue',
                 onPressed: () {
                   test();
+
                   final userInfoProvider =
                       Provider.of<UserInfoProvider>(context, listen: false);
                   userInfoProvider.updateUserInfo(
@@ -142,11 +145,14 @@ class _GenderState extends State<Gender> {
       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
     );
   }
+
   Future<void> test() async {
+    final String userGender = isMale ? 'Male' : 'Female';
     return users
         .doc(uid)
         .set({
           "email": FirebaseAuth.instance.currentUser!.email,
+          "gender": userGender,
         })
         .then((value) => print('user added'))
         .catchError((error) => print(error));
