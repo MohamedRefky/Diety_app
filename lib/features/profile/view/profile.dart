@@ -266,7 +266,8 @@ class _ProfileState extends State<Profile> {
                       height: 390,
                       color: const Color(0xff151724),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(
+                            top: 8.0, left: 10.0, right: 10.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -405,7 +406,8 @@ class _ProfileState extends State<Profile> {
                       height: 320,
                       color: const Color(0xff151724),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(
+                            top: 8.0, left: 10.0, right: 10.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -459,7 +461,8 @@ class _ProfileState extends State<Profile> {
                       height: 240,
                       color: const Color(0xff151724),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(
+                            top: 8.0, left: 10.0, right: 10.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [

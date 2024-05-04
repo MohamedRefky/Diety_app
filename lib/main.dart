@@ -91,7 +91,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         title: 'Diety',
         theme: ThemeData(
-          fontFamily: GoogleFonts.aBeeZee().fontFamily,
+          fontFamily: GoogleFonts.poppins().fontFamily,
         ),
         debugShowCheckedModeBanner: false,
         home: (FirebaseAuth.instance.currentUser != null &&

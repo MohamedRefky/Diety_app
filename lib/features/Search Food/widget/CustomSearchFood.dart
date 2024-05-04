@@ -271,26 +271,59 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
     });
   }
 
+  // Future<void> test() async {
+  //   try {
+  //     // Get the current document snapshot to preserve existing data
+  //     DocumentSnapshot snapshot = await users.doc(uid).get();
+  //     // Extract the existing data, cast to Map<String, dynamic>
+  //     Map<String, dynamic> existingData =
+  //         (snapshot.data() as Map<String, dynamic>);
+
+  //     // Merge the existing data with the new data
+  //     Map<String, dynamic> newData = {
+  //       ...existingData,
+  //       "CaloriesConsumed": storedValue,
+  //     };
+
+  //     // Update the document with the merged data
+  //     await users.doc(uid).set(newData, SetOptions(merge: true));
+
+  //     print('User updated in Firestore');
+  //   } catch (error) {
+  //     print('Failed to update user: $error');
+  //   }
+  // }
   Future<void> test() async {
     try {
-      // Get the current document snapshot to preserve existing data
-      DocumentSnapshot snapshot = await users.doc(uid).get();
-      // Extract the existing data, cast to Map<String, dynamic>
-      Map<String, dynamic> existingData =
-          (snapshot.data() as Map<String, dynamic>);
+      // Remove the "cal" part from storedValue
+      String? valueWithoutCal = storedValue?.replaceAll('cal', '').trim();
 
-      // Merge the existing data with the new data
-      Map<String, dynamic> newData = {
-        ...existingData,
-        "CaloriesConsumed": storedValue,
-      };
+      if (valueWithoutCal != null && valueWithoutCal.isNotEmpty) {
+        // Convert the value to a double
+        double parsedValue = double.parse(valueWithoutCal);
 
-      // Update the document with the merged data
-      await users.doc(uid).set(newData, SetOptions(merge: true));
+        // Get the current document snapshot to preserve existing data
+        DocumentSnapshot snapshot = await users.doc(uid).get();
+        // Extract the existing data, cast to Map<String, dynamic>
+        Map<String, dynamic> existingData =
+            (snapshot.data() as Map<String, dynamic>);
 
-      print('User updated in Firestore');
+        // Merge the existing data with the new data
+        Map<String, dynamic> newData = {
+          ...existingData,
+          "CaloriesConsumed": parsedValue,
+        };
+
+        // Update the document with the merged data
+        await users.doc(uid).set(newData, SetOptions(merge: true));
+
+        print('User updated in Firestore');
+      } else {
+        print('Value is empty or not valid');
+      }
     } catch (error) {
       print('Failed to update user: $error');
     }
   }
+  
 }

@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_typing_uninitialized_variables, non_constant_identifier_names
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
@@ -10,7 +11,7 @@ import 'package:diety/features/User%20Goals/view/wishes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:lottie/lottie.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:provider/provider.dart';
 
 var userInfo;
@@ -27,6 +28,7 @@ String age = '0'; // Initialize with a default value
 String height = '0'; // Initialize with a default value
 String weight = '0'; // Initialize with a default value
 String activity = '';
+String bmi = '0';
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 late String _uid;
@@ -58,6 +60,7 @@ class _UserDitailsState extends State<UserDitails> {
         age = userDoc.get('age') ?? '0'; // Use default value if age is null
         gender =
             userDoc.get('gender') ?? ''; // Use default value if gender is null
+        bmi = userDoc.get('BMI') ?? '0';
       });
     }
   }
@@ -65,6 +68,7 @@ class _UserDitailsState extends State<UserDitails> {
   @override
   Widget build(BuildContext context) {
     final userInfo = Provider.of<UserInfoProvider>(context).userInfo;
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -97,28 +101,62 @@ class _UserDitailsState extends State<UserDitails> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                    width: 300,
-                    height: 280,
-                    child: Lottie.asset(
-                      'Images/Ditails_Animation.json',
-                    )),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      gender,
-                      style: TextStyle(color: AppColors.white),
-                    ),
-                    Text(height.toString(),
-                        style: TextStyle(color: AppColors.white)),
-                    Text(weight.toString(),
-                        style: TextStyle(color: AppColors.white)),
-                    Text(activity, style: TextStyle(color: AppColors.white)),
-                    Text(age.toString(),
-                        style: TextStyle(color: AppColors.white))
-                  ],
+                // SizedBox(
+                //     width: 300,
+                //     height: 280,
+                //     child: Lottie.asset(
+                //       'Images/Ditails_Animation.json',
+                //     )),
+                CircularPercentIndicator(
+                  animationDuration: 1800,
+                  animation: true,
+                  radius: 100,
+                  lineWidth: 22,
+                  percent: double.parse(calculateBMI().toString()) / 100,
+                  progressColor: AppColors.button,
+                  backgroundColor: AppColors.grey,
+                  circularStrokeCap: CircularStrokeCap.round,
+                  center: Text(
+                    "${calculateBMI().toStringAsFixed(1)}%",
+                    style: TextStyle(
+                        color: AppColors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30),
+                  ),
                 ),
+
+                const Gap(10),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: [
+                //     Text(
+                //       gender,
+                //       style: TextStyle(color: AppColors.white),
+                //     ),
+                //     Text(height.toString(),
+                //         style: TextStyle(color: AppColors.white)),
+                //     Text(weight.toString(),
+                //         style: TextStyle(color: AppColors.white)),
+                //     Text(activity, style: TextStyle(color: AppColors.white)),
+                //     Text(age.toString(),
+                //         style: TextStyle(color: AppColors.white))
+                //   ],
+                // ),
+                AnimatedTextKit(
+                  animatedTexts: [
+                    TypewriterAnimatedText(
+                        " Health Status is  ${calculateAndDetermineBMI().toString()}",
+                        textStyle: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.white),
+                        speed: const Duration(milliseconds: 100)),
+                  ],
+                  totalRepeatCount: 1,
+                  stopPauseOnTap: true,
+                  displayFullTextOnTap: true,
+                ),
+                const Gap(10),
                 customRowVeiwDitails(
                   title: 'Your daily calorie needed :',
                   value: dailyCalories.toStringAsFixed(1),
@@ -129,12 +167,12 @@ class _UserDitailsState extends State<UserDitails> {
                   value: calculateBMI().toStringAsFixed(1),
                 ),
                 const Gap(15),
-                customRowVeiwDitails(
-                  title: 'Health Status :',
-                  value: calculateAndDetermineBMI().toString(),
-                  valuefontSize: 17,
-                ),
-                const Gap(15),
+                // customRowVeiwDitails(
+                //   title: 'Health Status :',
+                //   value: calculateAndDetermineBMI().toString(),
+                //   valuefontSize: 17,
+                // ),
+                // const Gap(15),
                 customRowVeiwDitails(
                   title: 'Ideal Weight :',
                   value: '${calculateIdealWeight().toStringAsFixed(1)} kg',
@@ -149,7 +187,51 @@ class _UserDitailsState extends State<UserDitails> {
                   title: 'Optimal Sleep Duration :',
                   value: '${calculateOptimalSleepDuration()} hrs',
                 ),
-                const Gap(50),
+                const Gap(15),
+
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(25),
+                      bottomLeft: Radius.circular(25),
+                    ),
+                    gradient: LinearGradient(
+                      colors: [
+                        AppColors.button.withOpacity(0.4),
+                        AppColors.button.withOpacity(0.5),
+                        AppColors.button.withOpacity(1),
+                      ],
+                      stops: const [0.0, 0.75, 1.0],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Advice For You !",
+                          style: TextStyle(
+                              color: AppColors.white,
+                              decoration: TextDecoration.underline,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(
+                          height: 22,
+                        ),
+                        Text(
+                          showDetailedAdvice(
+                              double.parse(calculateBMI().toString())),
+                          style:
+                              TextStyle(color: AppColors.white, fontSize: 16),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                const Gap(40),
                 Custom_Button(
                     width: 300,
                     text: 'My Plane',
@@ -276,11 +358,31 @@ class _UserDitailsState extends State<UserDitails> {
     } else if (bmi >= 25.0 && bmi < 29.9) {
       return 'Overweight';
     } else if (bmi >= 30.0 && bmi < 34.9) {
-      return 'Obesity class I\n    (Moderate)';
+      return 'Obesity class I';
     } else if (bmi >= 35.0 && bmi < 39.9) {
-      return 'Obesity class II\n   (severe)';
+      return 'Obesity class II';
     } else {
-      return 'Obesity class II\n   (Very severe)';
+      return 'Obesity class III';
+    }
+  }
+
+  String showDetailedAdvice(double bmi) {
+    if (bmi < 16.0) {
+      return "Severely Underweight. It's critical to seek medical attention immediately. Rapid weight loss can indicate serious health issues. Consult with a healthcare professional to address underlying causes and develop a safe and effective plan for weight gain.";
+    } else if (bmi >= 16.0 && bmi < 16.9) {
+      return "Underweight. Although not severely underweight, it's essential to address any unintentional weight loss. Focus on increasing calorie intake through balanced meals and snacks. Incorporate strength training exercises to build muscle mass and improve overall health.";
+    } else if (bmi >= 17.0 && bmi < 18.4) {
+      return "Mildly Underweight. While not severely underweight, it's important to pay attention to nutrition and overall health. Aim for a balanced diet rich in nutrient-dense foods and consider consulting with a dietitian to develop a personalized eating plan.";
+    } else if (bmi >= 18.5 && bmi < 24.9) {
+      return "Normal Weight. Congratulations on maintaining a healthy weight! Continue to prioritize healthy eating habits and regular physical activity to support overall well-being.";
+    } else if (bmi >= 25.0 && bmi < 29.9) {
+      return "Overweight. It's important to focus on gradual weight loss to reduce health risks associated with excess weight. Incorporate more fruits, vegetables, and whole grains into your diet, and aim for at least 150 minutes of moderate-intensity exercise per week.";
+    } else if (bmi >= 30.0 && bmi < 34.9) {
+      return "Obesity class I. Take proactive steps to manage your weight and improve your health. Work with a healthcare professional to develop a comprehensive plan that includes dietary changes, increased physical activity, and behavior modification strategies.";
+    } else if (bmi >= 35.0 && bmi < 39.9) {
+      return "Obesity class II. This is a serious health condition requiring professional intervention. Consideration of medical treatments, such as medication or bariatric surgery, may be necessary. Seek guidance from healthcare providers specializing in obesity management.";
+    } else {
+      return "Obesity class III. Also known as morbid obesity, this is a severe health condition requiring urgent medical attention. Immediate intervention is necessary to reduce the risk of associated health complications. Consult with healthcare specialists experienced in managing severe obesity.";
     }
   }
 

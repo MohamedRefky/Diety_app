@@ -1,6 +1,5 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Search%20Food/view/Breakfast.dart';
 import 'package:diety/features/Search%20Food/view/Dinner.dart';
@@ -14,9 +13,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class Plane extends StatefulWidget {
   const Plane({super.key, this.response});
@@ -32,6 +32,7 @@ class _PlaneState extends State<Plane> {
     _getUserdData();
   }
 
+  late String CaloriesConsumed = '';
   late String caloriesRemining = '';
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late String _uid;
@@ -51,14 +52,13 @@ class _PlaneState extends State<Plane> {
           await _firestore.collection('users').doc(_uid).get();
       setState(() {
         caloriesRemining = userDoc.get('Calories Remining');
+        CaloriesConsumed = userDoc.get('CaloriesConsumed').toString();
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    String caloriesConsumed =
-        Provider.of<UserInfoProvider>(context).caloriesConsumed;
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -133,57 +133,170 @@ class _PlaneState extends State<Plane> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Row(
-                children: [
-                  SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: Image.asset('Images/shap.jpg')),
-                  const Gap(10),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Calories Remining",
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                            
-                            Text(
-                              '$caloriesRemining cal',
-                              style: TextStyle(
-                                color: AppColors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Calories Consumed",
-                              style: TextStyle(
-                                color: AppColors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                            Text(
-                              caloriesConsumed.toString(),
-                              style: TextStyle(
-                                color: AppColors.white,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.button.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: const EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width,
+                child: Column(children: [
+                  Row(
+                    children: [
+                      Text(
+                        'Calories ',
+                        style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
                   ),
-                ],
+                  Row(
+                    children: [
+                      Text(
+                        'Remining = Goal - Food ',
+                        style: TextStyle(
+                          color: AppColors.grey,
+                          fontSize: 15,
+                        ),
+                      )
+                    ],
+                  ),
+                  const Gap(10),
+                  Row(
+                    children: [
+                      CircularPercentIndicator(
+                        animationDuration: 1000,
+                        animation: true,
+                        radius: 60,
+                        lineWidth: 12,
+                        percent: 100 / 3088,
+                        progressColor: Colors.blue,
+                        backgroundColor: AppColors.background,
+                        circularStrokeCap: CircularStrokeCap.round,
+                        center: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${(double.tryParse(caloriesRemining) ?? 0.0) - (double.tryParse(CaloriesConsumed) ?? 0.0)}",
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                              ),
+                            ),
+                            Text(
+                              'Remining ',
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: 15,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      const Gap(70),
+                      const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Icon(
+                              FontAwesomeIcons.bolt,
+                              color: Colors.yellow,
+                            ),
+                            Gap(20),
+                            Icon(
+                              FontAwesomeIcons.utensils,
+                              color: Colors.blueAccent,
+                            ),
+                          ]),
+                      const Gap(10),
+                      Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Base Goal',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: AppColors.white,
+                              ),
+                            ),
+                            Text(
+                              caloriesRemining,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.white,
+                              ),
+                            ),
+                            const Gap(5),
+                            Text(
+                              'Food',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: AppColors.white,
+                              ),
+                            ),
+                            Text(
+                              CaloriesConsumed,
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.white,
+                              ),
+                            ),
+                          ])
+                      // SizedBox(
+                      //     height: 50,
+                      //     width: 50,
+                      //     child: Image.asset('Images/shap.jpg')),
+                      // const Gap(10),
+                      // Expanded(
+                      //   child: Column(
+                      //     children: [
+                      //       Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [
+                      //           Text(
+                      //             "Calories Remining",
+                      //             style: TextStyle(
+                      //               color: AppColors.white,
+                      //               fontSize: 16,
+                      //             ),
+                      //           ),
+
+                      //           Text(
+                      //             '$caloriesRemining cal',
+                      //             style: TextStyle(
+                      //               color: AppColors.white,
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //       Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [
+                      //           Text(
+                      //             "Calories Consumed",
+                      //             style: TextStyle(
+                      //               color: AppColors.white,
+                      //               fontSize: 16,
+                      //             ),
+                      //           ),
+                      //           Text(
+                      //             caloriesConsumed.toString(),
+                      //             style: TextStyle(
+                      //               color: AppColors.white,
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                ]),
               ),
               const Gap(10),
               CustomContainer(
@@ -301,7 +414,7 @@ class _PlaneState extends State<Plane> {
                               ),
                             ),
                             Text(
-                              caloriesConsumed.toString(),
+                              CaloriesConsumed.toString(),
                               style: TextStyle(
                                 color: AppColors.white,
                               ),

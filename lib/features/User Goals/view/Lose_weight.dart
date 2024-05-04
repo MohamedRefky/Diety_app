@@ -48,7 +48,6 @@ class _lose_WeightState extends State<lose_Weight> {
   void initState() {
     super.initState();
     _getUserdData();
- 
   }
 
   @override
