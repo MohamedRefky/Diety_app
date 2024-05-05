@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
+import 'package:diety/features/Auth/SetupPage%20.dart';
 import 'package:diety/features/profile/view/contact%20us%20.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -227,14 +228,22 @@ class _ProfileState extends State<Profile> {
                       CircleAvatar(
                         radius: 50,
                         backgroundColor: AppColors.white,
-                        child: CircleAvatar(
-                          radius: 60,
-                          backgroundImage: (file != null)
-                              ? FileImage(file!)
-                              : (profileUrl != null)
-                                  ? NetworkImage(profileUrl!)
-                                  : const AssetImage('Images/person.png')
-                                      as ImageProvider,
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                              builder: (context) => const SetupPage(),
+                            ));
+                          },
+                          child: CircleAvatar(
+                            radius: 60,
+                            backgroundImage: (file != null)
+                                ? FileImage(file!)
+                                : (profileUrl != null)
+                                    ? NetworkImage(profileUrl!)
+                                    : const AssetImage('Images/person.png')
+                                        as ImageProvider,
+                          ),
                         ),
                       ),
                     ],

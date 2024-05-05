@@ -1,11 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/Core/widget/Custom_TextFormFealed.dart';
-import 'package:diety/features/Auth/SetupPage%20.dart';
+import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/SignUp.dart';
+import 'package:diety/features/User%20Plane/view/view/plane.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -23,8 +25,29 @@ bool isInternetAvailable = true;
 bool isNotVisable = true;
 FirebaseAuth auth = FirebaseAuth.instance;
 bool isLoading = false;
+String age = '0';
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+late String _uid;
 
 class _LoginState extends State<Login> {
+  @override
+  Future<void> _getUserdData() async {
+    User? user = _auth.currentUser;
+    if (user != null) {
+      setState(() {
+        _uid = user.uid;
+      });
+
+      DocumentSnapshot userDoc =
+          await _firestore.collection('users').doc(_uid).get();
+      setState(() {
+        age = userDoc.get('age') ?? '0';
+        gender = userDoc.get('gender') ?? '';
+      });
+    }
+  }
+
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
@@ -75,6 +98,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
+    _getUserdData();
     // Initialize the connectivity plugin
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
       setState(() {
@@ -241,15 +265,17 @@ class _LoginState extends State<Login> {
                                     password: password.text,
                                   );
                                   if (credential.user!.emailVerified) {
-                                    Navigator.of(context)
-                                        .pushReplacement(MaterialPageRoute(
-                                      builder: (context) => const SetupPage(),
-                                    ));
-                                  } else if (!credential.user!.emailVerified) {
-                                    Navigator.of(context)
-                                        .pushReplacement(MaterialPageRoute(
-                                      builder: (context) => const SetupPage(),
-                                    ));
+                                    if (age == '') {
+                                      Navigator.of(context)
+                                          .pushReplacement(MaterialPageRoute(
+                                        builder: (context) => const Gender(),
+                                      ));
+                                    } else {
+                                      Navigator.of(context)
+                                          .pushReplacement(MaterialPageRoute(
+                                        builder: (context) => const Plane(),
+                                      ));
+                                    }
                                   } else {
                                     ScaffoldMessenger.of(context)
                                         .showSnackBar(const SnackBar(

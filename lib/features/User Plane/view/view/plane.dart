@@ -180,7 +180,6 @@ class _PlaneState extends State<Plane> {
                           fontSize: 15,
                         ),
                       ),
-                     
                     ],
                   ),
                   const Gap(10),

@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/Login.dart';
+import 'package:diety/features/profile/view/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -146,7 +146,7 @@ class _SetupPageState extends State {
                       test();
                       // ignore: use_build_context_synchronously
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const Gender(),
+                        builder: (context) => const Profile(),
                       ));
                     },
                     child: Text(
