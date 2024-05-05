@@ -6,7 +6,7 @@ import 'package:diety/features/Search%20Food/view/Dinner.dart';
 import 'package:diety/features/Search%20Food/view/Lunch.dart';
 import 'package:diety/features/Search%20Food/view/Snacks.dart';
 import 'package:diety/features/User%20Detials/view/UserDitails.dart';
-import 'package:diety/features/User%20Goals/view/Lose_weight.dart';
+import 'package:diety/features/User%20Plane/view/view/Today.dart';
 import 'package:diety/features/User%20Plane/view/widget/Custom-Container.dart';
 import 'package:diety/features/User%20Plane/view/widget/navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,6 +17,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+
+import 'Exercise.dart';
 
 class Plane extends StatefulWidget {
   const Plane({super.key, this.response});
@@ -37,7 +39,10 @@ class _PlaneState extends State<Plane> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   late String _uid;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+  final double consumed = 0.0;
+  final double remaining = 0.0;
+  late double percent = 0.0;
+  late double RemainingCal = 0.0;
   var date = DateFormat.yMd().format(DateTime.now());
 
   Future<void> _getUserdData() async {
@@ -59,6 +64,20 @@ class _PlaneState extends State<Plane> {
 
   @override
   Widget build(BuildContext context) {
+    double consumed = double.tryParse(CaloriesConsumed) ?? 0.0;
+    double remaining = double.tryParse(caloriesRemining) ?? 0.0;
+    RemainingCal = remaining - consumed;
+    if (RemainingCal < 0) {
+      RemainingCal = 0;
+    } else {
+      RemainingCal = RemainingCal;
+    }
+
+    if (consumed >= remaining) {
+      percent = 1;
+    } else {
+      percent = consumed / remaining;
+    }
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -160,7 +179,8 @@ class _PlaneState extends State<Plane> {
                           color: AppColors.grey,
                           fontSize: 15,
                         ),
-                      )
+                      ),
+                     
                     ],
                   ),
                   const Gap(10),
@@ -171,7 +191,7 @@ class _PlaneState extends State<Plane> {
                         animation: true,
                         radius: 60,
                         lineWidth: 12,
-                        percent: 100 / 3088,
+                        percent: percent,
                         progressColor: Colors.blue,
                         backgroundColor: AppColors.background,
                         circularStrokeCap: CircularStrokeCap.round,
@@ -179,7 +199,7 @@ class _PlaneState extends State<Plane> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "${(double.tryParse(caloriesRemining) ?? 0.0) - (double.tryParse(CaloriesConsumed) ?? 0.0)}",
+                              RemainingCal.toStringAsFixed(1),
                               style: TextStyle(
                                 color: AppColors.white,
                                 fontWeight: FontWeight.bold,
@@ -246,54 +266,6 @@ class _PlaneState extends State<Plane> {
                               ),
                             ),
                           ])
-                      // SizedBox(
-                      //     height: 50,
-                      //     width: 50,
-                      //     child: Image.asset('Images/shap.jpg')),
-                      // const Gap(10),
-                      // Expanded(
-                      //   child: Column(
-                      //     children: [
-                      //       Row(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //         children: [
-                      //           Text(
-                      //             "Calories Remining",
-                      //             style: TextStyle(
-                      //               color: AppColors.white,
-                      //               fontSize: 16,
-                      //             ),
-                      //           ),
-
-                      //           Text(
-                      //             '$caloriesRemining cal',
-                      //             style: TextStyle(
-                      //               color: AppColors.white,
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //       Row(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //         children: [
-                      //           Text(
-                      //             "Calories Consumed",
-                      //             style: TextStyle(
-                      //               color: AppColors.white,
-                      //               fontSize: 16,
-                      //             ),
-                      //           ),
-                      //           Text(
-                      //             caloriesConsumed.toString(),
-                      //             style: TextStyle(
-                      //               color: AppColors.white,
-                      //             ),
-                      //           ),
-                      //         ],
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                 ]),
@@ -363,7 +335,11 @@ class _PlaneState extends State<Plane> {
               ),
               const Gap(10),
               CustomContainer(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const Exercise(),
+                  ));
+                },
                 text: 'Add Exercise/Sleep',
                 iconData1: Icons.directions_run_outlined,
                 iconColor: const Color.fromRGBO(105, 111, 125, 1.0),
@@ -389,7 +365,7 @@ class _PlaneState extends State<Plane> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Calories Remining",
+                              "Pase Goal",
                               style: TextStyle(
                                 color: AppColors.white,
                                 fontSize: 16,
@@ -407,14 +383,14 @@ class _PlaneState extends State<Plane> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Calories Consumed",
+                              "Your Food",
                               style: TextStyle(
                                 color: AppColors.white,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
-                              CaloriesConsumed.toString(),
+                              '${CaloriesConsumed.toString()} cal',
                               style: TextStyle(
                                 color: AppColors.white,
                               ),
@@ -428,14 +404,14 @@ class _PlaneState extends State<Plane> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "0% of RDI",
+                              'percenta',
                               style: TextStyle(
                                 color: AppColors.white,
                                 fontSize: 16,
                               ),
                             ),
                             Text(
-                              '${CaloriseRemining.toInt().toString()} cal',
+                              '${(percent * 100).toStringAsFixed(0)}%',
                               style: TextStyle(
                                 color: AppColors.white,
                               ),
@@ -461,10 +437,15 @@ class _PlaneState extends State<Plane> {
                 children: [
                   Column(
                     children: [
-                      Icon(
-                        CupertinoIcons.chart_bar_alt_fill,
-                        color: AppColors.button,
-                        size: 50,
+                      IconButton(
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                            builder: (context) => const Today(),
+                          ));
+                        },
+                        icon: Icon(CupertinoIcons.chart_bar_alt_fill,
+                            color: AppColors.button, size: 50),
                       ),
                       Text(
                         "Today",

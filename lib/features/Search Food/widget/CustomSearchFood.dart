@@ -1,11 +1,11 @@
+// ignore_for_file: avoid_types_as_parameter_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:provider/provider.dart';
 
 class CustomSearchFood extends StatefulWidget {
   const CustomSearchFood({Key? key}) : super(key: key);
@@ -27,6 +27,7 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
   void initState() {
     super.initState();
     _searchController.addListener(_onSearchTextChanged);
+    _onAddPressed();
   }
 
   @override
@@ -115,6 +116,7 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
                   IconButton(
                     onPressed: () {
                       setState(() {
+                        _onAddPressed();
                         test();
                         CaloriesConsumed = storedValue.toString();
                         print("Searched Value: $CaloriesConsumed");
@@ -129,6 +131,7 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
                 ],
               ),
             ),
+            
             Expanded(
               child: ListView.builder(
                 itemCount: _suggestedValues.length,
@@ -152,21 +155,21 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
     );
   }
 
+ 
+  List<Map<String, dynamic>> selectedFoods = [];
+
   Future<void> _search() async {
     String valueToSearch = _searchController.text;
 
     try {
       // Call the searchByKey function to search for the value in the Firebase Realtime Database
       String? value = await searchByKey(valueToSearch);
-      storedValue = value;
+
       // Update state with the search result
       setState(() {
-        value = value;
         if (value != null) {
           _searchResult = 'Every 100 grams of $valueToSearch is : $value';
-          Provider.of<UserInfoProvider>(context, listen: false)
-              .updateCaloriesConsumed(value!);
-          //CaloriesConsumed = value.toString();
+          selectedFoods.add({"food": valueToSearch, "calories": value});
         } else {
           _searchResult = 'Value not found.';
         }
@@ -271,28 +274,42 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
     });
   }
 
-  // Future<void> test() async {
-  //   try {
-  //     // Get the current document snapshot to preserve existing data
-  //     DocumentSnapshot snapshot = await users.doc(uid).get();
-  //     // Extract the existing data, cast to Map<String, dynamic>
-  //     Map<String, dynamic> existingData =
-  //         (snapshot.data() as Map<String, dynamic>);
+  void _onAddPressed() async {
+    // Calculate total calories of selected foods
+    double totalCalories = selectedFoods.fold(0, (sum, food) {
+      // Extract the numeric part of the calories string
+      String calories = food['calories'].replaceAll(RegExp(r'[^\d.]'), '');
+      // Parse the extracted string as a double
+      double parsedCalories = double.parse(calories);
+      // Add the parsed calories to the sum
+      return sum + parsedCalories;
+    });
 
-  //     // Merge the existing data with the new data
-  //     Map<String, dynamic> newData = {
-  //       ...existingData,
-  //       "CaloriesConsumed": storedValue,
-  //     };
+    // Update CaloriesConsumed
+    setState(() {
+      CaloriesConsumed = totalCalories.toString();
+    });
 
-  //     // Update the document with the merged data
-  //     await users.doc(uid).set(newData, SetOptions(merge: true));
+    // Update Firestore document with the new total
+    try {
+      DocumentSnapshot snapshot = await users.doc(uid).get();
+      Map<String, dynamic> existingData =
+          (snapshot.data() as Map<String, dynamic>);
+      double existingCalories =
+          (existingData['CaloriesConsumed'] ?? 0).toDouble();
+      double newCalories = existingCalories + totalCalories;
 
-  //     print('User updated in Firestore');
-  //   } catch (error) {
-  //     print('Failed to update user: $error');
-  //   }
-  // }
+      Map<String, dynamic> newData = {
+        ...existingData,
+        "CaloriesConsumed": newCalories,
+      };
+      await users.doc(uid).set(newData, SetOptions(merge: true));
+      print('User updated in Firestore');
+    } catch (error) {
+      print('Failed to update user: $error');
+    }
+  }
+
   Future<void> test() async {
     try {
       // Remove the "cal" part from storedValue
@@ -301,6 +318,11 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
       if (valueWithoutCal != null && valueWithoutCal.isNotEmpty) {
         // Convert the value to a double
         double parsedValue = double.parse(valueWithoutCal);
+
+        // Update CaloriesConsumed
+        setState(() {
+          CaloriesConsumed = parsedValue.toString();
+        });
 
         // Get the current document snapshot to preserve existing data
         DocumentSnapshot snapshot = await users.doc(uid).get();
@@ -325,5 +347,4 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
       print('Failed to update user: $error');
     }
   }
-  
 }

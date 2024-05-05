@@ -304,8 +304,9 @@ class _UserDitailsState extends State<UserDitails> {
 
     return calories;
   }
-
+   
   // Method to get activity factor based on activity level
+  
   double getActivityFactor() {
     double activityFactor = 1; // Default activity factor
     switch (activity) {

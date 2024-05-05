@@ -54,6 +54,7 @@ dependencies:
   gap: ^3.0.1
   google_fonts: ^6.2.1
   google_sign_in: ^6.2.1
+  http: ^1.0.0
   image_picker: ^1.1.0
   krill_to_lotin: ^0.0.5
   lottie: ^3.1.0
