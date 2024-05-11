@@ -1,7 +1,7 @@
 import 'package:diety/Core/utils/Colors.dart';
+import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:diety/features/Search%20Food/widget/AppBar.dart';
 import 'package:diety/features/Search%20Food/widget/CustomSearchFood.dart';
-import 'package:diety/features/User%20Plane/view/view/plane.dart';
 import 'package:flutter/material.dart';
 
 class Lunch extends StatefulWidget {
@@ -20,15 +20,13 @@ class _LunchState extends State<Lunch> {
         text: 'Lunch',
         onPressed: () {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const Plane(),
+            builder: (context) => const Home(),
           ));
         },
       ),
       body: const Padding(
         padding: EdgeInsets.all(20),
-        child: CustomSearchFood(
-        
-        ),
+        child: CustomSearchFood(),
       ),
     );
   }

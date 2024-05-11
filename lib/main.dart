@@ -1,14 +1,15 @@
 import 'dart:developer';
 
 import 'package:diety/Core/model/UserInfoProvider.dart';
+import 'package:diety/Core/model/firenotifications.dart';
 import 'package:diety/Core/model/notifications.dart';
 import 'package:diety/Core/model/workmanagerservice.dart';
 import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
-import 'package:diety/features/Home/Home.dart';
+import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:diety/features/Onboarding/view/onbording_screan.dart';
 import 'package:diety/features/Search%20Food/view/Dinner.dart';
-import 'package:diety/features/User%20Plane/view/view/plane.dart';
+import 'package:diety/features/Splash/Splash.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: const FirebaseOptions(
@@ -32,10 +32,11 @@ void main() async {
   await Future.wait([
     //WorkManagerSercice().breakfast(),
     //WorkManagerSercice().init(),
-    WorkManagerSercice().dinner(),
-    //WorkManagerSercice().repetedwater(),
+    //WorkManagerSercice().dinner(),
+    WorkManagerSercice().repetedwater(),
     //WorkManagerSercice().lunch(),
-    //localnotificationservice.init()
+    //localnotificationservice.init(),
+    FirebaseApi().initNotifications(),
   ]);
 
   runApp(
@@ -80,9 +81,7 @@ class _MyAppState extends State<MyApp> {
                     )));
       } else if (NotificationResponse.id == 1) {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => Plane(response: NotificationResponse)));
+            context, MaterialPageRoute(builder: (context) => const Home()));
       } else {}
     });
   }
@@ -97,7 +96,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home: (FirebaseAuth.instance.currentUser != null &&
                 FirebaseAuth.instance.currentUser!.emailVerified)
-            ? const Plane()
+            ? const SplashView()
             : const OnboardingScreen(),
         routes: {
           "SingUp": (context) => const SignUp(),

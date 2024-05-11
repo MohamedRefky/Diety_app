@@ -3,14 +3,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
+import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:diety/features/User%20Goals/Widget/Container_Goal.dart';
 import 'package:diety/features/User%20Goals/view/wishes.dart';
-import 'package:diety/features/User%20Plane/view/view/plane.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-
 import '../../Asks/view/Gender.dart';
+
 
 class gain_Weight extends StatefulWidget {
   const gain_Weight({super.key});
@@ -134,7 +134,7 @@ class _gain_WeightState extends State<gain_Weight> {
                   if (isSelected.contains(true)) {
                     test();
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const Plane(),
+                      builder: (context) => const Home(),
                     ));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(

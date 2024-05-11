@@ -6,4 +6,5 @@ class AppColors {
   static Color white = Colors.grey.shade200;
   static Color grey = Colors.grey;
   static Color text = const Color(0xFFadecd9);
+  static Color primaryColor = const Color(0xFF1f5d4e);
 }

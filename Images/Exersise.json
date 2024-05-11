@@ -1,0 +1,211 @@
+{
+    "Plan1": {
+      "id" :"1",
+      "Case": "sever thinness",
+      "Goal": "Gradually increase muscle mass and improve overall fitness with gentle, low-impact exercises.",
+      "Day1": {
+        "Exercises": [
+          {
+            "Activity": "Walking",
+            "Duration": "15 minutes",
+            "Description": "Start slow, gradually increase pace over time."
+          },
+          {
+            "Activity": "Water Aerobics",
+            "Duration": "15 minutes",
+            "Description": "Low-impact on joints, good for building muscle and coordination."
+          }
+        ]
+      },
+      "Day2": "Rest - Allow your body to recover.",
+      "Day3": {
+        "Exercises": [
+          {
+            "Activity": "Light Strength Training",
+            "Duration": "10 minutes",
+            "Description": "Use bodyweight or light resistance bands for squats, lunges, arm raises. Focus on proper form over heavy weights."
+          },
+          {
+            "Activity": "Gentle Yoga",
+            "Duration": "15 minutes",
+            "Description": "Improves flexibility and core strength."
+          }
+        ]
+      },
+      "Day4_5": "Rest - Give your body time to adapt.",
+      "Day6": {
+        "Exercises": [
+          {
+            "Activity": "Walking",
+            "Duration": "20 minutes",
+            "Description": "Gradually increase duration."
+          }
+        ]
+      },
+      "Day7": "Rest or light activity like stretching."
+    },
+    "Plan2": {
+      "id" :"2",
+      "Case": "moderate thinness",
+      "Goal": "Increase intensity and duration from Plan 1 to build muscle and improve fitness.",
+      "Day1": {
+        "Exercises": [
+          {
+            "Activity": "Brisk Walking",
+            "Duration": "20 minutes",
+            "Description": "Maintain a pace that elevates your heart rate."
+          },
+          {
+            "Activity": "Light Strength Training",
+            "Duration": "15 minutes",
+            "Description": "Similar exercises as Plan 1, consider increasing weight/resistance slightly."
+          }
+        ]
+      },
+      "Day2": "Rest or Active Recovery (light yoga, walking).",
+      "Day3": {
+        "Exercises": [
+          {
+            "Activity": "Swimming",
+            "Duration": "20 minutes",
+            "Description": "Low-impact, full-body workout."
+          },
+          {
+            "Activity": "Upper Body Stretches",
+            "Duration": "10 minutes",
+            "Description": "Maintain flexibility and range of motion."
+          }
+        ]
+      },
+      "Day4": "Rest - Allow your body to recover.",
+      "Day5": {
+        "Exercises": [
+          {
+            "Activity": "Elliptical Trainer",
+            "Duration": "20 minutes",
+            "Description": "Low-impact cardio option."
+          },
+          {
+            "Activity": "Lower Body Stretches",
+            "Duration": "10 minutes",
+            "Description": "Focus on hamstrings, quads, and calves."
+          }
+        ]
+      },
+      "Day6": "Rest or Active Recovery.",
+      "Day7": {
+        "Activity": "Light Hike or Walk",
+        "Duration": "30 minutes",
+        "Description": "Explore nature while getting exercise."
+      }
+    },
+    "Plan3": {
+      "id" :"3",
+      "Case": "mild thinness",
+      "Day1": {
+        "Cardiovascular Exercise": "30 minutes of brisk walking or light jogging",
+        "Strength Training": "Bodyweight exercises (push-ups, squats, lunges) - 3 sets of 12 repetitions each",
+        "Flexibility": "10 minutes of yoga focusing on flexibility"
+      },
+      "Day2": "Rest or Light Activity: Gentle activities like walking or light stretching for 30 minutes",
+      "Day3": {
+        "Cardiovascular Exercise": "35 minutes of cycling or elliptical training",
+        "Flexibility": "15 minutes of dynamic stretching"
+      },
+      "Day4": {
+        "Strength Training": "Resistance band exercises (rows, chest presses) - 3 sets of 12 repetitions each",
+        "Flexibility": "10 minutes of static stretching"
+      },
+      "Day5": {
+        "Cardiovascular Exercise": "40 minutes of swimming or rowing",
+        "Strength Training": "Dumbbell exercises (shoulder presses, bicep curls) - 3 sets of 10 repetitions each",
+        "Flexibility": "10 minutes of yoga for relaxation"
+      },
+      "Day6": "Rest or Light Activity: Active recovery with light activities like leisurely cycling or walking for 30 minutes",
+      "Day7": "Active Recovery: Engage in gentle activities like Tai Chi or gentle yoga for 40 minutes focusing on relaxation and flexibility"
+    },
+    "Plan4": {
+      "id" :"4",
+      "Case": "normal",
+      "Day1": {
+        "Cardio": "30 minutes",
+        "Strength Training": "20 minutes"
+      },
+      "Day2": "Rest or Active Recovery (15-20 minutes)",
+      "Day3": {
+        "Cardio": "20 minutes",
+        "Core Strengthening": "15 minutes"
+      },
+      "Day4": "Rest",
+      "Day5": {
+        "Cardio": "30 minutes",
+        "Flexibility Training": "15 minutes"
+      },
+      "Day6": "Rest or Active Recovery",
+      "Day7": "Active Recovery (45-60 minutes)"
+    },
+    "Plan5": {
+      "id" :"5",
+      "Case": "over weight",
+      "Day1": {
+        "Cardio": "40 minutes",
+        "Strength Training": "20 minutes"
+      },
+      "Day2": "Rest or Active Recovery (15-20 minutes)",
+      "Day3": {
+        "Cardio": "30 minutes",
+        "Core Strengthening": "15 minutes"
+      },
+      "Day4": "Rest",
+      "Day5": {
+        "Cardio": "20 minutes",
+        "Flexibility Training": "15 minutes"
+      },
+      "Day6": "Rest or Active Recovery",
+      "Day7": "Active Recovery (45-60 minutes)"
+    },
+    "Plan6": {
+      "id" :"6",
+      "Case": "obese",
+      "Day1": {
+        "Cardio": "30 minutes",
+        "Strength Training": "15 minutes"
+      },
+      "Day2": "Rest or Active Recovery (15-20 minutes)",
+      "Day3": {
+        "Cardio": "30 minutes",
+        "Core Strengthening": "10 minutes"
+      },
+      "Day4": "Rest",
+      "Day5": {
+        "Cardio": "20 minutes",
+        "Flexibility Training": "10 minutes"
+      },
+      "Day6": "Rest or Active Recovery",
+      "Day7": "Active Recovery (45 minutes)"
+    },
+    "Plan7": {
+      "id" :"7",
+      "Case": "severe obese",
+      "Day1": {
+        "Activity": "Supervised Water-Based Exercise",
+        "Duration": "30 minutes",
+        "Focus": "Low-impact cardiovascular exercise, improve joint mobility and range of motion."
+      },
+      "Day2": "Rest or Light Activity (15 minutes)",
+      "Day3": {
+        "Activity": "Supervised Strength Training",
+        "Duration": "20-30 minutes",
+        "Focus": "Build muscle strength for improved daily functioning and future exercise progression."
+      },
+      "Day4": "Rest or Light Activity (15 minutes)",
+      "Day5": {
+        "Activity": "Supervised Walking",
+        "Duration": "20-30 minutes",
+        "Focus": "Improve cardiovascular health, maintain joint mobility."
+      },
+      "Day6": "Rest",
+      "Day7": "Light Activity or Rest (optional)"
+    }
+  }
+  

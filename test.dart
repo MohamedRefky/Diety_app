@@ -8,12 +8,12 @@ void main() async {
 
   // Sample data for testing
   var data = {
-    'Weight': [57.0],
-    'Height': [1.28],
+    'Weight': [40],
+    'Height': [180],
     'Gender': ['Male'],
-    'Age': [20]
+    'Age': [21]
   };
-  var jsonData = json.encode(data); 
+  var jsonData = json.encode(data);
   var response = await http.post(
     url,
     headers: <String, String>{

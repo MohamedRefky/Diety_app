@@ -4,20 +4,19 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
-import 'package:diety/features/Auth/SetupPage%20.dart';
+import 'package:diety/features/Home/view/view/Home.dart';
+import 'package:diety/features/Home/view/widget/navbar.dart';
 import 'package:diety/features/profile/view/contact%20us%20.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Core/utils/Colors.dart';
 import '../../Auth/Login.dart';
-import '../../User Plane/view/view/plane.dart';
 import '../widget/styles.dart';
+import 'SetupPage .dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -43,7 +42,7 @@ class _ProfileState extends State<Profile> {
   String? profileUrl;
   String? userID;
   Map<String, dynamic>? userData;
-  late String gender = '';
+  String gender = '';
   late String age = '';
   late String height = '';
   late String weight = '';
@@ -57,6 +56,8 @@ class _ProfileState extends State<Profile> {
   late String HealthStatus = '';
   late String BMI = '';
   late String idealweight = '';
+  late String FirstName = '';
+  late String LastName = '';
 
   Future<void> _getUserdData() async {
     User? user = _auth.currentUser;
@@ -83,6 +84,8 @@ class _ProfileState extends State<Profile> {
         HealthStatus = userDoc.get('HealthStatus');
         BMI = userDoc.get('BMI');
         idealweight = userDoc.get('idealWeight');
+        FirstName = userDoc.get('firstName') ?? '';
+        LastName = userDoc.get('lastName');
       });
     }
   }
@@ -117,69 +120,69 @@ class _ProfileState extends State<Profile> {
     }
   }
 
-  Future<void> updateProfileImage(String newImageUrl) async {
-    User? user = FirebaseAuth.instance.currentUser;
-    if (user != null) {
-      String userID = user.uid;
-      try {
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(userID)
-            .update({
-          "image": newImageUrl,
-        });
-        setState(() {
-          profileUrl = newImageUrl; // Update profileUrl with new image URL
-        });
-        print('User profile updated successfully');
-      } catch (error) {
-        print('Failed to update user profile: $error');
-      }
-    }
-  }
+  // Future<void> updateProfileImage(String newImageUrl) async {
+  //   User? user = FirebaseAuth.instance.currentUser;
+  //   if (user != null) {
+  //     String userID = user.uid;
+  //     try {
+  //       await FirebaseFirestore.instance
+  //           .collection('users')
+  //           .doc(userID)
+  //           .update({
+  //         "image": newImageUrl,
+  //       });
+  //       setState(() {
+  //         profileUrl = newImageUrl; // Update profileUrl with new image URL
+  //       });
+  //       print('User profile updated successfully');
+  //     } catch (error) {
+  //       print('Failed to update user profile: $error');
+  //     }
+  //   }
+  // }
 
-  Future<String> uploadImageToFireStore(File image) async {
-    Reference ref =
-        FirebaseStorage.instance.ref().child('users/$userID/profileImage.jpg');
-    SettableMetadata metadata = SettableMetadata(contentType: 'image/jpeg');
-    await ref.putFile(image, metadata);
-    String url = await ref.getDownloadURL();
-    return url;
-  }
+  // Future<String> uploadImageToFireStore(File image) async {
+  //   Reference ref =
+  //       FirebaseStorage.instance.ref().child('users/$userID/profileImage.jpg');
+  //   SettableMetadata metadata = SettableMetadata(contentType: 'image/jpeg');
+  //   await ref.putFile(image, metadata);
+  //   String url = await ref.getDownloadURL();
+  //   return url;
+  // }
 
-  Future<void> _pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+  // Future<void> _pickImage() async {
+  //   final pickedFile =
+  //       await ImagePicker().pickImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      final imageFile = File(pickedFile.path);
-      final imageUrl = await uploadImageToFireStore(imageFile);
+  //   if (pickedFile != null) {
+  //     final imageFile = File(pickedFile.path);
+  //     final imageUrl = await uploadImageToFireStore(imageFile);
 
-      setState(() {
-        _imagePath = pickedFile.path;
-        file = imageFile;
-        profileUrl = imageUrl;
-      });
+  //     setState(() {
+  //       _imagePath = pickedFile.path;
+  //       file = imageFile;
+  //       profileUrl = imageUrl;
+  //     });
 
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        String userID = user.uid;
+  //     User? user = FirebaseAuth.instance.currentUser;
+  //     if (user != null) {
+  //       String userID = user.uid;
 
-        try {
-          // Update profile image URL in Firestore
-          await updateProfileImage(profileUrl!); // Await here
+  //       try {
+  //         // Update profile image URL in Firestore
+  //         await updateProfileImage(profileUrl!); // Await here
 
-          // Save profile image URL to local storage
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString('profileImageUrl', profileUrl!);
+  //         // Save profile image URL to local storage
+  //         SharedPreferences prefs = await SharedPreferences.getInstance();
+  //         prefs.setString('profileImageUrl', profileUrl!);
 
-          print('Image updated successfully');
-        } catch (error) {
-          print('Failed to update  Image: $error');
-        }
-      }
-    }
-  }
+  //         print('Image updated successfully');
+  //       } catch (error) {
+  //         print('Failed to update  Image: $error');
+  //       }
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -190,21 +193,21 @@ class _ProfileState extends State<Profile> {
           backgroundColor: const Color(0xff151724),
           centerTitle: true,
           actions: [
-            IconButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const contactus(),
-                ));
-              },
-              icon: const Icon(
-                Icons.message_outlined,
-              ),
-            )
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const contactus(),
+                  ));
+                },
+                child: const Text(
+                  'Cuntact Us',
+                  style: TextStyle(color: Colors.blue, fontSize: 16),
+                )),
           ],
           leading: IconButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const Plane(),
+                  builder: (context) => const Home(),
                 ));
               },
               icon: Icon(
@@ -213,6 +216,7 @@ class _ProfileState extends State<Profile> {
                 size: 30,
               )),
         ),
+        bottomNavigationBar: const salomon_bottom_bar(),
         body: Column(
           children: [
             Container(
@@ -256,8 +260,14 @@ class _ProfileState extends State<Profile> {
                         'Hello',
                         style: getTitleStyle(),
                       ),
-                      Text('Mohamed Rifky', style: getbodyStyle()),
-                      const Gap(10),
+                      Row(
+                        children: [
+                          Text(FirstName, style: getbodyStyle()),
+                          const Gap(5),
+                          Text(LastName, style: getbodyStyle()),
+                        ],
+                      ),
+                      const Gap(8),
                       Text(FirebaseAuth.instance.currentUser!.email!,
                           style: getsmallStyle()),
                     ],
@@ -505,6 +515,29 @@ class _ProfileState extends State<Profile> {
                             Text(
                               '$sleepDuration Hours',
                               style: getsmallStyle(color: AppColors.grey),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const Gap(8),
+                    InkWell(
+                      onTap: () async {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const contactus(),
+                        ));
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        color: const Color(0xff151724),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Contact With Us',
+                              style: getbodyStyle(
+                                  fontSize: 18, color: Colors.blue),
                             ),
                           ],
                         ),

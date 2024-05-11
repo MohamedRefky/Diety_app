@@ -1,0 +1,504 @@
+[
+  {
+    "details": "The food choices we make can come with significant environmental costs. Join this plan to learn more about your diet's 'toodprint' and how to make changes that will benefit your health and the health of the planet. Consult your physician before starting any plan. Neither Myfitnesspal nor its affiliates will be liable for any injury sustained as a result of your participation.",
+    "Duration": "14 days",
+    "Times Per Week": "Daily",
+    "Difficulty": "Beginner",
+    "Choose This Plan If": [
+      "You care about the environmental impacts of the food we eat.",
+      "You want to learn about small changes you can make to help the planet.",
+      "You need help planning eco-friendly meals."
+    ],
+    "What You Will Do": [
+      "Set goals to decrease your beef and red meat consumption to decrease your carbon footprint.",
+      "Plan environmentally friendly meals with exclusive recipes.",
+      "Learn ways to add more water-saving foods into your diet.",
+      "Begin to reduce food packaging waste and food waste.",
+      "Daily logging is encouraged but not required."
+    ],
+    "Guidelines": "Try to hit the daily goals, but don't stress if you can't get to them all. This is about learning, reflecting, and making small changes to your food choices that will positively impact the planet.",
+    "image": "https://img.freepik.com/premium-vector/eat-green-sticker-healthy-nutrition-cute-slogan_533410-2989.jpg",
+    "name": "eat_green",
+    "schedule": {
+      "Week 1": "Reducing greenhouse gases and water use",
+      "Week 2": "Reducing packaging and food waste"
+    }
+  },
+  {
+    "details": "Start 2023 off right! For the next two weeks, we're learning from the best: you. Our members have been there/done that-and they're sharing their secrets for success. Plus, MyFitnessPal's nutrition & fitness experts (and very special guest Ayesha Curry!) weigh in on why these tips work. Topics include healthy habits, logging tips, nutrition, cooking, motivation, and exercise. Consult your physician before starting any plan. Neither MyFitnessPal nor its affiliates will be liable for any injury sustained as a result of your participation.",
+    "Duration": "14 days",
+    "Times Per Week": "Daily",
+    "Difficulty": "Beginner",
+    "Choose This Plan If": [
+      "You want to start the new year off right by improving your fitness and diet, but aren't sure how",
+      "You're looking for inspiration and easy-to-implement tips to achieve your goals and build healthy habits",
+      "You're looking to make small daily changes to see big improvements over time"
+    ],
+    "What You Will Do": [
+      "Receive daily tips from our members, registered dietitians, and fitness experts"
+    ],
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAMPmOFgAgFp_UDsdw5zso4f1ADCebmbqK2g-sVTg4qA&s",
+    "name": "eight right, sleep tight",
+    "schedule": {
+      "Week 1": "Be mindful of hydration, protein, and sugar. Plus meal-prep tips to make healthy eating easy.",
+      "Week 2": "Learn from your logging and find the motivation you need to get moving and sleep well."
+    }
+  },
+  {
+    "details": "Get in the best mindset to reach your goals. During this 14-day Plan, we'll focus on nutrition, mindfulness, and movement. By tackling small to-dos daily, you'll make big progress on your larger health & fitness goals. And we'll keep you accountable and motivated with tips and recipes. Try this mind-and-body reset anytime you need to get back on track! Consult your physician before starting any plan. Neither MyFitnesspal nor its affiliates will be liable for any injury sustained as a result of your participation.",
+    "Duration": "14 days",
+    "Times Per Week": "Daily",
+    "Difficulty": "Beginner",
+    "Choose This Plan If": [
+      "You have difficulty keeping goals on track",
+      "You need more motivation to make healthy choices",
+      "You want to eat better and move more, but aren't sure how",
+      "You're interested in setting small daily goals to reach a bigger health & fitness goal"
+    ],
+    "What You Will Do": [
+      "Set small nutrition, mindfulness & movement goals you can accomplish each day. (For example, eat protein at every meal, meditate for 10 minutes, and walk 6,000 steps.)",
+      "Start with one small goal, then work up to three daily goals over the course of the Plan.",
+      "Receive tips and tricks to help you hit your daily goals.",
+      "Get inspired by recipes, workouts, and articles along the way."
+    ],
+    "Guidelines": "Be prepared to spend at least 20 minutes per day to achieve your goals.",
+    "image": "https://learningliftoff.com/wp-content/uploads/2021/11/43363b05.jpg",
+    "name": "mindful+motivated",
+    "schedule": {
+      "Week 1": "Focus on hitting one simple Nutrition Goal and practicing 10 minutes of mindfulness every day.",
+      "Week 2": "Incorporate an exercise goal into your weekly routine."
+    }
+  }
+,
+  {
+    "details": "Join me to learn 7 Small Steps that can make a big impact on your goals in 2024. If losing weight, getting stronger, or eating mindfully feels a little daunting, we'll try making smaller changes that add up over time, like starting the day with protein or 'habit-stacking' hydration. I hope these tips, food swaps, and daily inspiration motivate you to tackle this year's goals, one step at a time. xo Kate",
+    "Duration": "7 days",
+    "Times Per Week": "Daily",
+    "Difficulty": "Beginner",
+    "Choose This Plan if": [
+      "You want to lose weight, but don't want to completely overhaul your diet and routine",
+      "You're ready to make small daily changes that you can stick to long term",
+      "You're looking for easy tips and advice to keep you feeling motivated all year"
+    ],
+    "What You Will Do": [
+      "Discover 7 Small Steps that can unlock your 2024 goals. Try them, track them, and get tips for success from plan host Kate Hudson and MyFitnessPal's registered dietitians."
+    ],
+    "Guidelines": "Sources: Peterson, et al. Obesity (Silver Spring). 2014 Sep;22(9):19s2-7; Wycherley, et al, Am J Clin Nutr, 2012 Dec;96(6):1281-98; Boushey C et al, Nutrition Evidence Systematic Review, 2020 Jul; U.S. Department of Agriculture and U.S. Department of Health and Human Services. Dietary Guidelines for Americans, 2020-2025. 9th Edition, December 2020. Available at Dietaryguidelines.gov; Corney RA, et al, Eur J Nutr. 2016 Mar;55(2):815-819.",
+    "image": "https://media.self.com/photos/57d8aa4c46d0cb351c8c58c6/4:3/w_2560%2Cc_limit/POPSUGARRunningLessons.jpg",
+    "name": "small steps",
+    "schedule": {
+      "Week 1": "Each day you'll learn one new Small Step and get tips for how to add it to your routine, track your progress, and stay motivated going forward."
+    }
+  },
+  {
+    "details": "If you're training for a marathon, bike race, or any kind of athletic event, it's time to dial in your nutrition. Join us for 6 days of tips to eat, hydrate, and recover for your best performance yet. Learn how to eat to stay energized and bounce back after your toughest workouts. Our nutrition experts are here to help you focus your nutrition so you can keep your eyes on the prize. Consult a medical professional before beginning any dietary programs or plans, exercise regimens, or any other here is not medical advise and should not be used as treatment, or relied upon to make medical decisions, diagnose, or treat any health conditions.",
+    "Duration": "6 days",
+    "Times Per Week": "Daily",
+    "Difficulty": "Beginner",
+    "Choose This Plan If": [
+      "You're training for an event like a marathon or triathlon and need guidance from nutrition pros",
+      "You want to dial in your eating and training schedule to perform your best",
+      "You've talked to your doctor and understand your nutrition and fitness needs (and any limitations)"
+    ],
+    "What You Will Do": [
+      "Get daily nutrition tips while you're planning for your fitness challenge and apply them throughout your training.",
+      "Learn about eating for pre-workout, post-workout, recovery days, and the day of the event."
+    ],
+    "Guidelines": "Nutritional needs during training vary person to person. Please check with your doctor before making any significant dietary changes.",
+    "image": "https://blog.myfitnesspal.com/wp-content/uploads/2023/09/MAR-1340_ETC_Blog_1504x944.jpg",
+    "name": "eat to compete",
+    "schedule": {
+      "Week 1": "Learn how to balance your meals and get the nutrients you need to fuel your final week of training."
+    }
+  },
+  {
+    "details": "Want to know if intermittent fasting is right for you? The best way to learn is to try! This plan helps you set up the MyFitnessPal Intermittent Fasting Tracker and start your fasting journey off right. You'll receive daily tips on the basics of time-restricted eating, ways to maximize fullness, and how to troubleshoot when you run into challenges. Enjoy!",
+    "Duration": "14 days",
+    "Times Per Week": "Daily",
+    "Difficulty": "Beginner",
+    "Choose This Plan If": [
+      "You are interested in the time-restricted eating version of intermittent fasting (fast for 12, 14, or 16 hours daily)",
+      "You want to learn if time-restricted eating is right for you",
+      "You want to try out the intermittent Fasting Tracker on MyFitnessPal"
+    ],
+    "What You Will Do": [
+      "Set up your Intermittent Fasting Tracker to schedule and time your fasts",
+      "Receive daily tips to get you on the right track",
+      "Learn whether time-restricted eating is a sustainable option for your health goals"
+    ],
+    "Guidelines": "These tips are best followed while using the MyFitnessPal Intermittent Fasting Tracker. We encourage plan participants to begin your IF journey with an open mind. A little trial-and-error may be needed to learn whether intermittent fasting is a good fit for you—and to land on a sustainable fasting schedule.",
+    "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcZZ45F1IydvI5yCO4Bzq9IgVvBiaBvmQfYoroAYehPw&s",
+    "name": "intermittent fasting",
+    "schedule": {
+      "Week 1": "Learn the basics of intermittent fasting.",
+      "Week 2": "Fine-tune your approach and adjust as needed."
+    }
+  },
+  {
+    "details": "Ease into low-carb eating in just 4 weeks. This Plan uses our brand new Meal Planner tool to slowly scale back on carbs in a healthy and sustainable way. Build new habits one day at a time while following a meal plan customized for your calorie needs. By Day 28, you'll be able to confidently plan and cook low-carb meals and choose foods that fuel your body best.",
+    "Duration": "28 days",
+    "Times Per Week": "Daily",
+    "Difficulty": "Beginner",
+    "Choose This Plan If": [
+      "Your calorie goal is between 1200 and 2200 calories.",
+      "Your goal is weight loss or weight maintenance.",
+      "You're new to a low-carb eating pattern.",
+      "You've tried low carb before and had trouble feeling full or getting enough fiber.",
+      "You are not a vegetarian (recipes in this Plan include meat and dairy)"
+    ],
+    "What You Will Do": [
+      "You will follow 28 days of low-carb eating and learning.",
+      "You will gradually change what you eat. Shop, plan, and cook from a variety of recipes each week."
+    ],
+    "image": "https://www.eatthis.com/wp-content/uploads/sites/4/2021/06/low-carb-foods.jpg?quality=82&strip=1",
+    "name": "low carb",
+    "schedule": {
+      "Week 1": "Learn your optimal carbohydrate intake and prepare low-carb lunches",
+      "Week 2": "Prepare low-carb snacks and lunch",
+      "Week 3": "Add breakfast and pre-workout snacks to your meal planning schedule",
+      "Week 4": "Add dinner and post-workout snacks to your meal planning schedule"
+    }
+  },
+  {
+    "details": "This plan builds a diet with more protein. We'll help you pick recipes, meals & snacks that fit your goals. To support daily fiber intake, this plan includes fruits, vegetables, grains & legumes. Vegetarian? No worries, we have options for you, too!",
+    "Duration": "28 days",
+    "Times Per Week": "Daily",
+    "Difficulty": "Beginner",
+    "Choose This Plan If": [
+      "Your calorie goal is between 1200 and 2200 calories",
+      "Your health goals include weight loss or general fitness",
+      "You are willing to cook some meals",
+      "You are interested in whole foods of all food groups",
+      "You are capable of light physical activity"
+    ],
+    "What You Will Do": [
+      "Start with the basics: learn your protein needs",
+      "Go slow: adjust lunch in Week 1, then adjust snacks, breakfast, and dinner to meet protein needs weekly",
+      "Finish strong: eat 3 meals and 2-3 snacks high in protein and balanced with fat and carbs",
+      "Be prepared: meal prep lunches ahead of time",
+      "Take it easy: daily food logging not required"
+    ],
+    "image": "https://content.health.harvard.edu/wp-content/uploads/2024/01/28e8e464-f55e-4b32-9bab-dc990d8cc927.jpg",
+    "name": "high protein",
+    "schedule": {
+      "Week 1": "Learn your optimal protein intake and prepare high protein lunches",
+      "Week 2": "Prepare high protein snacks and lunch",
+      "Week 3": "Add breakfast and pre-workout snacks to your meal planning schedule",
+      "Week 4": "Add dinner and post-workout snacks to your meal planning schedule"
+    }
+  },
+
+
+
+  {
+    "details": "If you have a new calorie goal and have trouble meeting it, this plan can help you reach your goals with filling and satisfying choices so you're not left feeling hungry at the end of the day. Consult your physician before starting any plan.",
+    "Duration": "28 days",
+    "Times Per Week": "Daily",
+    "Difficulty": "Beginner",
+    "Choose This Plan If": [
+      "Your calorie goal is between 1200 and 2200 calories",
+      "You need help reaching your calorie goal",
+      "You feel hungry when trying to eat within your calorie goal",
+      "You're willing to cook some meals"
+    ],
+    "What You Will Do": [
+      "Start with the basics: learn how to divide your calories up throughout the day",
+      "Go slow: change lunch in week 1, then each week, change snacks, breakfast, and dinner to meet your calorie needs",
+      "Finish strong: Eat 3 meals and 2-3 snacks that are well-balanced, whole-food based, and filling",
+      "Be mindful: Learn how to calibrate hunger signals to calorie needs",
+      "Take it easy: Daily logging not required"
+    ],
+    "Guidelines": "Learn how to eat within your calorie goal one meal at a time and create lasting habits to set you up for success.",
+    "image": "https://www.weightlossresources.co.uk/pimg/wlr/C/Calorie-Intake-Balance-Scales-deep.png",
+    "name": "Reaching your calorie goal",
+    "schedule": {
+      "Week 1": "Set your goals and work on preparing and eating lunches that meet your calorie goals!",
+      "Week 2": "Prepare satisfying snacks and lunch.",
+      "Week 3": "Add breakfast into the mix.",
+      "Week 4": "Add dinner to your meal planning schedule."
+    }
+  },
+  {
+    "details": "Learn what foods and nutrients can support your immune system and ensure your body is well-equipped to respond if you get sick. While there's no miracle food that can prevent you from getting sick, a well-balanced diet can help keep your body functioning at its best. Consult your physician before starting any plan.",
+    "Duration": "14 days",
+    "Times Per Week": "Daily",
+    "Difficulty": "Beginner",
+    "Choose This Plan If": [
+      "You want to make food choices that fuel your immune system",
+      "You have fruits and vegetables already on hand (if not, get some before starting the plan)",
+      "You'll also take steps, additional to your diet, to protect yourself against infections, like washing your hands, getting enough sleep, and following CDC guidelines on disease prevention"
+    ],
+    "What You Will Do": [
+      "Focus on eating a wide variety of fruits and vegetables",
+      "Incorporate foods into your diet that support gut health",
+      "Learn how to hit certain vitamin and mineral goals"
+    ],
+    "image": "https://media.self.com/photos/652ad16b8c4e9f12ba6cdb38/1:1/w_1414,h_1414,c_limit/boost-immune-system.jpg",
+    "name": "Support your immune system",
+    "schedule": {
+      "Week 1": "Fuel your immune system with balanced meals and essential nutrients.",
+      "Week 2": "Supporting your immune system goes beyond just what you eat."
+    }
+  },
+  {
+    "details": "Increasing your daily step activity has been shown to help shrink your waist, promote relaxation, and boost energy levels. This plan will help you make increased steps a part of your daily life. Consult your physician before starting any plan.",
+    "Duration": "28 days",
+    "Times Per Week": "Daily",
+    "Difficulty": "Beginner",
+    "Choose This Plan If": [
+      "You want to incorporate walking into your everyday routine",
+      "You want to work your way up towards a new step goal",
+      "You have a means of tracking your daily steps"
+    ],
+    "What You Will Do": [
+      "Reach a prescribed daily step goal that progressively increases throughout the duration of this plan",
+      "Learn how to increase your steps through daily tips and tricks"
+    ],
+    "image": "https://www.choosept.com/globalassets/choosept/assets/spotlight-images/close-up-shoes-walking_880x550.jpg",
+    "name": "6000 steps a day",
+    "schedule": {
+      "Week 1": "Establish your baseline. This week you will increase your daily step count by ~500 steps. The goal is to make this the new habit (not just doing it once!). This week will set you up to start shifting your daily step count by ~500 steps per day.",
+      "Week 2": "By week two, your daily step goal will be about 1,000 steps higher than where you started.",
+      "Week 3": "You are feeling your new step routine. Be intentional about achieving your goals and don't get bummed if you miss it here and there.",
+      "Week 4": "Build on this habit by bringing others along with you."
+    }
+  },
+  {
+    "details": "Increasing your daily step activity has been shown to help shrink your waist, promote relaxation, and boost energy levels. This plan will help you make increased steps a part of your daily life. Consult your physician before starting any plan.",
+    "Duration": "28 days",
+    "Times Per Week": "Daily",
+    "Difficulty": "Beginner",
+    "Choose This Plan If": [
+      "You want to incorporate walking into your everyday routine",
+      "You want to work your way up towards a new step goal",
+      "You have a means of tracking your daily steps"
+    ],
+    "What You Will Do": [
+      "Reach a prescribed daily step goal that progressively increases throughout the duration of this plan",
+      "Learn how to increase your steps through daily tips and tricks"
+    ],
+    "image": "https://www.choosept.com/globalassets/choosept/assets/spotlight-images/close-up-shoes-walking_880x550.jpg",
+    "name": "11000 steps a day",
+    "schedule": {
+      "Week 1": "Establish your baseline. This week you will increase your daily step count by ~500 steps. The goal is to make this the new habit (not just doing it once!). This week will set you up to start shifting your daily step count by ~500 steps per day.",
+      "Week 2": "By week two, your daily step goal will be about 1,000 steps higher than where you started.",
+      "Week 3": "You are feeling your new step routine. Be intentional about achieving your goals and don't get bummed if you miss it here and there.",
+      "Week 4": "Build on this habit by bringing others along with you."
+    }
+  },
+  {
+    "details": "Increasing your daily step activity has been shown to help shrink your waist, promote relaxation, and boost energy levels. This plan will help you make increased steps a part of your daily life. Consult your physician before starting any plan.",
+    "Duration": "28 days",
+    "Times Per Week": "Daily",
+    "Difficulty": "Beginner",
+    "Choose This Plan If": [
+      "You want to incorporate walking into your everyday routine",
+      "You want to work your way up towards a new step goal",
+      "You have a means of tracking your daily steps"
+    ],
+    "What You Will Do": [
+      "Reach a prescribed daily step goal that progressively increases throughout the duration of this plan",
+      "Learn how to increase your steps through daily tips and tricks"
+    ],
+    "image": "https://www.choosept.com/globalassets/choosept/assets/spotlight-images/close-up-shoes-walking_880x550.jpg",
+    "name": "9000 steps a day",
+    "schedule": {
+      "Week 1": "Establish your baseline. This week you will increase your daily step count by ~500 steps. The goal is to make this the new habit (not just doing it once!). This week will set you up to start shifting your daily step count by ~500 steps per day.",
+      "Week 2": "By week two, your daily step goal will be about 1,000 steps higher than where you started.",
+      "Week 3": "You are feeling your new step routine. Be intentional about achieving your goals and don't get bummed if you miss it here and there.",
+      "Week 4": "Build on this habit by bringing others along with you."
+    }
+  },
+  {
+    "details": "Strengthen your core, improve your posture, and build your hips to power you through the miles with this plan. Consult your physician before starting any plan.",
+    "Duration": "28 days",
+    "Times Per Week": "2-4x a week",
+    "Difficulty": "Beginner",
+    "What You'll Need On This Plan": [
+      "Foam Roller",
+      "Dumbbell or Kettlebell (anywhere from 5 to 20 lbs)",
+      "Mat (Optional)"
+    ],
+    "Choose This Plan If": [
+      "This plan is for anyone that wants to improve their posture and have a more stable, stronger back and abdominal core."
+    ],
+    "What You Will Do": [
+      "A program with core-focused workouts",
+      "Daily workout schedule",
+      "Exercise guides showing you each movement"
+    ],
+    "Sample List of Exercises": [
+      "Front Plank",
+      "Side Plank",
+      "Bird Dog"
+    ],
+    "image": "https://programme.app/static/c240a380921a1dc369dd2dcc80f2c3a6/8275e/half_kneeling_kb_windmill.jpg",
+    "name": "Core Plus",
+    "schedule": {
+      "Week 1": "Some exercises may include the addition of a dumbbell. We recommend sticking with body weight for now while you master the movement.",
+      "Week 2": "Increase the duration if you can.",
+      "Week 3": "New exercises to spice it up. Consider reducing the duration for each if you find the new movements tough.",
+      "Week 4": "Increase the duration if you can."
+    }
+  },
+  {
+    "details": "Gain strength through your hips, thighs, and glutes. Consult your physician before starting any plan.",
+    "Duration": "28 days",
+    "Times Per Week": "2-4x a week",
+    "Difficulty": "Intermediate",
+    "What You'll Need On This Plan": [
+      "Foam Roller",
+      "Dumbbells or Kettlebells (one for each arm, anywhere from 5 to 20 lbs)",
+      "Mini Band",
+      "Mat (Optional)"
+    ],
+    "Choose This Plan If": [
+      "This plan is for anyone that wants stronger hips, thighs, and glutes."
+    ],
+    "What You Will Do": [
+      "A program with leg-focused workouts",
+      "Daily workout schedule",
+      "Exercise guides showing you each movement"
+    ],
+    "Sample List of Exercises": [
+      "Air Squat",
+      "Walking Forward with Mini Band on Ankles Forward Lunge"
+    ],
+    "image": "https://sunnyhealthfitness.com/cdn/shop/articles/Legs-Butt-Toning-Fitness-Challenge-01.jpg?v=1622044891",
+    "name": "Strong Glutes & Thighs",
+    "schedule": {
+      "Week 1": "Get the form down and learn the exercises.",
+      "Week 2": "Time to up the duration of each exercise.",
+      "Week 3": "Variation, variation.",
+      "Week 4": "Last big push."
+    }
+  },
+  {
+    "details": "Low Impact training can be an often-overlooked style of training, but low impact and low intensity are not the same thing. This 4-week plan will guide you through calorie burning, strength gaining exercises that will keep your bones and joints happy. Consult your physician before starting any plan.",
+    "Duration": "28 days",
+    "Times Per Week": "3x a week",
+    "Difficulty": "Beginner",
+    "What You'll Need On This Plan": [
+      "Foam Roller (or large water bottle, rolling pin, etc.)",
+      "Bench or Chair",
+      "Kettlebell (or canned food, laundry detergent, water-filled jugs, etc.)"
+    ],
+    "Choose This Plan If": [
+      "It's been awhile since you've been working out.",
+      "You are recovering from a previous injury and have been cleared for activity.",
+      "You want to minimize strain put on joints and bones."
+    ],
+    "What You Will Do": [
+      "Complete 3 Low Impact full-body workouts per week.",
+      "Follow step-by-step workout guides with demos for each move."
+    ],
+    "image": "https://2lazy4gym.files.wordpress.com/2021/01/hrlowimpactstrengthcardio.jpg?w=640",
+    "name": "Low Impact Strength",
+    "schedule": {
+      "Week 1": "During Week 1, we will focus on pyramid style strength training where you work your way through each individual exercise, then reverse the order for the second round to get you back where you started.",
+      "Week 2": "During Week 2, we will introduce you to Staggered sets.",
+      "Week 3": "During Week 3, we will increase your endurance by focusing on EMOM training."
+    }
+  },
+  {
+    "details": "This plan will challenge the strength of your shoulders and arms while also testing their range of motion. Consult your physician before starting any plan.",
+    "Duration": "28 days",
+    "Times Per Week": "2-4x a week",
+    "Difficulty": "Intermediate",
+    "What You'll Need On This Plan": [
+      "Foam Roller",
+      "Dumbbells (one for each arm, anywhere from 5 to 20 lbs)",
+      "Resistance Band",
+      "Mat (Optional)"
+    ],
+    "Choose This Plan If": [
+      "This plan is for anyone that wants stronger, more flexible arms and shoulders."
+    ],
+    "What You Will Do": [
+      "A program with upper-body-focused workouts",
+      "Daily workout schedule",
+      "Exercise guides showing you each movement"
+    ],
+    "Sample List of Exercises": [
+      "Bear Crawl",
+      "Bent Over Dumbbell Row",
+      "Push Up"
+    ],
+    "image": "https://www.dmoose.com/cdn/shop/articles/Main_Image_6fc752de-b648-4eaa-aa0d-f5a8bab90487.jpg?v=1668609706",
+    "name": "Toned Upper Body",
+    "schedule": {
+      "Week 1": "Get the form down and learn the exercises.",
+      "Week 2": "Time to up the duration of each exercise.",
+      "Week 3": "Variation, variation.",
+      "Week 4": "Last big push."
+    }
+  }
+,
+{
+  "details": "There are only so many creative bodyweight exercises we can do before boredom sets in. But it doesn't have to be that way. With this progressive workout guide, the exercises stay the same but your timing, focus and the overall workout are entirely different every week. Consult your physician before starting any plan. Neither MyFitnessPal nor its affiliates will be liable for any injury sustained as a result of your participation.",
+  "Duration": "28 days",
+  "Times Per Week": "6-7x a week",
+  "Difficulty": "Beginner",
+  "What You'll Need On This Plan": [
+    "Foam Roller (optional)"
+  ],
+  "Choose This Plan If": [
+    "This plan is for anyone who is wanting to build their fitness any where, no equipment necessary."
+  ],
+  "What You Will Do": [
+    "A program designed for a total body burn using bodyweight-only moves",
+    "Exercise guides showing you each movement"
+  ],
+  "Sample List of Exercises": [
+    "Push Up to Side Plank",
+    "Floor Y Raise"
+  ],
+  "image": "https://bonytobeastly.com/wp-content/uploads/2020/04/bodyweight-air-squat-illustration.jpg",
+  "name": "Progressive Body Weight",
+  "schedule": {
+    "Week 1": "\"Straight Sets.\" The focus this week is to learn the movements, understand your appropriate level of progression, and do every rep perfectly.",
+    "Week 2": "EMOMS, or \"Every Minute on the Minute,\" are fun and challenging.",
+    "Week 3": "AMRAP, or \"As Many Rounds as Possible,\" takes your cardiovascular system to a new level.",
+    "Week 4": "You've spent three weeks with these exercises, and now it's time to put them to the test."
+  }
+},
+{
+  "details": "This comprehensive plan will help improve your flexibility, build strength across the upper and lower body, and develop power. Consult your physician before starting any plan. Neither MyFitnessPal nor its affiliates will be liable for any injury sustained as a result of your participation.",
+  "Duration": "28 days",
+  "Times Per Week": "4x a week",
+  "Difficulty": "Advanced",
+  "What You'll Need On This Plan": [
+    "Foam Roller",
+    "Dumbbells or Kettlebells (one for each arm, anywhere from 5 to 20 lbs)",
+    "Medicine Ball (10-30 lbs)",
+    "Mini Band",
+    "Mat (Optional)"
+  ],
+  "Choose This Plan If": [
+    "Anybody looking for a full-body strength workout that is both challenging and smart."
+  ],
+  "What You Will Do": [
+    "A program with a full-body workout that develops strength, power and flexibility",
+    "Daily workout schedule",
+    "Exercise guides showing you each movement"
+  ],
+  "Sample List of Exercises": [
+    "Side Plank",
+    "Single Leg Romanian Deadlift",
+    "Push Up",
+    "Med Ball Slam",
+    "Kettlebell Swing",
+    "Air Squat",
+    "Inchworm"
+  ],
+  "image": "https://media.self.com/photos/588f91a12a884ced76d607e9/4:3/w_320%2Cc_limit/lunge_jab_021.jpg",
+  "name": "Total Body Power",
+  "schedule": {
+    "Week 1": "This plan has an \"A\" day and a \"B\" day.",
+    "Week 2": "During week 2, you will increase the duration and/or intensity for each workout.",
+    "Week 3": "This week, we add more explosive, power-developing exercises.",
+    "Week 4": "This week try to do three circuits if you haven't yet."
+  }
+}
+
+]

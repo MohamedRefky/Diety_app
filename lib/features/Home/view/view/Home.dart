@@ -1,14 +1,14 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
+import 'package:diety/features/Home/view/view/Today.dart';
+import 'package:diety/features/Home/view/widget/Custom-Container.dart';
+import 'package:diety/features/Home/view/widget/navbar.dart';
 import 'package:diety/features/Search%20Food/view/Breakfast.dart';
 import 'package:diety/features/Search%20Food/view/Dinner.dart';
 import 'package:diety/features/Search%20Food/view/Lunch.dart';
 import 'package:diety/features/Search%20Food/view/Snacks.dart';
 import 'package:diety/features/User%20Detials/view/UserDitails.dart';
-import 'package:diety/features/User%20Plane/view/view/Today.dart';
-import 'package:diety/features/User%20Plane/view/widget/Custom-Container.dart';
-import 'package:diety/features/User%20Plane/view/widget/navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -17,21 +17,29 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 import 'Exercise.dart';
 
-class Plane extends StatefulWidget {
-  const Plane({super.key, this.response});
+class Home extends StatefulWidget {
   final NotificationResponse? response;
+  static const route = "/Homee";
+
+  const Home({super.key, this.response});
   @override
-  State<Plane> createState() => _PlaneState();
+  State<Home> createState() => _HomeeState();
 }
 
-class _PlaneState extends State<Plane> {
+final navigatorKey = GlobalKey<NavigatorState>();
+
+class _HomeeState extends State<Home> {
   @override
   void initState() {
     super.initState();
     _getUserdData();
+    tz.initializeTimeZones();
+    _resetRemainingCal();
   }
 
   late String CaloriesConsumed = '';
@@ -44,6 +52,28 @@ class _PlaneState extends State<Plane> {
   late double percent = 0.0;
   late double RemainingCal = 0.0;
   var date = DateFormat.yMd().format(DateTime.now());
+
+  Future<void> _resetRemainingCal() async {
+    // Get the current time
+    final now = tz.TZDateTime.now(tz.local);
+    // Calculate the time until the next midnight
+    final nextMidnight = tz.TZDateTime(
+      tz.local,
+      now.year,
+      now.month,
+      now.day,
+      24,
+      0,
+    );
+    // Calculate the duration until the next midnight
+    final durationUntilMidnight = nextMidnight.difference(now);
+    // Schedule a task to reset RemainingCal to 0 at the next midnight
+    await Future.delayed(durationUntilMidnight, () {
+      setState(() {
+        CaloriesConsumed = '0';
+      });
+    });
+  }
 
   Future<void> _getUserdData() async {
     User? user = _auth.currentUser;
@@ -111,7 +141,7 @@ class _PlaneState extends State<Plane> {
             ),
           ),
         ],
-        leadingWidth: 170,
+        leadingWidth: 190,
         leading: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -271,19 +301,20 @@ class _PlaneState extends State<Plane> {
               ),
               const Gap(10),
               CustomContainer(
-                  onTap: () {
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                      builder: (context) => const Breakfast(),
-                    ));
-                  },
-                  text: 'Breakfast',
-                  iconData1: CupertinoIcons.sun_dust_fill,
-                  iconColor: Colors.yellow,
-                  iconData2: CupertinoIcons.plus,
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: AppColors.white,
-                      fontWeight: FontWeight.bold)),
+                onTap: () {
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => const Breakfast(),
+                  ));
+                },
+                text: 'Breakfast',
+                iconData1: CupertinoIcons.sun_dust_fill,
+                iconColor: Colors.yellow,
+                iconData2: CupertinoIcons.plus,
+                style: TextStyle(
+                    fontSize: 20,
+                    color: AppColors.white,
+                    fontWeight: FontWeight.bold),
+              ),
               const Gap(10),
               CustomContainer(
                 onTap: () {
@@ -403,7 +434,7 @@ class _PlaneState extends State<Plane> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'percenta',
+                              'percent',
                               style: TextStyle(
                                 color: AppColors.white,
                                 fontSize: 16,

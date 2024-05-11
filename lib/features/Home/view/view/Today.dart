@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/User%20Plane/view/view/plane.dart';
+import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:flutter/material.dart';
 
 class Today extends StatefulWidget {
@@ -26,7 +26,7 @@ class _TodayState extends State<Today> {
           onPressed: () {
             Navigator.of(context).pushReplacement(
               MaterialPageRoute(
-                builder: (context) => const Plane(),
+                builder: (context) => const Home(),
               ),
             );
           },

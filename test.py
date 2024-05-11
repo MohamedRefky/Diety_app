@@ -5,10 +5,10 @@ url = 'http://127.0.0.1:5000/predict'
 
 # Sample data for testing
 data = {
-    'Weight': [90.0],
-    'Height': [1.6],
+    'Weight': [80],
+    'Height': [160],
     'Gender': ['Male'],
-    'Age': [20]
+    'Age': [22]
 }
 
 # Send POST request with JSON payload

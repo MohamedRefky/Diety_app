@@ -7,7 +7,8 @@ import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/Core/widget/Custom_TextFormFealed.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/SignUp.dart';
-import 'package:diety/features/User%20Plane/view/view/plane.dart';
+import 'package:diety/features/Home/view/view/Home.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -32,6 +33,7 @@ late String _uid;
 
 class _LoginState extends State<Login> {
   @override
+  // ignore: override_on_non_overriding_member
   Future<void> _getUserdData() async {
     User? user = _auth.currentUser;
     if (user != null) {
@@ -265,7 +267,7 @@ class _LoginState extends State<Login> {
                                     password: password.text,
                                   );
                                   if (credential.user!.emailVerified) {
-                                    if (age == '') {
+                                    if (age == '0') {
                                       Navigator.of(context)
                                           .pushReplacement(MaterialPageRoute(
                                         builder: (context) => const Gender(),
@@ -273,7 +275,7 @@ class _LoginState extends State<Login> {
                                     } else {
                                       Navigator.of(context)
                                           .pushReplacement(MaterialPageRoute(
-                                        builder: (context) => const Plane(),
+                                        builder: (context) => const Home(),
                                       ));
                                     }
                                   } else {

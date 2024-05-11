@@ -101,17 +101,11 @@ class _UserDitailsState extends State<UserDitails> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // SizedBox(
-                //     width: 300,
-                //     height: 280,
-                //     child: Lottie.asset(
-                //       'Images/Ditails_Animation.json',
-                //     )),
                 CircularPercentIndicator(
                   animationDuration: 1800,
                   animation: true,
                   radius: 100,
-                  lineWidth: 22,
+                  lineWidth: 20,
                   percent: double.parse(calculateBMI().toString()) / 100,
                   progressColor: AppColors.button,
                   backgroundColor: AppColors.grey,
@@ -124,28 +118,11 @@ class _UserDitailsState extends State<UserDitails> {
                         fontSize: 30),
                   ),
                 ),
-
                 const Gap(10),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     Text(
-                //       gender,
-                //       style: TextStyle(color: AppColors.white),
-                //     ),
-                //     Text(height.toString(),
-                //         style: TextStyle(color: AppColors.white)),
-                //     Text(weight.toString(),
-                //         style: TextStyle(color: AppColors.white)),
-                //     Text(activity, style: TextStyle(color: AppColors.white)),
-                //     Text(age.toString(),
-                //         style: TextStyle(color: AppColors.white))
-                //   ],
-                // ),
                 AnimatedTextKit(
                   animatedTexts: [
                     TypewriterAnimatedText(
-                        " Health Status is  ${calculateAndDetermineBMI().toString()}",
+                        "Health Status is ${calculateAndDetermineBMI().toString()}",
                         textStyle: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -167,12 +144,6 @@ class _UserDitailsState extends State<UserDitails> {
                   value: calculateBMI().toStringAsFixed(1),
                 ),
                 const Gap(15),
-                // customRowVeiwDitails(
-                //   title: 'Health Status :',
-                //   value: calculateAndDetermineBMI().toString(),
-                //   valuefontSize: 17,
-                // ),
-                // const Gap(15),
                 customRowVeiwDitails(
                   title: 'Ideal Weight :',
                   value: '${calculateIdealWeight().toStringAsFixed(1)} kg',
@@ -188,7 +159,6 @@ class _UserDitailsState extends State<UserDitails> {
                   value: '${calculateOptimalSleepDuration()} hrs',
                 ),
                 const Gap(15),
-
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
@@ -304,9 +274,9 @@ class _UserDitailsState extends State<UserDitails> {
 
     return calories;
   }
-   
+
   // Method to get activity factor based on activity level
-  
+
   double getActivityFactor() {
     double activityFactor = 1; // Default activity factor
     switch (activity) {

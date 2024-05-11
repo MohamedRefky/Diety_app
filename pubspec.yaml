@@ -32,6 +32,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   awesome_dialog: ^3.2.0
   awesome_notifications: ^0.9.3+1
+  cached_network_image: ^3.3.1
   card_loading: ^0.3.2
   cloud_firestore: ^4.15.9
   community_material_icon: ^5.9.55

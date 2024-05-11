@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/profile/view/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -83,7 +82,7 @@ class _SetupPageState extends State {
             icon: Icon(Icons.arrow_back, color: AppColors.white, size: 30),
             onPressed: () {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => const Login(),
+                builder: (context) => const Profile(),
               ));
             }),
         backgroundColor: AppColors.background,
@@ -120,7 +119,7 @@ class _SetupPageState extends State {
                       backgroundColor: AppColors.background,
                       child: Icon(
                         Icons.camera_alt_rounded,
-                        size: 25,
+                        size: 24,
                         color: AppColors.white,
                       ),
                     ),
@@ -142,9 +141,7 @@ class _SetupPageState extends State {
                       backgroundColor: AppColors.button,
                     ),
                     onPressed: () async {
-                      await _pickImage();
                       test();
-                      // ignore: use_build_context_synchronously
                       Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => const Profile(),
                       ));
@@ -171,7 +168,6 @@ class _SetupPageState extends State {
             .collection('users')
             .doc(userID)
             .update({
-          "email": FirebaseAuth.instance.currentUser!.email,
           "image": profileUrl,
         });
         print('Image added successfully');

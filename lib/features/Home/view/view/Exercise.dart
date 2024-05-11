@@ -1,13 +1,13 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:http/http.dart' as http;
 
 import '../../../../Core/utils/Colors.dart';
-import 'plane.dart';
 
 class Exercise extends StatefulWidget {
   const Exercise({Key? key}) : super(key: key);
@@ -16,17 +16,22 @@ class Exercise extends StatefulWidget {
   _ExerciseState createState() => _ExerciseState();
 }
 
-class _ExerciseState extends State<Exercise> {
-  late double _predictionResult; // Change the type to List<dynamic>
-  bool _isLoading = false;
-  String gender = '';
-  String age = '0';
-  String height = '0';
-  String weight = '0';
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  late String _uid;
+// Change the type to List<dynamic>
+bool _isLoading = false;
+String gender = '';
+String age = '0';
+String height = '0';
+late int Height;
+late int Age;
+late int Weight;
 
+String weight = '0';
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+late String _uid;
+
+class _ExerciseState extends State<Exercise> {
+  late double _predictionResult;
   @override
   void initState() {
     super.initState();
@@ -46,9 +51,11 @@ class _ExerciseState extends State<Exercise> {
       setState(() {
         height = userDoc.get('height') ?? '0';
         weight = userDoc.get('weight') ?? '0';
-
         age = userDoc.get('age') ?? '0';
         gender = userDoc.get('gender') ?? '';
+        Weight = int.parse(weight);
+        Age = int.parse(age);
+        Height = int.parse(height);
       });
     }
   }
@@ -57,15 +64,13 @@ class _ExerciseState extends State<Exercise> {
     setState(() {
       _isLoading = true;
     });
-
     var url = Uri.parse('http://10.0.2.2:5000/predict');
     var data = {
-      'Weight': [weight],
-      'Height': [height],
-      'Gender': [gender],
-      'Age': [age]
+      'Weight': [Weight],
+      'Height': [Height],
+      'Gender': [gender.toString()],
+      'Age': [Age]
     };
-
     try {
       var jsonData = jsonEncode(data);
       var response = await http.post(
@@ -122,7 +127,7 @@ class _ExerciseState extends State<Exercise> {
         leading: IconButton(
             onPressed: () {
               Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => const Plane(),
+                builder: (context) => const Home(),
               ));
             },
             icon: Icon(Icons.arrow_back, color: AppColors.white)),
