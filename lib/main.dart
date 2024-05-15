@@ -10,9 +10,11 @@ import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:diety/features/Onboarding/view/onbording_screan.dart';
 import 'package:diety/features/Search%20Food/view/Dinner.dart';
 import 'package:diety/features/Splash/Splash.dart';
+import 'package:diety/features/profile/view/gemini.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +27,9 @@ void main() async {
           appId: "1:674799164198:android:7463b52021bccf9571ffe7",
           messagingSenderId: '674799164198',
           projectId: 'dietyapp-c69c7'));
+
+        Gemini.init(apiKey: GEMINI_API_KEY);
+
 
   await localnotificationservice.init();
   log("localnotificationservice init");

@@ -68,7 +68,7 @@ class Plan {
       whatYouWillDo: List<String>.from(firestore['What You Will Do'] ?? []),
       schedule: scheduleMap,
       guidelines: firestore['Guidelines'] ??
-          '', // Assign a default value if it's not a String
+          '', 
     );
   }
 }

@@ -1,11 +1,9 @@
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
-
 import 'package:diety/features/Search%20Food/widget/AppBar.dart';
 import 'package:diety/features/Search%20Food/widget/CustomSearchFood.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
 
 class Dinner extends StatefulWidget {
   const Dinner({super.key, this.response});

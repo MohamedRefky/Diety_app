@@ -1,4 +1,6 @@
 // ignore_for_file: depend_on_referenced_packages
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Home/view/view/Today.dart';
@@ -12,6 +14,7 @@ import 'package:diety/features/User%20Detials/view/UserDitails.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
@@ -62,8 +65,8 @@ class _HomeeState extends State<Home> {
       now.year,
       now.month,
       now.day,
-      24,
-      0,
+      11,
+      43,
     );
     // Calculate the duration until the next midnight
     final durationUntilMidnight = nextMidnight.difference(now);
@@ -334,6 +337,7 @@ class _HomeeState extends State<Home> {
               const Gap(10),
               CustomContainer(
                 onTap: () {
+                  addDataFromFileToFirestore();
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
                     builder: (context) => const Dinner(),
                   ));
@@ -516,5 +520,32 @@ class _HomeeState extends State<Home> {
         ),
       ),
     );
+  }
+
+  Future<void> addDataFromFileToFirestore() async {
+    try {
+      // Load file content from assets
+      String fileContent = await rootBundle.loadString('assets/plan.json');
+
+      // Parse the JSON content into a List
+      List<dynamic> jsonDataList = jsonDecode(fileContent);
+
+      // Assuming there's only one element in the list
+      if (jsonDataList.isNotEmpty) {
+        Map<String, dynamic> jsonData = jsonDataList.first;
+
+        // Initialize Firebase
+        FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+        // Add data to Firestore
+        await firestore.collection('exercise_plans').doc('plan1').set(jsonData);
+
+        print('Data from file added to Firestore successfully');
+      } else {
+        print('No data found in the file.');
+      }
+    } catch (error) {
+      print('Error adding data from file to Firestore: $error');
+    }
   }
 }

@@ -8,7 +8,6 @@ import 'package:diety/Core/widget/Custom_TextFormFealed.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
@@ -267,7 +266,7 @@ class _LoginState extends State<Login> {
                                     password: password.text,
                                   );
                                   if (credential.user!.emailVerified) {
-                                    if (age == '0') {
+                                    if (age.isEmpty) {
                                       Navigator.of(context)
                                           .pushReplacement(MaterialPageRoute(
                                         builder: (context) => const Gender(),

@@ -7,7 +7,9 @@ import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:diety/features/Home/view/widget/navbar.dart';
 import 'package:diety/features/profile/view/contact%20us%20.dart';
+import 'package:diety/features/profile/view/gemini.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -193,16 +195,20 @@ class _ProfileState extends State<Profile> {
           backgroundColor: const Color(0xff151724),
           centerTitle: true,
           actions: [
-            TextButton(
+            Text(
+              'AI Mentor',
+              style: getbodyStyle(fontSize: 18),
+            ),
+            IconButton(
                 onPressed: () {
                   Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const contactus(),
+                    builder: (context) => const GeminiAi(),
                   ));
                 },
-                child: const Text(
-                  'Cuntact Us',
-                  style: TextStyle(color: Colors.blue, fontSize: 16),
-                )),
+                icon: const Icon(
+                  CupertinoIcons.chat_bubble_2_fill,
+                  color: Colors.blue, // Change the color here
+                ))
           ],
           leading: IconButton(
               onPressed: () {
@@ -539,10 +545,54 @@ class _ProfileState extends State<Profile> {
                               style: getbodyStyle(
                                   fontSize: 18, color: Colors.blue),
                             ),
+                            IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => const contactus(),
+                                ));
+                              },
+                              icon: const Icon(
+                                Icons.message_outlined,
+                                color: Colors.blue,
+                              ),
+                            )
                           ],
                         ),
                       ),
                     ),
+                    // const Gap(8),
+                    // InkWell(
+                    //   onTap: () async {
+                    //     Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    //       builder: (context) => const GeminiAi(),
+                    //     ));
+                    //   },
+                    //   child: Container(
+                    //     width: double.infinity,
+                    //     height: 50,
+                    //     color: const Color(0xff151724),
+                    //     child: Row(
+                    //       mainAxisAlignment: MainAxisAlignment.end,
+                    //       children: [
+                    //         Text(
+                    //           'Trainer Ai',
+                    //           style: getbodyStyle(fontSize: 18),
+                    //         ),
+                    //         IconButton(
+                    //             onPressed: () {
+                    //               Navigator.of(context)
+                    //                   .pushReplacement(MaterialPageRoute(
+                    //                 builder: (context) => const GeminiAi(),
+                    //               ));
+                    //             },
+                    //             icon: const Icon(
+                    //               CupertinoIcons.chat_bubble_text_fill,
+                    //               color: Colors.blue, // Change the color here
+                    //             ))
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                     const Gap(8),
                     InkWell(
                       onTap: () async {

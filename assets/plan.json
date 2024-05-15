@@ -1,0 +1,41 @@
+[
+  {
+    "Day1": {
+      "Activity1": "Walking",
+      "Description1": "Start slow, gradually increase pace over time.",
+      "Duration1": "15 minutes",
+      "Activity2": "Water Aerobics",
+      "Description2": "Low-impact on joints, good for building muscle and coordination.",
+      "Duration2": "15 minutes"
+    },
+    "Day2": {
+      "Activity1": "Rest",
+      "Description1": "Allow your body to recover."
+    },
+    "Day3": {
+      "Activity1": "Light Strength Training",
+      "Description1": "Use bodyweight or light resistance bands for squats, lunges, arm raises. Focus on proper form over heavy weights.",
+      "Duration1": "10 minutes",
+      "Activity2": "Gentle Yoga",
+      "Description2": "Improves flexibility and core strength.",
+      "Duration2": "15 minutes"
+    },
+    "Day4": {
+      "Activity1": "Rest",
+      "Description1": "Give your body time to adapt"
+    },
+    "Day5": {
+      "Activity1": "Rest",
+      "Description1": "Give your body time to adapt"
+    },
+    "Day6": {
+      "Activity1": "Walking",
+      "Description1": "Gradually increase duration.",
+      "Duration1": "20 minutes"
+    },
+    "Day7": {
+      "Activity1": "Rest or light activity like stretching.",
+      "Description1": "Moderate thinness ➔ Goal: Increase intensity and duration from Plan 1 to build muscle and improve fitness."
+    }
+  }
+]

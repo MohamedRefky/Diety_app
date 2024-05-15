@@ -29,6 +29,16 @@ String weight = '0';
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 late String _uid;
+Map<String, dynamic>? day1;
+Map<String, dynamic>? day2;
+Map<String, dynamic>? day3;
+Map<String, dynamic>? day4;
+Map<String, dynamic>? day5;
+Map<String, dynamic>? day6;
+Map<String, dynamic>? day7;
+
+String? description2;
+String? dd;
 
 class _ExerciseState extends State<Exercise> {
   late double _predictionResult;
@@ -37,7 +47,49 @@ class _ExerciseState extends State<Exercise> {
     super.initState();
     _fetchPrediction();
     _getUserdData();
+   // _getUserdExercise();
   }
+
+  // ignore: unused_element
+  // Future<void> _getUserdExercise() async {
+  //   User? user = _auth.currentUser;
+  //   if (user != null) {
+  //     setState(() {
+  //       _uid = user.uid;
+  //     });
+
+  //     try {
+        
+  //       DocumentSnapshot planDoc = await _firestore
+  //           .collection('exercise_plans')
+  //           .doc('plan1') // Assuming 'plan1' is under the user's document
+  //           .get();
+
+  //       // Adjust the path if 'plan1' is not directly under the user's document
+  //       // Example: .collection('exercise_plans').doc(_uid).collection('plan1').get();
+
+  //       setState(() {
+  //         dd = planDoc.get('dd') ?? 'Not available';
+
+  //         day1 = planDoc.get('day1') ?? 'Not available';
+  //         description2 = planDoc.get('Description2') ?? 'Not available';
+  //       });
+  //     } catch (error) {
+  //       // Handle any errors that occur during fetching
+  //       print('Error fetching exercise plan: $error');
+  //       setState(() {
+  //         description2 = 'Not available';
+  //       });
+  //     }
+  //   }
+  // }
+//   Future<void> readNestedField() async {
+// 	CollectionReference plansCollection = 	FirebaseFirestore.instance.collection('exercise_plans');
+// 	DocumentReference planDocument = 	plansCollection.doc('plan1');
+// 	DocumentSnapshot planSnapshot = await planDocument.get();
+// 	dynamic activity1Value = planSnapshot.data()['day1'].activity1;
+// 	print('Value of activity1: $activity1Value');
+// }
 
   Future<void> _getUserdData() async {
     User? user = _auth.currentUser;
@@ -59,6 +111,8 @@ class _ExerciseState extends State<Exercise> {
       });
     }
   }
+
+  // ignore: unused_element
 
   Future<void> _fetchPrediction() async {
     setState(() {
@@ -154,7 +208,27 @@ class _ExerciseState extends State<Exercise> {
                 Text('Gender: $gender'),
                 const Gap(10),
               ],
-            )
+            ),
+            Text(dd.toString()),
+            const Gap(10),
+            Text(
+                'Day2: ${day2 != null ? day2!['Activity1'] : 'Not available'}'),
+            const Gap(10),
+            Text(
+                'Day3: ${day3 != null ? day3!['Activity1'] : 'Not available'}'),
+            const Gap(10),
+            Text(
+                'Day4: ${day4 != null ? day4!['Activity1'] : 'Not available'}'),
+            const Gap(10),
+            Text(
+                'Day5: ${day5 != null ? day5!['Activity1'] : 'Not available'}'),
+            const Gap(10),
+            Text(
+                'Day6: ${day6 != null ? day6!['Activity1'] : 'Not available'}'),
+            const Gap(10),
+            Text(
+                'Day7: ${day7 != null ? day7!['Activity1'] : 'Not available'}'),
+            const Gap(10),
           ],
         ),
       ),

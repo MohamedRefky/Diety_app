@@ -4,7 +4,6 @@ import 'package:diety/features/Search%20Food/widget/AppBar.dart';
 import 'package:diety/features/Search%20Food/widget/CustomSearchFood.dart';
 import 'package:flutter/material.dart';
 
-
 class Breakfast extends StatefulWidget {
   const Breakfast({super.key});
 

@@ -1,11 +1,13 @@
-// ignore_for_file: avoid_types_as_parameter_names
+// ignore_for_file: avoid_types_as_parameter_names, unused_element
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
+import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class CustomSearchFood extends StatefulWidget {
   const CustomSearchFood({Key? key}) : super(key: key);
@@ -16,6 +18,8 @@ class CustomSearchFood extends StatefulWidget {
 
 class _CustomSearchFoodState extends State<CustomSearchFood> {
   final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _gramsController =
+      TextEditingController(); // Add this line to initialize _gramsController
   String _searchResult = '';
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   List<String> _suggestedValues = [];
@@ -31,8 +35,17 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
   }
 
   @override
+  void dispose() {
+    // Dispose controllers to avoid memory leaks
+    _searchController.dispose();
+    _gramsController.dispose(); // Add this line to dispose _gramsController
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.background,
       body: Form(
         key: formKey,
@@ -53,11 +66,11 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
                 },
                 keyboardType: TextInputType.text,
                 cursorColor: AppColors.button,
-                style: TextStyle(color: AppColors.white, fontSize: 18),
+                style: const TextStyle(color: Colors.white, fontSize: 18),
                 controller: _searchController,
                 decoration: InputDecoration(
                   hintText: 'Enter your food or drink',
-                  hintStyle: TextStyle(color: AppColors.white, fontSize: 18),
+                  hintStyle: const TextStyle(color: Colors.white, fontSize: 18),
                   suffixIcon: IconButton(
                     icon: Icon(
                       Icons.search,
@@ -88,50 +101,37 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
                     borderSide: const BorderSide(color: Colors.red),
                   ),
                 ),
-                focusNode: FocusNode()..addListener(_onFocusChange),
+                //focusNode: FocusNode()..addListener(_onFocusChange),
               ),
             ),
-            const Gap(10),
+            const SizedBox(height: 10),
             Container(
-              padding: const EdgeInsets.only(
-                left: 10,
-              ),
+              padding: const EdgeInsets.all(10),
               height: 60,
               width: double.infinity,
-              decoration: BoxDecoration(
-                color: AppColors.button,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                children: [
-                  Text(
-                    _searchResult,
-                    style: TextStyle(
-                      color: AppColors.white,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        _onAddPressed();
-                        test();
-                        CaloriesConsumed = storedValue.toString();
-                        print("Searched Value: $CaloriesConsumed");
-                      });
-                    },
-                    icon: Icon(
-                      Icons.add,
-                      color: AppColors.white,
-                      size: 30,
-                    ),
-                  ),
-                ],
+              color: AppColors.background,
+              child: Text(
+                _searchResult,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
-            
+            Visibility(
+              visible: _searchResult.isNotEmpty,
+              child: TextButton(
+                onPressed: () => _showGramsBottomSheet(context),
+                child: const Text(
+                  'Add Grams',
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: _suggestedValues.length,
@@ -139,7 +139,7 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
                   return ListTile(
                     title: Text(
                       _suggestedValues[index],
-                      style: TextStyle(color: AppColors.white, fontSize: 18),
+                      style: const TextStyle(color: Colors.white, fontSize: 18),
                     ),
                     onTap: () {
                       _searchController.text = _suggestedValues[index];
@@ -155,21 +155,96 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
     );
   }
 
- 
+  void _showGramsBottomSheet(BuildContext context) {
+    showMaterialModalBottomSheet(
+      expand: false,
+      context: context,
+      builder: (context) => Container(
+        color: const Color(0xff202835),
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Enter Grams',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const Gap(20),
+            TextFormField(
+              style: const TextStyle(color: Colors.white),
+              controller: _gramsController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                labelText: 'Grams',
+                labelStyle: const TextStyle(color: Colors.white),
+                hintText: '100 gram',
+                hintStyle: const TextStyle(color: Colors.white),
+                border: const UnderlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(color: AppColors.grey),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: BorderSide(color: AppColors.grey),
+                ),
+              ),
+            ),
+            const Gap(20),
+            Text(
+              _searchResult,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Gap(20),
+            Custom_Button(
+              color: AppColors.grey.withAlpha(100),
+              onPressed: () {
+                _onAddPressed();
+                test();
+                _search();
+                CaloriesConsumed = storedValue.toString();
+                print("Searched Value: $CaloriesConsumed");
+                Navigator.of(context).pop();
+              },
+              text: 'Add',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   List<Map<String, dynamic>> selectedFoods = [];
 
   Future<void> _search() async {
-    String valueToSearch = _searchController.text;
+    String food = _searchController.text;
+    double grams = double.tryParse(_gramsController.text) ??
+        100; // Default to 100 grams if invalid input
 
     try {
       // Call the searchByKey function to search for the value in the Firebase Realtime Database
-      String? value = await searchByKey(valueToSearch);
+      String? value = await searchByKey(food);
 
       // Update state with the search result
       setState(() {
         if (value != null) {
-          _searchResult = 'Every 100 grams of $valueToSearch is : $value';
-          selectedFoods.add({"food": valueToSearch, "calories": value});
+          double calories = calculateCalories(value, grams);
+          _searchResult = '$grams grams of $food is: $calories calories';
+          selectedFoods.add({"food": food, "calories": calories});
         } else {
           _searchResult = 'Value not found.';
         }
@@ -181,6 +256,13 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
         _searchResult = 'Error retrieving data. Please try again later.';
       });
     }
+  }
+
+  double calculateCalories(String value, double grams) {
+    // Parse the value retrieved from the database and calculate calories based on grams
+    double parsedValue =
+        double.tryParse(value.replaceAll('cal', '').trim()) ?? 0;
+    return parsedValue * (grams / 100);
   }
 
   Future<String?> searchByKey(String key) async {
@@ -275,14 +357,19 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
   }
 
   void _onAddPressed() async {
-    // Calculate total calories of selected foods
+    // Retrieve the grams entered by the user
+    double grams = double.tryParse(_gramsController.text) ??
+        100.0; // Default to 100 grams if parsing fails
+
+    // Calculate total calories of selected foods based on the grams entered by the user
     double totalCalories = selectedFoods.fold(0, (sum, food) {
-      // Extract the numeric part of the calories string
-      String calories = food['calories'].replaceAll(RegExp(r'[^\d.]'), '');
-      // Parse the extracted string as a double
-      double parsedCalories = double.parse(calories);
-      // Add the parsed calories to the sum
-      return sum + parsedCalories;
+      // Access the calories directly from the food map
+      double calories =
+          food['calories']; // Assuming 'calories' is a double in the food map
+      // Calculate calories based on grams entered by the user
+      double caloriesForGrams = (calories / 100) * grams;
+      // Add the calculated calories to the sum
+      return sum + caloriesForGrams;
     });
 
     // Update CaloriesConsumed
@@ -312,39 +399,23 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
 
   Future<void> test() async {
     try {
-      // Remove the "cal" part from storedValue
-      String? valueWithoutCal = storedValue?.replaceAll('cal', '').trim();
-
-      if (valueWithoutCal != null && valueWithoutCal.isNotEmpty) {
-        // Convert the value to a double
-        double parsedValue = double.parse(valueWithoutCal);
-
-        // Update CaloriesConsumed
-        setState(() {
-          CaloriesConsumed = parsedValue.toString();
-        });
-
-        // Get the current document snapshot to preserve existing data
-        DocumentSnapshot snapshot = await users.doc(uid).get();
-        // Extract the existing data, cast to Map<String, dynamic>
-        Map<String, dynamic> existingData =
-            (snapshot.data() as Map<String, dynamic>);
-
-        // Merge the existing data with the new data
-        Map<String, dynamic> newData = {
-          ...existingData,
-          "CaloriesConsumed": parsedValue,
-        };
-
-        // Update the document with the merged data
-        await users.doc(uid).set(newData, SetOptions(merge: true));
-
-        print('User updated in Firestore');
+      if (_searchResult.isNotEmpty) {
+        // Extract the calories value from _searchResult
+        RegExp regex = RegExp(r'[0-9.]+');
+        Iterable<Match> matches = regex.allMatches(_searchResult);
+        if (matches.isNotEmpty) {
+          double parsedCalories = double.parse(matches.first.group(0)!);
+          storedValue =
+              '$parsedCalories cal'; // Update storedValue with calories
+          print('Stored Value: $storedValue');
+        } else {
+          print('Calories not found in _searchResult');
+        }
       } else {
-        print('Value is empty or not valid');
+        print('Search result is empty');
       }
     } catch (error) {
-      print('Failed to update user: $error');
+      print('Error storing value: $error');
     }
   }
 }
