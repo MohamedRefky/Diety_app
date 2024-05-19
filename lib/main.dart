@@ -80,7 +80,7 @@ class _MyAppState extends State<MyApp> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => Dinner(
+                builder: (context)  => Dinner(
                       response: NotificationResponse,
                     )));
       } else if (NotificationResponse.id == 1) {
