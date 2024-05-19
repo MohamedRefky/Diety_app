@@ -204,7 +204,7 @@ class _UserDitailsState extends State<UserDitails> {
                 const Gap(40),
                 Custom_Button(
                     width: 300,
-                    text: 'My Plane',
+                    text: 'Determine Goal',
                     onPressed: () {
                       String idealweight =
                           calculateIdealWeight().toStringAsFixed(1);

@@ -136,7 +136,7 @@ firefighter''',
               ),
               const SizedBox(height: 20),
               Custom_Button(
-                text: 'Continue',
+                text: 'Body Details',
                 onPressed: () {
                   test();
 

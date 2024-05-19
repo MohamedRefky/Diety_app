@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/model/firenotifications.dart';
 import 'package:diety/Core/model/notifications.dart';

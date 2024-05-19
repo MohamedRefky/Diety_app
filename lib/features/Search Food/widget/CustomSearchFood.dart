@@ -214,6 +214,13 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
               color: AppColors.grey.withAlpha(100),
               onPressed: () {
                 _onAddPressed();
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text(
+                    "Food Added Successfuly",
+                  ),
+                  duration: Duration(seconds: 2),
+                  backgroundColor: Colors.green,
+                ));
                 test();
                 _search();
                 CaloriesConsumed = storedValue.toString();

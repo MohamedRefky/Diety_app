@@ -521,31 +521,31 @@ class _HomeeState extends State<Home> {
       ),
     );
   }
+}
 
-  Future<void> addDataFromFileToFirestore() async {
-    try {
-      // Load file content from assets
-      String fileContent = await rootBundle.loadString('assets/plan.json');
+Future<void> addDataFromFileToFirestore() async {
+  try {
+    // Load file content from assets
+    String fileContent = await rootBundle.loadString('assets/plan.json');
 
-      // Parse the JSON content into a List
-      List<dynamic> jsonDataList = jsonDecode(fileContent);
+    // Parse the JSON content into a List
+    List<dynamic> jsonDataList = jsonDecode(fileContent);
 
-      // Assuming there's only one element in the list
-      if (jsonDataList.isNotEmpty) {
-        Map<String, dynamic> jsonData = jsonDataList.first;
+    // Assuming there's only one element in the list
+    if (jsonDataList.isNotEmpty) {
+      Map<String, dynamic> jsonData = jsonDataList.first;
 
-        // Initialize Firebase
-        FirebaseFirestore firestore = FirebaseFirestore.instance;
+      // Initialize Firebase
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-        // Add data to Firestore
-        await firestore.collection('exercise_plans').doc('plan1').set(jsonData);
+      // Add data to Firestore
+      await firestore.collection('exercise_plans').doc('plan1').set(jsonData);
 
-        print('Data from file added to Firestore successfully');
-      } else {
-        print('No data found in the file.');
-      }
-    } catch (error) {
-      print('Error adding data from file to Firestore: $error');
+      print('Data from file added to Firestore successfully');
+    } else {
+      print('No data found in the file.');
     }
+  } catch (error) {
+    print('Error adding data from file to Firestore: $error');
   }
 }
