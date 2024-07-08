@@ -1,41 +1,69 @@
 [
+  
   {
+    "id" :"6",
     "Day1": {
-      "Activity1": "Walking",
-      "Description1": "Start slow, gradually increase pace over time.",
-      "Duration1": "15 minutes",
-      "Activity2": "Water Aerobics",
-      "Description2": "Low-impact on joints, good for building muscle and coordination.",
-      "Duration2": "15 minutes"
+      "Activity1": "Cardio",
+      "Description1": "Choose low-impact activities you enjoy.",
+      "Duration1": "30 minutes",
+      "Options": [
+        "Walking at a comfortable pace, gradually increase duration over time",
+        "Stationary cycling with light resistance",
+        "Elliptical training with minimal resistance"
+      ],
+      "Activity2": "Strength Training",
+      "Description2": "Focus on major muscle groups with proper form.",
+      "Duration2": "15 minutes",
+      "Exercises": [
+        "Wall squats (3 sets of 10 repetitions)",
+        "Lunges with chair support (3 sets of 10 repetitions per leg)",
+        "Seated rows with resistance bands (3 sets of 10 repetitions)",
+        "Overhead press with light weights (3 sets of 10 repetitions)"
+      ]
     },
     "Day2": {
-      "Activity1": "Rest",
-      "Description1": "Allow your body to recover."
+      "Activity1": "Rest or Active Recovery",
+      "Description1": "Light stretching, gentle yoga, or walking at a slow pace.",
+      "Duration1": "15-20 minutes"
     },
     "Day3": {
-      "Activity1": "Light Strength Training",
-      "Description1": "Use bodyweight or light resistance bands for squats, lunges, arm raises. Focus on proper form over heavy weights.",
-      "Duration1": "10 minutes",
-      "Activity2": "Gentle Yoga",
-      "Description2": "Improves flexibility and core strength.",
-      "Duration2": "15 minutes"
+      "Activity1": "Cardio",
+      "Description1": "Swimming (low-impact, full-body workout, adjust strokes or pace for your comfort).",
+      "Duration1": "30 minutes",
+      "Activity2": "Core Strengthening",
+      "Description2": "Gentle exercises that target core muscles.",
+      "Duration2": "10 minutes",
+      "Exercises": [
+        "Modified planks on forearms (hold for as long as comfortable, repeat 3 times)",
+        "Bird-dogs (3 sets of 10 repetitions per side)"
+      ]
     },
     "Day4": {
       "Activity1": "Rest",
-      "Description1": "Give your body time to adapt"
+      "Description1": "Allow your body to recover and rebuild muscle."
     },
     "Day5": {
-      "Activity1": "Rest",
-      "Description1": "Give your body time to adapt"
+      "Activity1": "Cardio",
+      "Description1": "Water aerobics class (low-impact, social, and fun).",
+      "Duration1": "20 minutes",
+      "Activity2": "Flexibility Training",
+      "Description2": "Static stretches to improve range of motion.",
+      "Duration2": "10 minutes"
     },
     "Day6": {
-      "Activity1": "Walking",
-      "Description1": "Gradually increase duration.",
-      "Duration1": "20 minutes"
+      "Activity1": "Rest or Active Recovery",
+      "Description1": "Light activity like walking, yoga, or gentle stretching for 15-20 minutes."
     },
     "Day7": {
-      "Activity1": "Rest or light activity like stretching.",
-      "Description1": "Moderate thinness ➔ Goal: Increase intensity and duration from Plan 1 to build muscle and improve fitness."
+      "Activity1": "Active Recovery",
+      "Description1": "Choose a low-impact activity you enjoy.",
+      "Duration1": "45 minutes",
+      "Options": [
+        "Light hike or walk in nature with frequent breaks",
+        "Gentle yoga or Pilates class",
+        "Adapted sports like adaptive tennis or bocce ball"
+      ]
     }
   }
+
 ]

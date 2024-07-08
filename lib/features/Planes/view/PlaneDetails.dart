@@ -100,11 +100,18 @@ class _PlaneDetailsState extends State<PlaneDetails>
                 floating: false,
                 snap: false,
                 flexibleSpace: FlexibleSpaceBar(
-                  background: CachedNetworkImage(
-                    width: double.infinity,
-                    height: 250,
-                    fit: BoxFit.cover,
-                    imageUrl: widget.image,
+                  background: Hero(
+                    tag: 'planImage${widget.image}',
+                    child: CachedNetworkImage(
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      fit: BoxFit.cover,
+                      imageUrl: widget.image,
+                    ),
                   ),
                 ),
               ),
@@ -227,7 +234,7 @@ class _PlaneDetailsState extends State<PlaneDetails>
                               height: 20,
                             ),
                             const Text(
-                              'Choose ThisPlan If',
+                              'Choose This Plan If',
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
@@ -288,24 +295,20 @@ class _PlaneDetailsState extends State<PlaneDetails>
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            for (var entry in widget.schedule
-                                .entries) // Using a loop to iterate through the map
+                            for (var entry in widget.schedule.entries)
                               Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom:
-                                        10), // Add some space between entries
+                                padding: const EdgeInsets.only(bottom: 10),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "${entry.key} :\n", // Display the week and its description
+                                      "${entry.key} :\n",
                                       style: const TextStyle(
                                           color: Colors.white, fontSize: 18),
                                     ),
                                     Text(
-                                      entry
-                                          .value, // Display the week and its description
+                                      entry.value,
                                       style: const TextStyle(
                                           color: Colors.white, fontSize: 16),
                                     ),

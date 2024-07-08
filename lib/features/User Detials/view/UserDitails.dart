@@ -110,19 +110,31 @@ class _UserDitailsState extends State<UserDitails> {
                   progressColor: AppColors.button,
                   backgroundColor: AppColors.grey,
                   circularStrokeCap: CircularStrokeCap.round,
-                  center: Text(
-                    "${calculateBMI().toStringAsFixed(1)}%",
-                    style: TextStyle(
-                        color: AppColors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30),
+                  center: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        calculateBMI().toStringAsFixed(1),
+                        style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30),
+                      ),
+                      Text(
+                        'bmi',
+                        style: TextStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25),
+                      ),
+                    ],
                   ),
                 ),
                 const Gap(10),
                 AnimatedTextKit(
                   animatedTexts: [
                     TypewriterAnimatedText(
-                        "Health Status is ${calculateAndDetermineBMI().toString()}",
+                        "Health Status is ${calculateAndDetermineBMI()}",
                         textStyle: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.bold,
@@ -135,7 +147,7 @@ class _UserDitailsState extends State<UserDitails> {
                 ),
                 const Gap(10),
                 customRowVeiwDitails(
-                  title: 'Your daily calorie needed :',
+                  title: 'Your daily calories :',
                   value: dailyCalories.toStringAsFixed(1),
                 ),
                 const Gap(15),
@@ -312,28 +324,38 @@ class _UserDitailsState extends State<UserDitails> {
   }
 
   String calculateAndDetermineBMI() {
-    // Formula for BMI: weight (kg) / (height (m) * height (m))
-    double heightInMeter =
-        int.parse(height) / 100; // Convert height from cm to m
-    double bmi = int.parse(weight) / (heightInMeter * heightInMeter);
+    try {
+      double heightInMeter = double.parse(height) / 100;
+      double weightInKg = double.parse(weight);
 
-    // Determine BMI category
-    if (bmi < 16.0) {
-      return 'Severely Underweight';
-    } else if (bmi >= 16.0 && bmi < 16.9) {
-      return 'Underweight';
-    } else if (bmi >= 17.0 && bmi < 18.4) {
-      return 'Mildly Underweight';
-    } else if (bmi >= 18.5 && bmi < 24.9) {
-      return 'Normal Weight';
-    } else if (bmi >= 25.0 && bmi < 29.9) {
-      return 'Overweight';
-    } else if (bmi >= 30.0 && bmi < 34.9) {
-      return 'Obesity class I';
-    } else if (bmi >= 35.0 && bmi < 39.9) {
-      return 'Obesity class II';
-    } else {
-      return 'Obesity class III';
+      if (heightInMeter == 0) {
+        return ' ';
+      }
+
+      double bmi = weightInKg / (heightInMeter * heightInMeter);
+
+      String category;
+      if (bmi < 16.0) {
+        category = 'Severely Underweight';
+      } else if (bmi >= 16.0 && bmi < 16.9) {
+        category = 'Underweight';
+      } else if (bmi >= 17.0 && bmi < 18.4) {
+        category = 'Mildly Underweight';
+      } else if (bmi >= 18.5 && bmi < 24.9) {
+        category = 'Normal Weight';
+      } else if (bmi >= 25.0 && bmi < 29.9) {
+        category = 'Overweight';
+      } else if (bmi >= 30.0 && bmi < 34.9) {
+        category = 'Obesity class I';
+      } else if (bmi >= 35.0 && bmi < 39.9) {
+        category = 'Obesity class II';
+      } else {
+        category = 'Obesity class III';
+      }
+
+      return category;
+    } catch (e) {
+      return 'Invalid input';
     }
   }
 

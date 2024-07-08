@@ -4,13 +4,13 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
+import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
-import 'package:diety/features/profile/view/chalenges.dart';
+import 'package:diety/features/Home/view/widget/chalenges.dart';
 import 'package:diety/features/Home/view/widget/navbar.dart';
 import 'package:diety/features/profile/view/contact%20us%20.dart';
 import 'package:diety/features/profile/view/gemini.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -27,13 +27,15 @@ class Profile extends StatefulWidget {
   @override
   State<Profile> createState() => _ProfileState();
 }
-class CardItem{
-    final String urlImage;
-    final String title;
-    final String subtitle;
 
-  const CardItem({required this.urlImage, required this.title, required this.subtitle});
-  }
+class CardItem {
+  final String urlImage;
+  final String title;
+  final String subtitle;
+
+  const CardItem(
+      {required this.urlImage, required this.title, required this.subtitle});
+}
 
 class _ProfileState extends State<Profile> {
   @override
@@ -130,120 +132,65 @@ class _ProfileState extends State<Profile> {
     }
   }
 
-  // Future<void> updateProfileImage(String newImageUrl) async {
-  //   User? user = FirebaseAuth.instance.currentUser;
-  //   if (user != null) {
-  //     String userID = user.uid;
-  //     try {
-  //       await FirebaseFirestore.instance
-  //           .collection('users')
-  //           .doc(userID)
-  //           .update({
-  //         "image": newImageUrl,
-  //       });
-  //       setState(() {
-  //         profileUrl = newImageUrl; // Update profileUrl with new image URL
-  //       });
-  //       print('User profile updated successfully');
-  //     } catch (error) {
-  //       print('Failed to update user profile: $error');
-  //     }
-  //   }
-  // }
-
-  // Future<String> uploadImageToFireStore(File image) async {
-  //   Reference ref =
-  //       FirebaseStorage.instance.ref().child('users/$userID/profileImage.jpg');
-  //   SettableMetadata metadata = SettableMetadata(contentType: 'image/jpeg');
-  //   await ref.putFile(image, metadata);
-  //   String url = await ref.getDownloadURL();
-  //   return url;
-  // }
-
-  // Future<void> _pickImage() async {
-  //   final pickedFile =
-  //       await ImagePicker().pickImage(source: ImageSource.gallery);
-
-  //   if (pickedFile != null) {
-  //     final imageFile = File(pickedFile.path);
-  //     final imageUrl = await uploadImageToFireStore(imageFile);
-
-  //     setState(() {
-  //       _imagePath = pickedFile.path;
-  //       file = imageFile;
-  //       profileUrl = imageUrl;
-  //     });
-
-  //     User? user = FirebaseAuth.instance.currentUser;
-  //     if (user != null) {
-  //       String userID = user.uid;
-
-  //       try {
-  //         // Update profile image URL in Firestore
-  //         await updateProfileImage(profileUrl!); // Await here
-
-  //         // Save profile image URL to local storage
-  //         SharedPreferences prefs = await SharedPreferences.getInstance();
-  //         prefs.setString('profileImageUrl', profileUrl!);
-
-  //         print('Image updated successfully');
-  //       } catch (error) {
-  //         print('Failed to update  Image: $error');
-  //       }
-  //     }
-  //   }
-  // }
-  
-  List<CardItem> items =[
+  List<CardItem> items = [
     const CardItem(
-      urlImage:"https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/share/1f36b.jpg",
+      urlImage:
+          "https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/share/1f36b.jpg",
       title: 'No Chocolate',
-      subtitle:"Strat Challenge",
+      subtitle: "Strat Challenge",
     ),
     const CardItem(
-      urlImage:"https://www.dictionary.com/e/wp-content/uploads/2018/11/lollipop-emoji.png",
+      urlImage:
+          "https://www.dictionary.com/e/wp-content/uploads/2018/11/lollipop-emoji.png",
       title: 'No Sugar',
-      subtitle:"Strat Challenge",
+      subtitle: "Strat Challenge",
     ),
     const CardItem(
-      urlImage:"https://static.wikia.nocookie.net/emoji5546/images/9/93/Bombono.png/revision/latest?cb=20230810175804",
+      urlImage:
+          "https://static.wikia.nocookie.net/emoji5546/images/9/93/Bombono.png/revision/latest?cb=20230810175804",
       title: 'No sweets',
-      subtitle:"Strat Challenge",
+      subtitle: "Strat Challenge",
     ),
     const CardItem(
-      urlImage:"https://media.sketchfab.com/models/f62974b78d244172b4162bce312188b3/thumbnails/d71e95bb20b843e4973d966b32836742/798f3664b8fc4b7da851cb7063bd0122.jpeg",
+      urlImage:
+          "https://media.sketchfab.com/models/f62974b78d244172b4162bce312188b3/thumbnails/d71e95bb20b843e4973d966b32836742/798f3664b8fc4b7da851cb7063bd0122.jpeg",
       title: 'No Fast Food',
-      subtitle:"Strat Challenge",
+      subtitle: "Strat Challenge",
     ),
     const CardItem(
-      urlImage:"https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/hot-beverage.png",
+      urlImage:
+          "https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/hot-beverage.png",
       title: 'No Coffee',
-      subtitle:"Strat Challenge",
+      subtitle: "Strat Challenge",
     ),
     const CardItem(
-      urlImage:"https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/wine-glass.png",
+      urlImage:
+          "https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/wine-glass.png",
       title: 'No Alcohol',
-      subtitle:"Strat Challenge",
+      subtitle: "Strat Challenge",
     ),
     const CardItem(
-      urlImage:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIBzdHb33w560vmwTp-EI38sZAyi6FW9WrclzUUKNyuA&s",
+      urlImage:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIBzdHb33w560vmwTp-EI38sZAyi6FW9WrclzUUKNyuA&s",
       title: 'No Pizza',
-      subtitle:"Strat Challenge",
+      subtitle: "Strat Challenge",
     ),
     const CardItem(
-      urlImage:"https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/share/1f969.jpg",
+      urlImage:
+          "https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/share/1f969.jpg",
       title: 'No Meat ',
-      subtitle:"Strat Challenge",
+      subtitle: "Strat Challenge",
     ),
     const CardItem(
-      urlImage:"https://cdn-icons-png.flaticon.com/512/2836/2836507.png",
+      urlImage: "https://cdn-icons-png.flaticon.com/512/2836/2836507.png",
       title: 'No Chips',
-      subtitle:"Strat Challenge",
+      subtitle: "Strat Challenge",
     ),
     const CardItem(
-      urlImage:"https://em-content.zobj.net/source/apple/391/cigarette_1f6ac.png",
+      urlImage:
+          "https://em-content.zobj.net/source/apple/391/cigarette_1f6ac.png",
       title: 'No Cigarettes',
-      subtitle:"Strat Challenge",
+      subtitle: "Strat Challenge",
     ),
   ];
 
@@ -254,22 +201,35 @@ class _ProfileState extends State<Profile> {
         backgroundColor: const Color(0xff030b18),
         appBar: AppBar(
           backgroundColor: const Color(0xff151724),
-          centerTitle: true,
+          title: Text(
+            'Profile',
+            style: TextStyle(
+                color: AppColors.white,
+                fontSize: 25,
+                fontWeight: FontWeight.bold),
+          ),
           actions: [
-            Text(
-              'AI Mentor',
-              style: getbodyStyle(fontSize: 18),
-            ),
-            IconButton(
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => const GeminiAi(),
-                  ));
-                },
-                icon: const Icon(
-                  CupertinoIcons.chat_bubble_2_fill,
-                  color: Colors.blue, // Change the color here
-                ))
+            InkWell(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const GeminiAi(),
+                ));
+              },
+              child: Row(
+                children: [
+                  Text(
+                    'AI Coach',
+                    style: getbodyStyle(fontSize: 18),
+                  ),
+                  const Gap(5),
+                  CircleAvatar(
+                    radius: 22,
+                    backgroundColor: AppColors.white,
+                    backgroundImage: const AssetImage('Images/gemini logo.png'),
+                  ),
+                ],
+              ),
+            )
           ],
           leading: IconButton(
               onPressed: () {
@@ -626,45 +586,15 @@ class _ProfileState extends State<Profile> {
                       height: 150,
                       color: const Color(0xff151724),
                       child: ListView.separated(
-                        padding: const EdgeInsets.all(4),
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index)=> buildcard(item: items[index]),
-                        separatorBuilder: (context,_) =>const SizedBox(width: 8,),
-                        itemCount: 10),
+                          padding: const EdgeInsets.all(4),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) =>
+                              buildcard(item: items[index]),
+                          separatorBuilder: (context, _) => const SizedBox(
+                                width: 8,
+                              ),
+                          itemCount: 10),
                     ),
-                    // const Gap(8),
-                    // InkWell(
-                    //   onTap: () async {
-                    //     Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    //       builder: (context) => const GeminiAi(),
-                    //     ));
-                    //   },
-                    //   child: Container(
-                    //     width: double.infinity,
-                    //     height: 50,
-                    //     color: const Color(0xff151724),
-                    //     child: Row(
-                    //       mainAxisAlignment: MainAxisAlignment.end,
-                    //       children: [
-                    //         Text(
-                    //           'Trainer Ai',
-                    //           style: getbodyStyle(fontSize: 18),
-                    //         ),
-                    //         IconButton(
-                    //             onPressed: () {
-                    //               Navigator.of(context)
-                    //                   .pushReplacement(MaterialPageRoute(
-                    //                 builder: (context) => const GeminiAi(),
-                    //               ));
-                    //             },
-                    //             icon: const Icon(
-                    //               CupertinoIcons.chat_bubble_text_fill,
-                    //               color: Colors.blue, // Change the color here
-                    //             ))
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
                     const Gap(8),
                     InkWell(
                       onTap: () async {
@@ -696,6 +626,43 @@ class _ProfileState extends State<Profile> {
                         ),
                       ),
                     ),
+                    const Gap(8),
+                    InkWell(
+                      onTap: () async {
+                        bool confirmDelete =
+                            await _showConfirmationDialog(context);
+                        if (confirmDelete) {
+                          await deleteAccount();
+                        }
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        color: const Color(0xff151724),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Text(
+                              'Delete Account',
+                              style: getbodyStyle(fontSize: 18),
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                              onPressed: () async {
+                                bool confirmDelete =
+                                    await _showConfirmationDialog(context);
+                                if (confirmDelete) {
+                                  await deleteAccount();
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -705,46 +672,91 @@ class _ProfileState extends State<Profile> {
       ),
     );
   }
-   Widget buildcard({required CardItem item}) {
+
+  Widget buildcard({required CardItem item}) {
     return Column(
-    children: [
-      Expanded(
-        child: AspectRatio(
-          aspectRatio: 5/2,
+      children: [
+        Expanded(
+            child: AspectRatio(
+          aspectRatio: 5 / 2,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(20),
-            child: Material(color: Colors.white,
+            child: Material(
+              color: Colors.white,
               child: Ink.image(
                 image: NetworkImage(item.urlImage),
-                  fit: BoxFit.contain,
-                  child: InkWell(
-                    onTap:() {
-                      showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return Chalengspage(
-                    item: item,
-                  );
-                },
-              );
-                },),
+                fit: BoxFit.contain,
+                child: InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Chalengspage(
+                          item: item,
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           ),
-        )
-      ),
-      Text(
-        item.title,
-        style: const TextStyle(
-          fontSize: 20,fontWeight: FontWeight.bold,color: Colors.white,
-        ),),
+        )),
+        Text(
+          item.title,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
         Text(
           item.subtitle,
           style: const TextStyle(
-          fontSize: 16,color: Colors.white,
+            fontSize: 16,
+            color: Colors.white,
+          ),
         ),
-        ),
-    ],
-  );
+      ],
+    );
+  }
 
-  }}
+  Future<void> deleteAccount() async {
+    try {
+      User? user = _auth.currentUser;
+      if (user != null) {
+        await _firestore.collection('users').doc(user.uid).delete();
+        await user.delete();
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+          builder: (context) =>
+              const SignUp(), // Redirect to a sign-in screen after deletion
+        ));
+      }
+    } catch (e) {
+      print('Error deleting user account: $e');
+    }
+  }
+
+  Future<bool> _showConfirmationDialog(BuildContext context) async {
+    return await showDialog<bool>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Confirm Delete'),
+            content:
+                const Text('Are you sure you want to delete your account?'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(false),
+                child: const Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(true),
+                child:
+                    const Text('Delete', style: TextStyle(color: Colors.red)),
+              ),
+            ],
+          ),
+        ) ??
+        false; // Return false if the dialog is dismissed
+  }
+}

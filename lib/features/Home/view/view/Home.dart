@@ -3,14 +3,16 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Home/view/view/Today.dart';
+import 'package:diety/features/Admin/view/AdminHome.dart';
 import 'package:diety/features/Home/view/widget/Custom-Container.dart';
+import 'package:diety/features/Home/view/widget/chalenges.dart';
 import 'package:diety/features/Home/view/widget/navbar.dart';
 import 'package:diety/features/Search%20Food/view/Breakfast.dart';
 import 'package:diety/features/Search%20Food/view/Dinner.dart';
 import 'package:diety/features/Search%20Food/view/Lunch.dart';
 import 'package:diety/features/Search%20Food/view/Snacks.dart';
 import 'package:diety/features/User%20Detials/view/UserDitails.dart';
+import 'package:diety/features/profile/view/gemini.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,10 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import 'Exercise.dart';
+import '../../../Exersise/view/Exercise.dart';
+import '../../../profile/view/profile.dart';
+import '../../../profile/widget/styles.dart';
+import '../widget/watertracker.dart';
 
 class Home extends StatefulWidget {
   final NotificationResponse? response;
@@ -54,6 +59,7 @@ class _HomeeState extends State<Home> {
   final double remaining = 0.0;
   late double percent = 0.0;
   late double RemainingCal = 0.0;
+
   var date = DateFormat.yMd().format(DateTime.now());
 
   Future<void> _resetRemainingCal() async {
@@ -95,6 +101,67 @@ class _HomeeState extends State<Home> {
     }
   }
 
+  List<CardItem> items = [
+    const CardItem(
+      urlImage:
+          "https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/share/1f36b.jpg",
+      title: 'No Chocolate',
+      subtitle: "Strat Challenge",
+    ),
+    const CardItem(
+      urlImage:
+          "https://www.dictionary.com/e/wp-content/uploads/2018/11/lollipop-emoji.png",
+      title: 'No Sugar',
+      subtitle: "Strat Challenge",
+    ),
+    const CardItem(
+      urlImage:
+          "https://static.wikia.nocookie.net/emoji5546/images/9/93/Bombono.png/revision/latest?cb=20230810175804",
+      title: 'No sweets',
+      subtitle: "Strat Challenge",
+    ),
+    const CardItem(
+      urlImage:
+          "https://media.sketchfab.com/models/f62974b78d244172b4162bce312188b3/thumbnails/d71e95bb20b843e4973d966b32836742/798f3664b8fc4b7da851cb7063bd0122.jpeg",
+      title: 'No Fast Food',
+      subtitle: "Strat Challenge",
+    ),
+    const CardItem(
+      urlImage:
+          "https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/hot-beverage.png",
+      title: 'No Coffee',
+      subtitle: "Strat Challenge",
+    ),
+    const CardItem(
+      urlImage:
+          "https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/wine-glass.png",
+      title: 'No Alcohol',
+      subtitle: "Strat Challenge",
+    ),
+    const CardItem(
+      urlImage:
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIBzdHb33w560vmwTp-EI38sZAyi6FW9WrclzUUKNyuA&s",
+      title: 'No Pizza',
+      subtitle: "Strat Challenge",
+    ),
+    const CardItem(
+      urlImage:
+          "https://images.emojiterra.com/google/noto-emoji/unicode-15.1/color/share/1f969.jpg",
+      title: 'No Meat ',
+      subtitle: "Strat Challenge",
+    ),
+    const CardItem(
+      urlImage: "https://cdn-icons-png.flaticon.com/512/2836/2836507.png",
+      title: 'No Chips',
+      subtitle: "Strat Challenge",
+    ),
+    const CardItem(
+      urlImage:
+          "https://em-content.zobj.net/source/apple/391/cigarette_1f6ac.png",
+      title: 'No Cigarettes',
+      subtitle: "Strat Challenge",
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     double consumed = double.tryParse(CaloriesConsumed) ?? 0.0;
@@ -116,33 +183,27 @@ class _HomeeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         actions: [
-          IconButton(
-            onPressed: () {
-              showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime.now().add(const Duration(days: 7)))
-                  .then((value) {
-                if (value != null) {
-                  setState(() {
-                    date = DateFormat.yMd().format(value);
-                  });
-                }
-              });
+          InkWell(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const GeminiAi(),
+              ));
             },
-            icon: Icon(
-              Icons.calendar_month,
-              color: AppColors.white,
+            child: Row(
+              children: [
+                Text(
+                  'AI Coach',
+                  style: getbodyStyle(fontSize: 18),
+                ),
+                const Gap(5),
+                CircleAvatar(
+                  radius: 22,
+                  backgroundColor: AppColors.white,
+                  backgroundImage: const AssetImage('Images/gemini logo.png'),
+                ),
+              ],
             ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.search_rounded,
-              color: AppColors.white,
-            ),
-          ),
+          )
         ],
         leadingWidth: 190,
         leading: Padding(
@@ -160,20 +221,36 @@ class _HomeeState extends State<Home> {
                     color: AppColors.white,
                     size: 25,
                   )),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Today',
-                    style: TextStyle(
-                      color: AppColors.white,
+              InkWell(
+                onTap: () {
+                  showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime.now().add(const Duration(days: 7)))
+                      .then((value) {
+                    if (value != null) {
+                      setState(() {
+                        date = DateFormat.yMd().format(value);
+                      });
+                    }
+                  });
+                },
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Today',
+                      style: TextStyle(
+                        color: AppColors.white,
+                      ),
                     ),
-                  ),
-                  Text(
-                    DateFormat.yMEd().format(DateTime.now()),
-                    style: TextStyle(color: AppColors.white),
-                  )
-                ],
+                    Text(
+                      DateFormat.yMEd().format(DateTime.now()),
+                      style: TextStyle(color: AppColors.white),
+                    )
+                  ],
+                ),
               ),
             ],
           ),
@@ -465,7 +542,35 @@ class _HomeeState extends State<Home> {
               const Divider(
                 color: Color(0xff616570),
               ),
-              const Gap(12),
+              const Gap(10),
+              const WaterTrackerWidget(),
+              const Gap(10),
+              Container(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(left: 13),
+                child: const Text(
+                  'Challenges',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w800,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Container(
+                height: 150,
+                color: AppColors.background,
+                child: ListView.separated(
+                    padding: const EdgeInsets.all(4),
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) =>
+                        buildcard(item: items[index]),
+                    separatorBuilder: (context, _) => const SizedBox(
+                          width: 8,
+                        ),
+                    itemCount: 10),
+              ),
+              const Gap(8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -473,42 +578,15 @@ class _HomeeState extends State<Home> {
                     children: [
                       IconButton(
                         onPressed: () {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                            builder: (context) => const Today(),
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => const Admin_Home(),
                           ));
                         },
                         icon: Icon(CupertinoIcons.chart_bar_alt_fill,
                             color: AppColors.button, size: 50),
                       ),
                       Text(
-                        "Today",
-                        style: TextStyle(color: AppColors.button),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Icon(
-                        Icons.image_outlined,
-                        color: AppColors.button,
-                        size: 50,
-                      ),
-                      Text(
                         "Album",
-                        style: TextStyle(color: AppColors.button),
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Icon(
-                        Icons.map,
-                        color: AppColors.button,
-                        size: 50,
-                      ),
-                      Text(
-                        "Meal Plans",
                         style: TextStyle(color: AppColors.button),
                       )
                     ],
@@ -519,6 +597,54 @@ class _HomeeState extends State<Home> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildcard({required CardItem item}) {
+    return Column(
+      children: [
+        Expanded(
+            child: AspectRatio(
+          aspectRatio: 5 / 2,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Material(
+              color: Colors.white,
+              child: Ink.image(
+                image: NetworkImage(item.urlImage),
+                fit: BoxFit.contain,
+                child: InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Chalengspage(
+                          item: item,
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+        )),
+        Text(
+          item.title,
+          style: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+        Text(
+          item.subtitle,
+          style: const TextStyle(
+            fontSize: 16,
+            color: Colors.white,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -539,7 +665,7 @@ Future<void> addDataFromFileToFirestore() async {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
 
       // Add data to Firestore
-      await firestore.collection('exercise_plans').doc('plan1').set(jsonData);
+      await firestore.collection('exercise_plans').doc('plan6').set(jsonData);
 
       print('Data from file added to Firestore successfully');
     } else {

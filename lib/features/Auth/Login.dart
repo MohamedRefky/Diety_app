@@ -5,6 +5,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/Core/widget/Custom_TextFormFealed.dart';
+import 'package:diety/features/Admin/view/AdminHome.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
@@ -270,6 +271,15 @@ class _LoginState extends State<Login> {
                                       Navigator.of(context)
                                           .pushReplacement(MaterialPageRoute(
                                         builder: (context) => const Gender(),
+                                      ));
+                                    }
+
+                                    if (email.text ==
+                                        'mustaphamahmoud952@gmail.com') {
+                                      Navigator.of(context)
+                                          .pushReplacement(MaterialPageRoute(
+                                        builder: (context) =>
+                                            const Admin_Home(),
                                       ));
                                     } else {
                                       Navigator.of(context)

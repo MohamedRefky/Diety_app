@@ -2,14 +2,13 @@
 
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:diety/Core/utils/Colors.dart';
+import 'package:diety/features/Exersise/view/Exercise.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:diety/features/Planes/view/Plane.dart';
 import 'package:diety/features/profile/view/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
-
-import '../../../Search Food/view/Dinner.dart';
 
 class salomon_bottom_bar extends StatefulWidget {
   const salomon_bottom_bar({Key? key}) : super(key: key);
@@ -20,10 +19,11 @@ class salomon_bottom_bar extends StatefulWidget {
 
 class _salomon_bottom_barState extends State<salomon_bottom_bar> {
   int _currentIndex = 0;
+
   final List _pages = [
     const Home(),
     const Plane(),
-    const Dinner(),
+    const Exercise(),
     const Profile(),
   ];
 

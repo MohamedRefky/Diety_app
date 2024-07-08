@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -16,6 +17,9 @@ class CustomSearchFood extends StatefulWidget {
   _CustomSearchFoodState createState() => _CustomSearchFoodState();
 }
 
+
+
+
 class _CustomSearchFoodState extends State<CustomSearchFood> {
   final TextEditingController _searchController = TextEditingController();
   final TextEditingController _gramsController =
@@ -26,7 +30,7 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
   bool _isKeyboardVisible = false;
   String CaloriesConsumed = '';
   String? storedValue;
-
+  
   @override
   void initState() {
     super.initState();
@@ -41,6 +45,8 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
     _gramsController.dispose(); // Add this line to dispose _gramsController
     super.dispose();
   }
+
+// Firestore instance
 
   @override
   Widget build(BuildContext context) {
@@ -363,32 +369,31 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
     });
   }
 
-  void _onAddPressed() async {
-    // Retrieve the grams entered by the user
-    double grams = double.tryParse(_gramsController.text) ??
-        100.0; // Default to 100 grams if parsing fails
+  Future<void> _onAddPressed() async {
+    double grams = double.tryParse(_gramsController.text) ?? 100.0;
 
-    // Calculate total calories of selected foods based on the grams entered by the user
     double totalCalories = selectedFoods.fold(0, (sum, food) {
-      // Access the calories directly from the food map
-      double calories =
-          food['calories']; // Assuming 'calories' is a double in the food map
-      // Calculate calories based on grams entered by the user
+      double calories = food['calories'];
       double caloriesForGrams = (calories / 100) * grams;
-      // Add the calculated calories to the sum
       return sum + caloriesForGrams;
     });
 
-    // Update CaloriesConsumed
+   
+
+   
+
+    // Use the _mealService instance to save the meal
+  
+
     setState(() {
       CaloriesConsumed = totalCalories.toString();
     });
 
-    // Update Firestore document with the new total
     try {
-      DocumentSnapshot snapshot = await users.doc(uid).get();
+      DocumentSnapshot snapshot =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
       Map<String, dynamic> existingData =
-          (snapshot.data() as Map<String, dynamic>);
+          snapshot.data() as Map<String, dynamic>;
       double existingCalories =
           (existingData['CaloriesConsumed'] ?? 0).toDouble();
       double newCalories = existingCalories + totalCalories;
@@ -397,7 +402,10 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
         ...existingData,
         "CaloriesConsumed": newCalories,
       };
-      await users.doc(uid).set(newData, SetOptions(merge: true));
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .set(newData, SetOptions(merge: true));
       print('User updated in Firestore');
     } catch (error) {
       print('Failed to update user: $error');

@@ -3,9 +3,9 @@
 import 'dart:developer';
 import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/profile/view/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:image_picker/image_picker.dart';
@@ -38,14 +38,12 @@ class _GeminiAi extends State<GeminiAi> {
         backgroundColor: const Color(0xff151724),
         centerTitle: true,
         title: const Text(
-          "AI Trainer",
+          "AI Fitness Coach",
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
         leading: IconButton(
             onPressed: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => const Profile(),
-              ));
+              Navigator.of(context).pop();
             },
             icon: Icon(
               Icons.arrow_back,

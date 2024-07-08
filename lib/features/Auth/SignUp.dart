@@ -175,8 +175,8 @@ class _SignUpState extends State<SignUp> {
                               .collection('users')
                               .doc(credential.user!.uid)
                               .set({
-                            'first Name': firstname.text,
-                            'last Name': lastname.text,
+                            'firstName': firstname.text,
+                            'lastName': lastname.text,
                             'email': email.text,
                           });
 

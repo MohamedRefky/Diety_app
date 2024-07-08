@@ -7,31 +7,41 @@ class textFormField extends StatelessWidget {
   const textFormField({
     super.key,
     // Use Key? instead of super.key
-    required this.hintText,
+    this.hintText,
     required this.validator,
     this.onChanged,
     this.onTap,
-     this.mycontroller,  // Make this required
+    this.mycontroller,
+    this.labelText,
+    this.keyboardType, // Make this required
   });
 
-  final String hintText;
+  final String? hintText;
   final String? Function(String?)? validator;
   final String? Function(String?)? onChanged;
   final TextEditingController? mycontroller;
   final Function()? onTap;
+  final String? labelText;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       key: key, // Assign key here if needed
       onTap: onTap,
+
       onChanged: onChanged,
       validator: validator,
       controller: mycontroller,
-      keyboardType: TextInputType.number,
+      keyboardType: keyboardType == TextInputType.text
+          ? TextInputType.text
+          : TextInputType.number,
+
       style: TextStyle(color: AppColors.text),
       cursorColor: AppColors.button,
       decoration: InputDecoration(
+        labelText: labelText,
+        labelStyle: TextStyle(fontSize: 20, color: AppColors.white),
         hintText: hintText,
         hintStyle: TextStyle(fontSize: 20, color: AppColors.text),
         border: const UnderlineInputBorder(),
