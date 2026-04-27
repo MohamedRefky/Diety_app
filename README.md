@@ -359,7 +359,7 @@ diety/
   <tr>
     <td align="center"><img src="images/25.png" width="200"/></td>
     <td align="center"><img src="images/Admin 1.png" width="200"/></td>
-    <td align="center"></td>
+    <td align="center"><img src="images/Admin 3.png" width="200"/></td>
   </tr>
 </table>
 
