@@ -336,6 +336,37 @@ diety/
 
 ---
 
+## 📸 Screenshots
+
+<div align="center">
+
+<table>
+  <tr>
+    <td align="center"><img src="images/5.png" width="200"/></td>
+    <td align="center"><img src="images/10.png" width="200"/></td>
+    <td align="center"><img src="images/11.png" width="200"/></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="images/13.png" width="200"/></td>
+    <td align="center"><img src="images/14.png" width="200"/></td>
+    <td align="center"><img src="images/17.png" width="200"/></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="images/19.png" width="200"/></td>
+    <td align="center"><img src="images/21.png" width="200"/></td>
+    <td align="center"><img src="images/24.png" width="200"/></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="images/25.png" width="200"/></td>
+    <td align="center"><img src="images/Admin 1.png" width="200"/></td>
+    <td align="center"></td>
+  </tr>
+</table>
+
+</div>
+
+---
+
 ## 🎓 About
 
 This project was developed as a **Graduation Project** for a Computer Science program.
