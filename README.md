@@ -378,6 +378,21 @@ This project was developed as a **Graduation Project** for a Computer Science pr
 **AI Integration:** Google Gemini
 
 ---
+## 📬 Contact
+
+<p align="left">
+  <a href="https://linkedin.com/in/mohamedrefky" target="_blank">
+    <img src="https://skillicons.dev/icons?i=linkedin" />
+  </a>
+  &nbsp;
+  <a href="mailto:mohamedrifky9765@gmail.com" target="_blank">
+    <img src="https://img.icons8.com/color/48/gmail-new.png" width="48"/>
+  </a>
+  &nbsp;
+  <a href="https://wa.me/201019964918" target="_blank">
+    <img src="https://img.icons8.com/3d-fluency/48/whatsapp.png" width="48"/>
+  </a>
+</p>
 
 ## 📄 License
 
