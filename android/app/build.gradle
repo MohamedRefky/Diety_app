@@ -24,6 +24,11 @@ if (flutterVersionName == null) {
 }
 
 android {
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
+    }
     namespace "com.example.diety"
     compileSdkVersion 34
     ndkVersion "25.1.8937393"

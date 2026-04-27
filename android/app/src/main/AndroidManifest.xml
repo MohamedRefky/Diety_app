@@ -11,6 +11,7 @@
 
 
     <application
+        android:extractNativeLibs="true"
         android:label="diety"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
