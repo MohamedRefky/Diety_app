@@ -107,7 +107,7 @@ class _SetupPageState extends State {
                       radius: 80,
                       backgroundImage: (_imagePath != null)
                           ? FileImage(File(_imagePath!)) as ImageProvider
-                          : const AssetImage('Images/person.png'),
+                          : const AssetImage('assets/Images/person.png'),
                     ),
                   ),
                   GestureDetector(

@@ -67,7 +67,7 @@ class _HeightState extends State<Height> {
                 const SizedBox(
                   width: double.infinity,
                   height: 290,
-                  child: Image(image: AssetImage('Images/height2.jpg')),
+                  child: Image(image: AssetImage('assets/Images/height2.jpg')),
                 ),
                 const Gap(30),
                 textFormField(

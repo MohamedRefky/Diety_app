@@ -63,7 +63,7 @@ class _WeightState extends State<Weight> {
                 const SizedBox(
                   width: double.infinity,
                   height: 290,
-                  child: Image(image: AssetImage('Images/weight.jpg')),
+                  child: Image(image: AssetImage('assets/Images/weight.jpg')),
                 ),
                 textFormField(
                   onChanged: (value) {

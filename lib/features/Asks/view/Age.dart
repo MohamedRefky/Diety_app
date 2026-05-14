@@ -63,7 +63,7 @@ class _AgeState extends State<Age> {
                 const SizedBox(
                   width: double.infinity,
                   height: 290,
-                  child: Image(image: AssetImage('Images/age.jpg')),
+                  child: Image(image: AssetImage('assets/Images/age.jpg')),
                 ),
                 textFormField(
                   onChanged: (value) {

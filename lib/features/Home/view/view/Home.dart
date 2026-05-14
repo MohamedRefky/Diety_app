@@ -199,7 +199,7 @@ class _HomeeState extends State<Home> {
                 CircleAvatar(
                   radius: 22,
                   backgroundColor: AppColors.white,
-                  backgroundImage: const AssetImage('Images/gemini logo.png'),
+                  backgroundImage: const AssetImage('assets/Images/gemini logo.png'),
                 ),
               ],
             ),
@@ -536,7 +536,7 @@ class _HomeeState extends State<Home> {
                   SizedBox(
                       height: 130,
                       width: 130,
-                      child: Image.asset('Images/shap.jpg'))
+                      child: Image.asset('assets/Images/shap.jpg'))
                 ],
               ),
               const Divider(

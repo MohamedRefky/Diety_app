@@ -85,7 +85,7 @@ class _LoginState extends State<Login> {
 
     // Create a credential from the access token
     final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+        FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
 
     // Once signed in, return the UserCredential
     return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
@@ -95,7 +95,6 @@ class _LoginState extends State<Login> {
   Future<bool> checkInternetConnectivity() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     return !connectivityResult.contains(ConnectivityResult.none);
-      return connectivityResult != ConnectivityResult.none;
   }
 
   @override
@@ -375,7 +374,7 @@ class _LoginState extends State<Login> {
                                 padding: EdgeInsets.all(5),
                                 child: CircleAvatar(
                                   backgroundImage:
-                                      AssetImage('Images/Google.png'),
+                                      AssetImage('assets/Images/Google.png'),
                                 )),
                           ),
                         ),
@@ -394,7 +393,7 @@ class _LoginState extends State<Login> {
                                 padding: EdgeInsets.all(5),
                                 child: CircleAvatar(
                                   backgroundImage:
-                                      AssetImage('Images/facebook.jpg'),
+                                      AssetImage('assets/Images/facebook.jpg'),
                                 )),
                           ),
                         ),

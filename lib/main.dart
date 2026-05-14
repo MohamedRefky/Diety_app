@@ -19,13 +19,19 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: const FirebaseOptions(
-          apiKey: "AIzaSyAS10mEL7gbI3V5d10dHz3qWc98KR8SrgI",
-          databaseURL: 'https://dietyapp-c69c7-default-rtdb.firebaseio.com/',
-          appId: "1:674799164198:android:7463b52021bccf9571ffe7",
-          messagingSenderId: '674799164198',
-          projectId: 'dietyapp-c69c7'));
+  try {
+    await Firebase.initializeApp(
+        options: const FirebaseOptions(
+            apiKey: "AIzaSyAS10mEL7gbI3V5d10dHz3qWc98KR8SrgI",
+            databaseURL: 'https://dietyapp-c69c7-default-rtdb.firebaseio.com/',
+            appId: "1:674799164198:android:7463b52021bccf9571ffe7",
+            messagingSenderId: '674799164198',
+            projectId: 'dietyapp-c69c7'));
+  } catch (e) {
+    if (!e.toString().contains('duplicate-app')) {
+      rethrow;
+    }
+  }
 
         Gemini.init(apiKey: GEMINI_API_KEY);
 

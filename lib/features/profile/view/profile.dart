@@ -225,7 +225,7 @@ class _ProfileState extends State<Profile> {
                   CircleAvatar(
                     radius: 22,
                     backgroundColor: AppColors.white,
-                    backgroundImage: const AssetImage('Images/gemini logo.png'),
+                    backgroundImage: const AssetImage('assets/Images/gemini logo.png'),
                   ),
                 ],
               ),
@@ -272,7 +272,7 @@ class _ProfileState extends State<Profile> {
                                 ? FileImage(file!)
                                 : (profileUrl != null)
                                     ? NetworkImage(profileUrl!)
-                                    : const AssetImage('Images/person.png')
+                                    : const AssetImage('assets/Images/person.png')
                                         as ImageProvider,
                           ),
                         ),

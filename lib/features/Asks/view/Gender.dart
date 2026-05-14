@@ -66,7 +66,7 @@ class _GenderState extends State<Gender> {
               SizedBox(
                 height: 280,
                 width: double.infinity,
-                child: Lottie.asset(('Images/Gender.json')),
+                child: Lottie.asset(('assets/Images/Gender.json')),
               ),
               SizedBox(
                 width: 320,

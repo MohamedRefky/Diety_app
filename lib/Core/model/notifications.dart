@@ -111,7 +111,7 @@ await flutterLocalNotificationsPlugin.initialize(
       NotificationDetails details = NotificationDetails(android: android);
 
       tz.initializeTimeZones();
-      final String currentTimeZone = await FlutterTimezone.getLocalTimezone();
+      final String currentTimeZone = (await FlutterTimezone.getLocalTimezone()).identifier;
       tz.setLocalLocation(tz.getLocation(currentTimeZone));
 
       

@@ -30,7 +30,7 @@ android {
         }
     }
     namespace "com.example.diety"
-    compileSdkVersion 34
+    compileSdkVersion 36
     ndkVersion "28.2.13676358"
 
     compileOptions {

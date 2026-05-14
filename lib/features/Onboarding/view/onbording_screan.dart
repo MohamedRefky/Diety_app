@@ -58,17 +58,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             controller: _pageController,
             children: [
               createPage(
-                image: 'Images/logo.jpg',
+                image: 'assets/Images/logo.jpg',
                 title: Constants.titleOne,
                 description: Constants.descriptionOne,
               ),
               createPage(
-                image: 'Images/onboandig1.png',
+                image: 'assets/Images/onboandig1.png',
                 title: Constants.titleTwo,
                 description: Constants.descriptionTwo,
               ),
               createPage(
-                image: 'Images/onboanding2.png',
+                image: 'assets/Images/onboanding2.png',
                 title: Constants.titleThree,
                 description: Constants.descriptionThree,
               ),
