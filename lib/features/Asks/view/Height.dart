@@ -6,7 +6,6 @@ import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Asks/view/Weight.dart';
 import 'package:diety/features/Asks/widget/textFormfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
@@ -105,6 +104,7 @@ class _HeightState extends State<Height> {
                           double.tryParse(_heightController.text) ?? 170.0;
                       cubit.selectHeight(parsedHeight);
                       await cubit.saveHeight();
+                      if (!context.mounted) return;
 
                       // Update legacy provider
                       final userInfoProvider =

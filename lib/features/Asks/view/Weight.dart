@@ -6,7 +6,6 @@ import 'package:diety/features/Asks/view/Age.dart';
 import 'package:diety/features/Asks/view/Height.dart';
 import 'package:diety/features/Asks/widget/textFormfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class Weight extends StatefulWidget {
@@ -102,6 +101,7 @@ class _WeightState extends State<Weight> {
                           double.tryParse(weightController.text) ?? 70.0;
                       cubit.selectWeight(parsedWeight);
                       await cubit.saveWeight();
+                      if (!mounted) return;
 
                       // Update legacy provider
                       final userInfoProvider =
