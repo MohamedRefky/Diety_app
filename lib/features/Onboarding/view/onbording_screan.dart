@@ -1,11 +1,10 @@
-// ignore_for_file: camel_case_types
-
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Auth/views/login_view.dart';
 import 'package:diety/features/Auth/views/signup_view.dart';
 import 'package:diety/features/Onboarding/widget/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:lottie/lottie.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({Key? key}) : super(key: key);
@@ -30,10 +29,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             padding: const EdgeInsets.only(right: 20, top: 20),
             child: InkWell(
               onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (_) => const LoginView()));
-              }, //to login screen. We will update later
-
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginView()),
+                );
+              },
               child: Text(
                 'Skip',
                 style: TextStyle(
@@ -57,17 +57,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             },
             controller: _pageController,
             children: [
-              createPage(
-                image: 'assets/Images/logo.jpg',
+              CreatePage(
+                image: 'assets/Images/Logo_Animation .json',
                 title: Constants.titleOne,
                 description: Constants.descriptionOne,
               ),
-              createPage(
-                image: 'assets/Images/onboandig1.png',
+              CreatePage(
+                image: 'assets/Images/Ditails_Animation.json',
                 title: Constants.titleTwo,
                 description: Constants.descriptionTwo,
               ),
-              createPage(
+              CreatePage(
                 image: 'assets/Images/onboanding2.png',
                 title: Constants.titleThree,
                 description: Constants.descriptionThree,
@@ -75,44 +75,43 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ],
           ),
           Positioned(
-            bottom: 80,
-            left: 30,
-            child: Row(
-              children: _buildIndicator(),
-            ),
-          ),
-          Positioned(
             bottom: 60,
+            left: 30,
             right: 30,
-            child: Container(
-              padding: const EdgeInsets.all(4),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Constants.primaryColor,
-              ),
-              child: IconButton(
-                  onPressed: () {
-                    setState(() {
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: _buildIndicator(),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Constants.primaryColor,
+                  ),
+                  child: IconButton(
+                    onPressed: () {
                       if (currentIndex < 2) {
-                        currentIndex++;
-                        if (currentIndex < 3) {
-                          _pageController.nextPage(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeIn);
-                        }
+                        _pageController.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeIn,
+                        );
                       } else {
                         Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (_) => const SignUpView()));
+                          context,
+                          MaterialPageRoute(builder: (_) => const SignUpView()),
+                        );
                       }
-                    });
-                  },
-                  icon: Icon(
-                    Icons.arrow_forward_ios,
-                    size: 24,
-                    color: AppColors.white,
-                  )),
+                    },
+                    icon: Icon(
+                      Icons.arrow_forward_ios,
+                      size: 24,
+                      color: AppColors.white,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -136,7 +135,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-//Create the indicator list
+  //Create the indicator list
   List<Widget> _buildIndicator() {
     List<Widget> indicators = [];
 
@@ -152,12 +151,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 }
 
-class createPage extends StatelessWidget {
+class CreatePage extends StatelessWidget {
   final String image;
   final String title;
   final String description;
 
-  const createPage({
+  const CreatePage({
     Key? key,
     required this.image,
     required this.title,
@@ -167,38 +166,43 @@ class createPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding:
-            const EdgeInsets.only(top: 50, left: 50, right: 50, bottom: 80),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 280,
-                child: Image.asset(image),
+      padding: const EdgeInsets.only(top: 50, left: 50, right: 50, bottom: 80),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 280,
+              child: image.endsWith('.json')
+                  ? Lottie.asset(
+                      image,
+                      fit: BoxFit.contain,
+                    )
+                  : Image.asset(image),
+            ),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Constants.primaryColor,
+                fontSize: 25,
+                fontWeight: FontWeight.bold,
               ),
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Constants.primaryColor,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
+            ),
+            const Gap(15),
+            Text(
+              description,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+                color: AppColors.white,
               ),
-              const Gap(15),
-              Text(
-                description,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.white,
-                ),
-              ),
-              const Gap(20),
-            ],
-          ),
-        ));
+            ),
+            const Gap(20),
+          ],
+        ),
+      ),
+    );
   }
 }
