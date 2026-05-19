@@ -5,8 +5,9 @@ import 'package:gap/gap.dart';
 import '../../../Core/utils/Colors.dart';
 import '../cubit/exercise_cubit.dart';
 import '../cubit/exercise_state.dart';
-import 'DayDetailsScreen.dart';
+import '../extensions/prediction_extension.dart';
 import '../widget/Container_Exercise.dart';
+import 'DayDetailsScreen.dart';
 
 class Exercise extends StatelessWidget {
   const Exercise({Key? key}) : super(key: key);
@@ -22,40 +23,6 @@ class Exercise extends StatelessWidget {
 
 class ExerciseView extends StatelessWidget {
   const ExerciseView({Key? key}) : super(key: key);
-
-  String _getHealthState(double? prediction) {
-    if (prediction == null) return 'Loading...';
-    if (prediction == 1.0) return 'Severely Underweight';
-    if (prediction == 2.0) return 'Underweight';
-    if (prediction == 3.0) return 'Mildly Underweight';
-    if (prediction == 4.0) return 'Normal Weight';
-    if (prediction == 5.0) return 'Overweight';
-    if (prediction == 6.0 || prediction == 7.0) return 'Obesity';
-    return 'Unknown';
-  }
-
-  String _getAdvanceHealthState(double? prediction) {
-    if (prediction == null) return 'Loading...';
-    if (prediction == 1.0) {
-      return 'This Program is for People with Severely Underweight. It is designed to help you Gain Weight and build muscle.';
-    }
-    if (prediction == 2.0) {
-      return 'This Program is for People with Underweight. It is designed to help you Gain Weight and build muscle.';
-    }
-    if (prediction == 3.0) {
-      return 'This Program is for People with Mildly Underweight. It is designed to help you to Maintain Weight and build muscle.';
-    }
-    if (prediction == 4.0) {
-      return 'This Program is for People with Normal Weight. It is designed to maintain your current physique and enhance endurance.';
-    }
-    if (prediction == 5.0) {
-      return 'This Program is for People with Overweight. It is designed to help you Lose Weight and build muscle.';
-    }
-    if (prediction == 6.0 || prediction == 7.0) {
-      return 'This Program is for People with Obesity. It is designed to help you Lose Weight and build muscle.';
-    }
-    return 'Unknown';
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,11 +51,15 @@ class ExerciseView extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.error_outline, color: Colors.redAccent, size: 48),
+                    const Icon(Icons.error_outline,
+                        color: Colors.redAccent, size: 48),
                     const Gap(16),
                     Text(
                       'Oops! Something went wrong.',
-                      style: TextStyle(color: AppColors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
                     ),
                     const Gap(8),
                     Text(
@@ -104,7 +75,8 @@ class ExerciseView extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.button,
                       ),
-                      child: const Text('Try Again', style: TextStyle(color: Colors.white)),
+                      child: const Text('Try Again',
+                          style: TextStyle(color: Colors.white)),
                     ),
                   ],
                 ),
@@ -118,7 +90,7 @@ class ExerciseView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Health State : ${_getHealthState(state.predictionResult)}',
+                      'Health State : ${state.predictionResult.healthState}',
                       style: TextStyle(
                         color: AppColors.white,
                         fontSize: 20,
@@ -127,7 +99,7 @@ class ExerciseView extends StatelessWidget {
                     ),
                     const Gap(10),
                     Text(
-                      _getAdvanceHealthState(state.predictionResult),
+                      state.predictionResult.advanceHealthState,
                       style: TextStyle(
                         color: AppColors.grey,
                         fontSize: 15,
@@ -135,7 +107,7 @@ class ExerciseView extends StatelessWidget {
                       ),
                     ),
                     const Gap(20),
-                    
+
                     // Dynamically render all 7 days
                     ...state.daysData.asMap().entries.map((entry) {
                       int index = entry.key;
