@@ -101,7 +101,7 @@ class _WeightState extends State<Weight> {
                           double.tryParse(weightController.text) ?? 70.0;
                       cubit.selectWeight(parsedWeight);
                       await cubit.saveWeight();
-                      if (!mounted) return;
+                      if (!context.mounted) return;
 
                       // Update legacy provider
                       final userInfoProvider =

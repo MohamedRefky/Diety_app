@@ -265,7 +265,7 @@ class _HomeeState extends State<Home> {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: AppColors.button.withOpacity(0.5),
+                  color: AppColors.button.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 padding: const EdgeInsets.all(8),

@@ -24,20 +24,20 @@ class CustomSnackBar {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
           decoration: BoxDecoration(
             color: isSuccess
-                ? AppColors.primaryColor.withOpacity(0.95)
-                : const Color(0xFFC62828).withOpacity(0.95),
+                ? AppColors.primaryColor.withValues(alpha: 0.95)
+                : const Color(0xFFC62828).withValues(alpha: 0.95),
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.5),
+                color: Colors.black.withValues(alpha: 0.5),
                 blurRadius: 12,
                 offset: const Offset(0, 6),
               ),
             ],
             border: Border.all(
               color: isSuccess
-                  ? AppColors.text.withOpacity(0.4)
-                  : Colors.redAccent.withOpacity(0.4),
+                  ? AppColors.text.withValues(alpha: 0.4)
+                  : Colors.redAccent.withValues(alpha: 0.4),
               width: 1.5,
             ),
           ),
