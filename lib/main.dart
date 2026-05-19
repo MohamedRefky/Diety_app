@@ -3,8 +3,8 @@ import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/model/firenotifications.dart';
 import 'package:diety/Core/model/notifications.dart';
 import 'package:diety/Core/model/workmanagerservice.dart';
-import 'package:diety/features/Auth/Login.dart';
-import 'package:diety/features/Auth/SignUp.dart';
+import 'package:diety/features/Auth/views/login_view.dart';
+import 'package:diety/features/Auth/views/signup_view.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:diety/features/Onboarding/view/onbording_screan.dart';
 import 'package:diety/features/Search_Food/view/Dinner.dart';
@@ -107,8 +107,8 @@ class _MyAppState extends State<MyApp> {
             ? const SplashView()
             : const OnboardingScreen(),
         routes: {
-          "SingUp": (context) => const SignUp(),
-          "Login": (context) => const Login(),
+          "SingUp": (context) => const SignUpView(),
+          "Login": (context) => const LoginView(),
           "home": (context) => const Home(),
         });
   }

@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
-import 'package:diety/features/Auth/SignUp.dart';
+import 'package:diety/features/Auth/views/signup_view.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:diety/features/Home/view/widget/chalenges.dart';
 import 'package:diety/features/Home/view/widget/navbar.dart';
@@ -17,7 +17,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Core/utils/Colors.dart';
-import '../../Auth/Login.dart';
+import 'package:diety/features/Auth/views/login_view.dart';
 import '../widget/styles.dart';
 import 'SetupPage .dart';
 
@@ -225,7 +225,8 @@ class _ProfileState extends State<Profile> {
                   CircleAvatar(
                     radius: 22,
                     backgroundColor: AppColors.white,
-                    backgroundImage: const AssetImage('assets/Images/gemini logo.png'),
+                    backgroundImage:
+                        const AssetImage('assets/Images/gemini logo.png'),
                   ),
                 ],
               ),
@@ -272,7 +273,8 @@ class _ProfileState extends State<Profile> {
                                 ? FileImage(file!)
                                 : (profileUrl != null)
                                     ? NetworkImage(profileUrl!)
-                                    : const AssetImage('assets/Images/person.png')
+                                    : const AssetImage(
+                                            'assets/Images/person.png')
                                         as ImageProvider,
                           ),
                         ),
@@ -602,7 +604,7 @@ class _ProfileState extends State<Profile> {
                         googleSignIn.disconnect();
                         await FirebaseAuth.instance.signOut();
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => const Login(),
+                          builder: (context) => const LoginView(),
                         ));
                       },
                       child: Container(
@@ -729,7 +731,7 @@ class _ProfileState extends State<Profile> {
         await user.delete();
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) =>
-              const SignUp(), // Redirect to a sign-in screen after deletion
+              const SignUpView(), // Redirect to a sign-in screen after deletion
         ));
       }
     } catch (e) {

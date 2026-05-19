@@ -5,7 +5,7 @@ import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Asks/view/Height.dart';
-import 'package:diety/features/Auth/Login.dart';
+import 'package:diety/features/Auth/views/login_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -39,7 +39,7 @@ class _GenderState extends State<Gender> {
             googleSignIn.disconnect();
             await FirebaseAuth.instance.signOut();
             Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => const Login(),
+              builder: (context) => const LoginView(),
             ));
           },
           icon: Icon(

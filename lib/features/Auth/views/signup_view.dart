@@ -2,8 +2,8 @@
 
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
-import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/cubit/auth_cubit.dart';
+import 'package:diety/features/Auth/views/login_view.dart';
 import 'package:diety/features/Auth/widgets/signup_footer.dart';
 import 'package:diety/features/Auth/widgets/signup_form_fields.dart';
 import 'package:diety/features/Auth/widgets/signup_header.dart';
@@ -11,14 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class SignUpView extends StatefulWidget {
+  const SignUpView({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _SignUpViewState extends State<SignUpView> {
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -120,7 +120,7 @@ class _SignUpState extends State<SignUp> {
                             onLoginNavigate: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                    builder: (context) => const Login()),
+                                    builder: (context) => const LoginView()),
                               );
                             },
                           ),

@@ -5,8 +5,8 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Admin/view/AdminHome.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
-import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Auth/cubit/auth_cubit.dart';
+import 'package:diety/features/Auth/views/signup_view.dart';
 import 'package:diety/features/Auth/widgets/login_form_fields.dart';
 import 'package:diety/features/Auth/widgets/login_header.dart';
 import 'package:diety/features/Auth/widgets/login_social_and_footer.dart';
@@ -16,14 +16,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginViewState extends State<LoginView> {
   bool isInternetAvailable = true;
   bool isNotVisible = true;
   final TextEditingController emailController = TextEditingController();
@@ -193,7 +193,7 @@ class _LoginState extends State<Login> {
                             onSignUpNavigate: () {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                    builder: (context) => const SignUp()),
+                                    builder: (context) => const SignUpView()),
                               );
                             },
                           ),

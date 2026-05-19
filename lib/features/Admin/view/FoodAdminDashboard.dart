@@ -2,7 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
-import 'package:diety/features/Auth/SignUp.dart';
+import 'package:diety/features/Auth/views/signup_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +48,7 @@ class _FoodAdmainDashboardState extends State<FoodAdmainDashboard> {
         await user.delete();
         Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (context) =>
-              const SignUp(), // Redirect to a sign-in screen after deletion
+              const SignUpView(), // Redirect to a sign-in screen after deletion
         ));
       }
     } catch (e) {

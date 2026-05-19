@@ -1,8 +1,8 @@
 // ignore_for_file: camel_case_types
 
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Auth/Login.dart';
-import 'package:diety/features/Auth/SignUp.dart';
+import 'package:diety/features/Auth/views/login_view.dart';
+import 'package:diety/features/Auth/views/signup_view.dart';
 import 'package:diety/features/Onboarding/widget/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -30,8 +30,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             padding: const EdgeInsets.only(right: 20, top: 20),
             child: InkWell(
               onTap: () {
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) => const Login()));
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (_) => const LoginView()));
               }, //to login screen. We will update later
 
               child: Text(
@@ -101,8 +101,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               curve: Curves.easeIn);
                         }
                       } else {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (_) => const SignUp()));
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const SignUpView()));
                       }
                     });
                   },
