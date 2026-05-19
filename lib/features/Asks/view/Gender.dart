@@ -19,7 +19,6 @@ class Gender extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<UserInfoCubit>();
         final bool isMale = cubit.gender == 'Male';
-
         return Scaffold(
           backgroundColor: AppColors.background,
           body: Center(
