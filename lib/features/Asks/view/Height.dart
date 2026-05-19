@@ -1,33 +1,36 @@
-// ignore_for_file: avoid_print
-
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
+import 'package:diety/features/Asks/cubit/user_info_cubit.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Asks/view/Weight.dart';
 import 'package:diety/features/Asks/widget/textFormfield.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 
 class Height extends StatefulWidget {
-  const Height({Key? key}) : super(key: key);
+  const Height({super.key});
 
   @override
   State<Height> createState() => _HeightState();
 }
 
-late String height;
-
 class _HeightState extends State<Height> {
-  // TextEditingController for height input
   final TextEditingController _heightController = TextEditingController();
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _heightController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<UserInfoCubit>();
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -51,7 +54,7 @@ class _HeightState extends State<Height> {
         padding: const EdgeInsets.all(30),
         child: SingleChildScrollView(
           child: Form(
-            key: formKey,
+            key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -72,19 +75,18 @@ class _HeightState extends State<Height> {
                 const Gap(30),
                 textFormField(
                   onChanged: (value) {
-                    final userInfoProvider =
-                        Provider.of<UserInfoProvider>(context, listen: false);
-                    userInfoProvider.updateUserInfo(
-                        height: double.tryParse(value!) ?? 0.0);
+                    if (value != null && value.isNotEmpty) {
+                      cubit.selectHeight(double.tryParse(value) ?? 170.0);
+                    }
                     return null;
                   },
                   hintText: 'Enter your Height',
                   validator: (value) {
-                    if (value!.isEmpty) {
+                    if (value == null || value.isEmpty) {
                       return 'Please Enter Your Height';
                     } else {
-                      final height = double.tryParse(value);
-                      if (height == null || height < 90 || height > 210) {
+                      final h = double.tryParse(value);
+                      if (h == null || h < 90 || h > 210) {
                         return 'Please Enter A Valid Height';
                       }
                     }
@@ -97,10 +99,18 @@ class _HeightState extends State<Height> {
                 ),
                 Custom_Button(
                   text: 'Continue',
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      height = _heightController.text;
-                      test();
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      final parsedHeight =
+                          double.tryParse(_heightController.text) ?? 170.0;
+                      cubit.selectHeight(parsedHeight);
+                      await cubit.saveHeight();
+
+                      // Update legacy provider
+                      final userInfoProvider =
+                          Provider.of<UserInfoProvider>(context, listen: false);
+                      userInfoProvider.updateUserInfo(height: parsedHeight);
+
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => const Weight(),
@@ -115,13 +125,5 @@ class _HeightState extends State<Height> {
         ),
       ),
     );
-  }
-
-  Future<void> test() async {
-    return users
-        .doc(uid)
-        .update({"height": height})
-        .then((value) => print('user added $height'))
-        .catchError((error) => print(error));
   }
 }

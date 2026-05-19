@@ -9,7 +9,7 @@ import 'package:diety/features/User_Goals/view/wishes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import '../../Asks/view/Gender.dart';
+
 
 
 class gain_Weight extends StatefulWidget {
@@ -163,8 +163,9 @@ class _gain_WeightState extends State<gain_Weight> {
       curantData = 'Gain 1 Kg per week';
     }
 
-    return users
-        .doc(uid)
+    return _firestore
+        .collection('users')
+        .doc(_uid)
         .update({
           "Calories Remining": CaloriseRemining.toString(),
           "Goal Weight": curantData,

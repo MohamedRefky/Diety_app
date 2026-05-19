@@ -1,30 +1,35 @@
 import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
+import 'package:diety/features/Asks/cubit/user_info_cubit.dart';
 import 'package:diety/features/Asks/view/Age.dart';
 import 'package:diety/features/Asks/view/Height.dart';
 import 'package:diety/features/Asks/widget/textFormfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import 'Gender.dart';
-
 class Weight extends StatefulWidget {
-  const Weight({Key? key}) : super(key: key);
+  const Weight({super.key});
 
   @override
   State<Weight> createState() => _WeightState();
 }
 
-late String weight;
-
 class _WeightState extends State<Weight> {
-  TextEditingController weightController = TextEditingController();
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController weightController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    weightController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<UserInfoCubit>();
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -67,18 +72,17 @@ class _WeightState extends State<Weight> {
                 ),
                 textFormField(
                   onChanged: (value) {
-                    final userInfoProvider =
-                        Provider.of<UserInfoProvider>(context, listen: false);
-                    userInfoProvider.updateUserInfo(
-                        weight: double.tryParse(value!) ?? 0.0);
+                    if (value != null && value.isNotEmpty) {
+                      cubit.selectWeight(double.tryParse(value) ?? 70.0);
+                    }
                     return null;
                   },
                   validator: (value) {
-                    if (value!.isEmpty) {
+                    if (value == null || value.isEmpty) {
                       return 'Please Enter Your Weight';
                     } else {
-                      final weight = double.tryParse(value);
-                      if (weight == null || weight > 400 || weight <= 20) {
+                      final w = double.tryParse(value);
+                      if (w == null || w > 400 || w <= 20) {
                         return 'Please Enter A Valid Weight';
                       }
                     }
@@ -92,10 +96,18 @@ class _WeightState extends State<Weight> {
                 ),
                 Custom_Button(
                   text: 'Continue',
-                  onPressed: () { 
+                  onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      weight = weightController.text;
-                      test();
+                      final parsedWeight =
+                          double.tryParse(weightController.text) ?? 70.0;
+                      cubit.selectWeight(parsedWeight);
+                      await cubit.saveWeight();
+
+                      // Update legacy provider
+                      final userInfoProvider =
+                          Provider.of<UserInfoProvider>(context, listen: false);
+                      userInfoProvider.updateUserInfo(weight: parsedWeight);
+
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => const Age(),
@@ -110,16 +122,5 @@ class _WeightState extends State<Weight> {
         ),
       ),
     );
-  }
-
-  Future<void> test( ) async {
-    return users
-        .doc(uid)
-        .update({
-          "email": FirebaseAuth.instance.currentUser!.email,
-          "weight": weight,
-        })
-        .then((value) => print('User added to Firestore'))
-        .catchError((error) => print('Failed to add user: $error'));
   }
 }

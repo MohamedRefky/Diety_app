@@ -1,41 +1,46 @@
 import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
+import 'package:diety/features/Asks/cubit/user_info_cubit.dart';
 import 'package:diety/features/Asks/view/Activates.dart';
 import 'package:diety/features/Asks/view/Weight.dart';
 import 'package:diety/features/Asks/widget/textFormfield.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import 'Gender.dart';
-
 class Age extends StatefulWidget {
-  const Age({Key? key}) : super(key: key);
+  const Age({super.key});
 
   @override
   State<Age> createState() => _AgeState();
 }
 
-late String age;
-
 class _AgeState extends State<Age> {
-  TextEditingController ageController = TextEditingController();
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final TextEditingController ageController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  // Create an instance of UserInputModel to store user input
+  @override
+  void dispose() {
+    ageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<UserInfoCubit>();
+
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => const Weight(),
-            ));
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(
+                builder: (context) => const Weight(),
+              ),
+            );
           },
           icon: Icon(
             Icons.arrow_back,
@@ -67,20 +72,19 @@ class _AgeState extends State<Age> {
                 ),
                 textFormField(
                   onChanged: (value) {
-                    final userInfoProvider =
-                        Provider.of<UserInfoProvider>(context, listen: false);
-                    userInfoProvider.updateUserInfo(
-                        age: double.tryParse(value!) ?? 0.0);
+                    if (value != null && value.isNotEmpty) {
+                      cubit.selectAge(double.tryParse(value) ?? 25.0);
+                    }
                     return null;
                   },
                   validator: (value) {
-                    if (value!.isEmpty) {
+                    if (value == null || value.isEmpty) {
                       return 'Please Enter Your Age';
                     } else {
-                      final age = double.tryParse(value);
-                      if (age == null || age > 70) {
+                      final parsedAge = double.tryParse(value);
+                      if (parsedAge == null || parsedAge > 70) {
                         return 'Please Enter A Valid Age';
-                      } else if (age <= 18) {
+                      } else if (parsedAge <= 18) {
                         return 'You should be at least 18 years old';
                       }
                     }
@@ -94,13 +98,23 @@ class _AgeState extends State<Age> {
                 ),
                 Custom_Button(
                   text: 'Continue',
-                  onPressed: () {
+                  onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      age = ageController.text;
-                      test();
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => const Activates(),
-                      ));
+                      final parsedAge =
+                          double.tryParse(ageController.text) ?? 25.0;
+                      cubit.selectAge(parsedAge);
+                      await cubit.saveAge();
+
+                      // Update legacy provider
+                      final userInfoProvider =
+                          Provider.of<UserInfoProvider>(context, listen: false);
+                      userInfoProvider.updateUserInfo(age: parsedAge);
+
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(
+                          builder: (context) => const Activates(),
+                        ),
+                      );
                     }
                   },
                 ),
@@ -110,16 +124,5 @@ class _AgeState extends State<Age> {
         ),
       ),
     );
-  }
-
-  Future<void> test() async {
-    return users
-        .doc(uid)
-        .update({
-          "email": FirebaseAuth.instance.currentUser!.email,
-          "age": age,
-        })
-        .then((value) => print('User added to Firestore'))
-        .catchError((error) => print('Failed to add user: $error'));
   }
 }

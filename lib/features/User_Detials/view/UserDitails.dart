@@ -5,7 +5,6 @@ import 'package:diety/Core/model/UserInfoProvider.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Asks/view/Activates.dart';
-import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/User_Detials/widget/viewDitails.dart';
 import 'package:diety/features/User_Goals/view/wishes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -245,8 +244,9 @@ class _UserDitailsState extends State<UserDitails> {
 
   Future<void> test(double daily, String BMI, String idealweight,
       String waterIntake, String sleepDuration, String HealthStatus) async {
-    return users
-        .doc(uid)
+    return _firestore
+        .collection('users')
+        .doc(_uid)
         .update({
           "dailyCalories": dailyCalories.toString(),
           'BMI': BMI,

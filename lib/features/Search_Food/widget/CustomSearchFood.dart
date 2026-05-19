@@ -3,7 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
-import 'package:diety/features/Asks/view/Gender.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -388,6 +388,12 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
     setState(() {
       CaloriesConsumed = totalCalories.toString();
     });
+
+    final String? uid = FirebaseAuth.instance.currentUser?.uid;
+    if (uid == null) {
+      print('User is not logged in');
+      return;
+    }
 
     try {
       DocumentSnapshot snapshot =

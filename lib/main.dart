@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:diety/features/Asks/cubit/user_info_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,8 +51,15 @@ void main() async {
   ]);
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => UserInfoProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => UserInfoProvider(),
+        ),
+        BlocProvider(
+          create: (context) => UserInfoCubit(),
+        ),
+      ],
       child: const MyApp(),
     ),
   );
