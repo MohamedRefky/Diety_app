@@ -15,7 +15,8 @@ class _UploadJSONScreenState extends State<UploadJSONScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<void> uploadData() async {
-    final String response = await rootBundle.loadString('assets/Images/json.json');
+    final String response =
+        await rootBundle.loadString('assets/Images/json.json');
     final data = await json.decode(response);
     List<dynamic> entries = data as List<dynamic>;
 

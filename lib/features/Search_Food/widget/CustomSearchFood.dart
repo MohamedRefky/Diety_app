@@ -17,9 +17,6 @@ class CustomSearchFood extends StatefulWidget {
   _CustomSearchFoodState createState() => _CustomSearchFoodState();
 }
 
-
-
-
 class _CustomSearchFoodState extends State<CustomSearchFood> {
   final TextEditingController _searchController = TextEditingController();
   final TextEditingController _gramsController =
@@ -30,7 +27,7 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
   bool _isKeyboardVisible = false;
   String CaloriesConsumed = '';
   String? storedValue;
-  
+
   @override
   void initState() {
     super.initState();
@@ -378,12 +375,7 @@ class _CustomSearchFoodState extends State<CustomSearchFood> {
       return sum + caloriesForGrams;
     });
 
-   
-
-   
-
     // Use the _mealService instance to save the meal
-  
 
     setState(() {
       CaloriesConsumed = totalCalories.toString();

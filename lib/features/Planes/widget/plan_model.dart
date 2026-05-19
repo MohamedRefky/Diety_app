@@ -67,8 +67,7 @@ class Plan {
           List<String>.from(firestore['Choose This Plan If'] ?? []),
       whatYouWillDo: List<String>.from(firestore['What You Will Do'] ?? []),
       schedule: scheduleMap,
-      guidelines: firestore['Guidelines'] ??
-          '', 
+      guidelines: firestore['Guidelines'] ?? '',
     );
   }
 }

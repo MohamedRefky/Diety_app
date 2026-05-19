@@ -10,7 +10,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-
 // ignore: camel_case_types
 class lose_Weight extends StatefulWidget {
   const lose_Weight({super.key});

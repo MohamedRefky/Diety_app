@@ -11,7 +11,8 @@ class CusomTextFormFeald extends StatelessWidget {
     this.validator,
     this.mycontroller,
     this.onTap,
-    this.onSaved, this.hintText,
+    this.onSaved,
+    this.hintText,
   });
   final String lable;
   final IconData prefixIcon;
@@ -25,7 +26,6 @@ class CusomTextFormFeald extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      
       onSaved: onSaved,
       cursorColor: AppColors.button,
       onTap: onTap,
@@ -35,8 +35,7 @@ class CusomTextFormFeald extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       style: TextStyle(color: AppColors.text),
       decoration: InputDecoration(
-        hintText: hintText
-        ,
+          hintText: hintText,
           suffixIcon: suffixIcon ?? const SizedBox(),
           prefixIcon: Icon(
             prefixIcon,

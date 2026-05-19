@@ -199,7 +199,8 @@ class _HomeeState extends State<Home> {
                 CircleAvatar(
                   radius: 22,
                   backgroundColor: AppColors.white,
-                  backgroundImage: const AssetImage('assets/Images/gemini logo.png'),
+                  backgroundImage:
+                      const AssetImage('assets/Images/gemini logo.png'),
                 ),
               ],
             ),

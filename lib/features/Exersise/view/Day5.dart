@@ -166,7 +166,7 @@ class _ExerciseState extends State<Day5> {
                   fontWeight: FontWeight.bold),
             ),
             const Gap(10),
-            if ( D5_activity1 != null && D5_activity1!.isNotEmpty)
+            if (D5_activity1 != null && D5_activity1!.isNotEmpty)
               Text(
                 '$D5_activity1 : $D5_duration1',
                 style: TextStyle(
@@ -176,13 +176,13 @@ class _ExerciseState extends State<Day5> {
               ),
             const Gap(15),
             if (D5_description1 != null)
-            Text(
-              '$D5_description1',
-              style: TextStyle(
-                color: AppColors.grey,
-                fontSize: 18,
+              Text(
+                '$D5_description1',
+                style: TextStyle(
+                  color: AppColors.grey,
+                  fontSize: 18,
+                ),
               ),
-            ),
             const Gap(25),
             if (D5_activity2 != null && D5_activity2!.isNotEmpty)
               Text(
@@ -194,13 +194,13 @@ class _ExerciseState extends State<Day5> {
               ),
             const Gap(15),
             if (D5_description2 != null)
-            Text(
-              '$D5_description2',
-              style: TextStyle(
-                color: AppColors.grey,
-                fontSize: 18,
+              Text(
+                '$D5_description2',
+                style: TextStyle(
+                  color: AppColors.grey,
+                  fontSize: 18,
+                ),
               ),
-            ),
           ],
         ),
       ),

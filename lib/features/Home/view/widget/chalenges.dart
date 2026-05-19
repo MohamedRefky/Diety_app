@@ -3,7 +3,6 @@ import 'package:diety/features/profile/view/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class Chalengspage extends StatefulWidget {
   final CardItem item;
 
@@ -50,11 +49,11 @@ class _ChalengspageState extends State<Chalengspage> {
 
   void _endCountdown() {
     setState(() {
-    _elapsedTime = Duration.zero; // Set elapsed time to zero
-    _startTime = DateTime.now(); // Update start time to current time
-    _timer.cancel(); // Cancel the timer
-    _saveStartTime(); // Save the updated start time
-    _showSuccessDialog();
+      _elapsedTime = Duration.zero; // Set elapsed time to zero
+      _startTime = DateTime.now(); // Update start time to current time
+      _timer.cancel(); // Cancel the timer
+      _saveStartTime(); // Save the updated start time
+      _showSuccessDialog();
     });
   }
 
@@ -137,7 +136,7 @@ class _ChalengspageState extends State<Chalengspage> {
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                _startTime=DateTime.now();
+                _startTime = DateTime.now();
                 _startTimer(); // Start the timer when the button is pressed
               },
               child: const Text('Start Challenge'),
