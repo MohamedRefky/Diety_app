@@ -7,6 +7,7 @@ import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Asks/view/Activates.dart';
 import 'package:diety/features/User_Detials/widget/viewDitails.dart';
 import 'package:diety/features/User_Goals/view/wishes.dart';
+import 'package:diety/features/User_Goals/cubit/user_goals_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -63,7 +64,10 @@ class UserDetailsView extends StatelessWidget {
           );
         } else if (state is UserDetailsSaveSuccess) {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (context) => const Wishes(),
+            builder: (context) => BlocProvider<UserGoalsCubit>(
+              create: (context) => UserGoalsCubit(),
+              child: const Wishes(),
+            ),
           ));
         } else if (state is UserDetailsError) {
           ScaffoldMessenger.of(context).showSnackBar(
