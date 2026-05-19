@@ -80,50 +80,36 @@ Whether you want to **lose weight**, **gain muscle**, or **maintain a healthy li
 
 ## 🏗️ Architecture
 
-The project follows a **Feature-First** clean architecture pattern:
+The project follows a **Feature-First Clean Architecture** pattern, utilizing **BLoC/Cubit** for robust State Management and highly modularized components:
 
 ```
 lib/
 ├── Core/
-│   ├── model/
-│   │   ├── UserInfo.dart              # User data model
-│   │   ├── UserInfoProvider.dart      # Global state (Provider)
-│   │   ├── notifications.dart         # Local notification service
-│   │   ├── firenotifications.dart     # Firebase Cloud Messaging
-│   │   └── workmanagerservice.dart    # Background task scheduler
-│   ├── utils/                         # Shared utilities & helpers
-│   └── widget/                        # Reusable UI components
+│   ├── model/                         # Global models and providers
+│   ├── services/                      # API, Notifications, WorkManager
+│   ├── utils/                         # Shared utilities, Colors, Themes
+│   └── widget/                        # Reusable global UI components (e.g., CusomTextFormFeald)
 │
 └── features/
-    ├── Auth/
-    │   ├── Login.dart                 # Login screen
-    │   └── SignUp.dart                # Registration screen
-    ├── Splash/                        # Animated splash screen
-    ├── Onboarding/                    # App introduction flow
-    ├── User Detials/                  # User profile setup
-    │   ├── Gender.dart
-    │   ├── Age.dart
-    │   ├── Height.dart
-    │   ├── Weight.dart
-    │   └── Activates.dart
-    ├── User Goals/                    # Goal selection
-    │   ├── Lose_weight.dart
-    │   ├── Gain_weight.dart
-    │   └── wishes.dart
-    ├── Home/                          # Main dashboard
-    ├── Planes/                        # Meal plans
-    │   ├── Plane.dart
-    │   └── PlaneDetails.dart
-    ├── Search Food/                   # Food search & logging
-    ├── Exersise/                      # Exercise tracker
-    ├── Asks/                          # AI Chatbot (Gemini)
-    ├── Admin/                         # Admin panel
-    └── profile/                       # User profile & settings
-        ├── profile.dart
-        ├── gemini.dart
-        ├── SetupPage.dart
-        └── contact us.dart
+    ├── Auth/                          # Authentication (Login, SignUp)
+    ├── Home/                          # Main dashboard & Calories Tracking
+    │   ├── cubit/
+    │   ├── view/
+    │   └── widget/
+    ├── Planes/                        # Meal plans & Schedules
+    │   ├── cubit/                     # PlanesCubit for fetching plans
+    │   ├── view/
+    │   └── widget/                    # Modularized tabs (Overview, Schedule)
+    ├── Exersise/                      # Exercise tracking
+    │   ├── cubit/
+    │   ├── view/
+    │   └── widget/
+    └── profile/                       # User profile, Contact Us & Settings
+        ├── cubit/                     # ProfileCubit, ContactUsCubit
+        ├── view/                      # profile.dart, contact_us_view.dart
+        └── widget/                    # Modularized cards (ProfileHeader, GoalsCard...)
 ```
+*Note: We have actively refactored massive monolithic files into smaller, manageable widgets and extracted business logic into Cubits.*
 
 ---
 
@@ -134,7 +120,7 @@ lib/
 | Category | Technology |
 |----------|------------|
 | **Framework** | Flutter 3.x (Dart) |
-| **State Management** | Provider + Flutter BLoC |
+| **State Management** | **Flutter BLoC (Cubit)** & Provider |
 | **UI / Animations** | Lottie, AnimatedSplashScreen, AnimatedTextKit |
 | **Fonts** | Google Fonts (Poppins) |
 | **Navigation** | Named Routes |
