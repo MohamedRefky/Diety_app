@@ -1,20 +1,23 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import '../widget/plan_model.dart';
-import 'PlaneDetails.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../cubit/planes_cubit.dart';
+import '../cubit/planes_state.dart';
+import '../widget/plan_card.dart';
 
-class Plane extends StatefulWidget {
+class Plane extends StatelessWidget {
   const Plane({super.key});
 
   @override
-  State<Plane> createState() => _PlaneState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => PlanesCubit()..fetchPlans(),
+      child: const PlaneView(),
+    );
+  }
 }
 
-bool isSelect = false;
-
-class _PlaneState extends State<Plane> {
-  final FirestoreService _firestoreService = FirestoreService();
+class PlaneView extends StatelessWidget {
+  const PlaneView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,21 +31,61 @@ class _PlaneState extends State<Plane> {
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),
-      body: StreamBuilder<List<Plan>>(
-        stream: _firestoreService.getPlans(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (snapshot.hasError) {
-            print(
-              "Error: ${snapshot.error}",
+      body: BlocBuilder<PlanesCubit, PlanesState>(
+        builder: (context, state) {
+          if (state is PlanesInitial || state is PlanesLoading) {
+            return const Center(
+              child: CircularProgressIndicator(color: Colors.white),
             );
           }
 
-          if (snapshot.hasData) {
-            final plans = snapshot.data!;
+          if (state is PlanesError) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Icon(Icons.error_outline, color: Colors.redAccent, size: 48),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'Failed to load plans.',
+                      style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      state.message,
+                      style: const TextStyle(color: Colors.grey, fontSize: 14),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 24),
+                    ElevatedButton(
+                      onPressed: () {
+                        context.read<PlanesCubit>().fetchPlans();
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                      ),
+                      child: const Text('Try Again', style: TextStyle(color: Colors.white)),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          }
+
+          if (state is PlanesLoaded) {
+            final plans = state.plans;
+            
+            if (plans.isEmpty) {
+              return const Center(
+                child: Text(
+                  "No plans available at the moment.",
+                  style: TextStyle(color: Colors.white70, fontSize: 16),
+                ),
+              );
+            }
+
             return Padding(
               padding: const EdgeInsets.all(20),
               child: Column(
@@ -51,87 +94,17 @@ class _PlaneState extends State<Plane> {
                   const Text(
                     "Training and Diet Plans",
                     style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
+                  const SizedBox(height: 10),
                   Expanded(
                     child: ListView.builder(
                       itemCount: plans.length,
                       itemBuilder: (context, index) {
-                        final plan =
-                            plans[index]; // Get the current plan in the list
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PlaneDetails(
-                                  name: plan.name,
-                                  image: plan.image,
-                                  details: plan.details,
-                                  duration: plan.duration,
-                                  difficulty: plan.difficulty,
-                                  chooseThisPlanIf: plan.chooseThisPlanIf,
-                                  whatYouWillDo: plan.whatYouWillDo,
-                                  schedule: plan.schedule,
-                                  guidelines: plan.guidelines,
-                                ),
-                              ),
-                            );
-                          },
-                          child: Card(
-                            color: const Color(0xff202835).withAlpha(150),
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Hero(
-                                  tag: 'planImage${plan.image}',
-                                  child: CachedNetworkImage(
-                                    placeholder: (context, url) =>
-                                        const CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) =>
-                                        const Icon(Icons.error),
-                                    alignment: Alignment.topCenter,
-                                    height: 150,
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    imageUrl: plan.image,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.all(15),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        plan.name,
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const Gap(5),
-                                      Text(
-                                        "${plan.duration} . Daily",
-                                        style: TextStyle(
-                                          color: Colors.white.withValues(alpha: 0.5),
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
+                        return PlanCard(plan: plans[index]);
                       },
                     ),
                   ),
@@ -140,7 +113,7 @@ class _PlaneState extends State<Plane> {
             );
           }
 
-          return const Text("No data available");
+          return const SizedBox.shrink();
         },
       ),
     );

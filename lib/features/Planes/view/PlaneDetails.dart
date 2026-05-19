@@ -1,7 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:gap/gap.dart';
+import '../widget/plane_details_app_bar.dart';
+import '../widget/tab_views/overview_tab.dart';
+import '../widget/tab_views/schedule_tab.dart';
 
 class PlaneDetails extends StatefulWidget {
   final String name;
@@ -40,7 +41,7 @@ class _PlaneDetailsState extends State<PlaneDetails>
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: 2, initialIndex: 0);
+    tabController = TabController(length: 2, vsync: this);
     _scrollController.addListener(() {
       if (_scrollController.position.userScrollDirection ==
           ScrollDirection.reverse) {
@@ -49,8 +50,7 @@ class _PlaneDetailsState extends State<PlaneDetails>
             _showAppBar = false;
           });
         }
-      }
-      if (_scrollController.position.userScrollDirection ==
+      } else if (_scrollController.position.userScrollDirection ==
           ScrollDirection.forward) {
         if (!_showAppBar) {
           setState(() {
@@ -77,43 +77,9 @@ class _PlaneDetailsState extends State<PlaneDetails>
           controller: _scrollController,
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
-              SliverAppBar(
-                backgroundColor: const Color.fromRGBO(3, 11, 24, 1.0),
-                title: _showAppBar
-                    ? const Text(
-                        "Plans Details",
-                        style: TextStyle(color: Colors.white),
-                      )
-                    : null,
-                leading: IconButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back,
-                    color: Colors.white,
-                  ),
-                ),
-                expandedHeight: 250.0,
-                elevation: 0,
-                pinned: true,
-                floating: false,
-                snap: false,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Hero(
-                    tag: 'planImage${widget.image}',
-                    child: CachedNetworkImage(
-                      placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      fit: BoxFit.cover,
-                      imageUrl: widget.image,
-                    ),
-                  ),
-                ),
+              PlaneDetailsAppBar(
+                image: widget.image,
+                showAppBarTitle: _showAppBar,
               ),
             ];
           },
@@ -134,190 +100,48 @@ class _PlaneDetailsState extends State<PlaneDetails>
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Column(
-                      children: [
-                        TabBar(
-                          controller: tabController,
-                          tabs: const [
-                            Tab(
-                              child: Text(
-                                "OverView",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+                    TabBar(
+                      controller: tabController,
+                      tabs: const [
+                        Tab(
+                          child: Text(
+                            "Overview",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
                             ),
-                            Tab(
-                              child: Text(
-                                "SCHEDULE",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                        const SizedBox(height: 10),
+                        Tab(
+                          child: Text(
+                            "Schedule",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
                   ],
                 ),
               ),
-              Flexible(
+              Expanded(
                 child: TabBarView(
                   controller: tabController,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              widget.details,
-                              style: const TextStyle(
-                                  color: Colors.grey, fontSize: 16),
-                            ),
-                            const Gap(20),
-                            Row(
-                              children: [
-                                const Text(
-                                  'Duration :',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  widget.duration,
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                ),
-                              ],
-                            ),
-                            const Gap(10),
-                            const Row(
-                              children: [
-                                Text(
-                                  'Time Per Week :',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                ),
-                                Spacer(),
-                                Text(
-                                  'Daily',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                ),
-                              ],
-                            ),
-                            const Gap(10),
-                            Row(
-                              children: [
-                                const Text(
-                                  'Difficulty :',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                ),
-                                const Spacer(),
-                                Text(
-                                  widget.difficulty,
-                                  style: const TextStyle(
-                                      color: Colors.white, fontSize: 16),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const Text(
-                              'Choose This Plan If',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              widget.chooseThisPlanIf
-                                  .map((item) =>
-                                      '• $item') // Add a new line, dot, and space before each item
-                                  .join(
-                                      ' \n  \n'), // Join the items with two new lines
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const Text(
-                              'What You Will Do ',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              widget.whatYouWillDo.join('\n\n'),
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            const Text(
-                              'Guidelines',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              widget.guidelines,
-                              style: const TextStyle(color: Colors.grey),
-                            ),
-                          ],
-                        ),
-                      ),
+                    OverviewTab(
+                      details: widget.details,
+                      duration: widget.duration,
+                      difficulty: widget.difficulty,
+                      chooseThisPlanIf: widget.chooseThisPlanIf,
+                      whatYouWillDo: widget.whatYouWillDo,
+                      guidelines: widget.guidelines,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            for (var entry in widget.schedule.entries)
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "${entry.key} :\n",
-                                      style: const TextStyle(
-                                          color: Colors.white, fontSize: 18),
-                                    ),
-                                    Text(
-                                      entry.value,
-                                      style: const TextStyle(
-                                          color: Colors.white, fontSize: 16),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                          ],
-                        ),
-                      ),
+                    ScheduleTab(
+                      schedule: widget.schedule,
                     ),
                   ],
                 ),
