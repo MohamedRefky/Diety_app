@@ -65,7 +65,7 @@ class UserDetailsView extends StatelessWidget {
         } else if (state is UserDetailsSaveSuccess) {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => BlocProvider<UserGoalsCubit>(
-              create: (context) => UserGoalsCubit(),
+              create: (context) => UserGoalsCubit()..init(true),
               child: const Wishes(),
             ),
           ));

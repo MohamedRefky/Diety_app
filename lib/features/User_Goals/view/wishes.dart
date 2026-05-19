@@ -1,28 +1,15 @@
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/Core/widget/Custom_Button.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:diety/features/User_Detials/view/UserDitails.dart';
-import 'package:diety/features/User_Goals/Widget/Container_Goal.dart';
+import 'package:diety/features/User_Goals/Widget/GoalHeaderToggle.dart';
+import 'package:diety/features/User_Goals/Widget/GoalPaceSelector.dart';
 import 'package:diety/features/User_Goals/cubit/user_goals_cubit.dart';
 import 'package:diety/features/User_Goals/cubit/user_goals_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gap/gap.dart';
 
-class Wishes extends StatefulWidget {
+class Wishes extends StatelessWidget {
   const Wishes({super.key});
-
-  @override
-  State<Wishes> createState() => _WishesState();
-}
-
-class _WishesState extends State<Wishes> {
-  @override
-  void initState() {
-    super.initState();
-    // Fetch user details and initialize in default Lose Mode
-    context.read<UserGoalsCubit>().init(true);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,13 +45,13 @@ class _WishesState extends State<Wishes> {
         final selectedIndex = state.selectedIndex;
 
         final options = state.isLoseMode
-            ? [
+            ? const [
                 'Lose 0.25 Kg per week',
                 'Lose 0.5 Kg per week (Recommended)',
                 'Lose 0.75 Kg per week',
                 'Lose 1 Kg per week'
               ]
-            : [
+            : const [
                 'Gain 0.25 Kg per week',
                 'Gain 0.5 Kg per week (Recommended)',
                 'Gain 0.75 Kg per week',
@@ -75,6 +62,7 @@ class _WishesState extends State<Wishes> {
           backgroundColor: AppColors.background,
           appBar: AppBar(
             backgroundColor: AppColors.background,
+            elevation: 0,
             leading: IconButton(
               onPressed: () {
                 Navigator.of(context).pushReplacement(
@@ -95,111 +83,20 @@ class _WishesState extends State<Wishes> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        'Determine your Goal',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.white,
-                          fontSize: 30,
-                        ),
+                      GoalHeaderToggle(
+                        isLoseMode: state.isLoseMode,
+                        onToggle: cubit.toggleGoalMode,
                       ),
-                      const Gap(30),
-
-                      // Beautiful Pill Sliding Toggle
-                      Container(
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: AppColors.background,
-                          border:
-                              Border.all(color: AppColors.button, width: 1.5),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () => cubit.toggleGoalMode(true),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: state.isLoseMode
-                                        ? AppColors.button
-                                        : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(28),
-                                  ),
-                                  child: Text(
-                                    'Lose Weight',
-                                    style: TextStyle(
-                                      color: AppColors.text,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () => cubit.toggleGoalMode(false),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: !state.isLoseMode
-                                        ? AppColors.button
-                                        : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(28),
-                                  ),
-                                  child: Text(
-                                    'Gain Weight',
-                                    style: TextStyle(
-                                      color: AppColors.text,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Gap(40),
-
-                      Text(
-                        'What is your weekly goal?',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                      const Gap(20),
-
-                      // Dynamic options list
-                      ...options.asMap().entries.map((entry) {
-                        final index = entry.key;
-                        final text = entry.value;
-                        final isSelected = selectedIndex == index;
-
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 15),
-                          child: Container_Goal(
-                            onTap: () => cubit.selectGoalIndex(index),
-                            color: isSelected
-                                ? AppColors.button
-                                : AppColors.background,
-                            text: text,
-                          ),
-                        );
-                      }),
-                      const Gap(30),
-                      Custom_Button(
-                        width: double.infinity,
-                        text: 'Continue',
-                        onPressed: () {
+                      const SizedBox(height: 40),
+                      GoalPaceSelector(
+                        options: options,
+                        selectedIndex: selectedIndex,
+                        onSelect: cubit.selectGoalIndex,
+                        onContinue: () {
                           if (selectedIndex != -1) {
                             cubit.saveGoal();
                           } else {
@@ -212,7 +109,7 @@ class _WishesState extends State<Wishes> {
                           }
                         },
                       ),
-                      const Gap(20),
+                      const SizedBox(height: 20),
                     ],
                   ),
                 ),
