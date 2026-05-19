@@ -40,16 +40,6 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        if (state.status == HomeStatus.loading ||
-            state.status == HomeStatus.initial) {
-          return Scaffold(
-            backgroundColor: AppColors.background,
-            body: const Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }
-
         final cubit = context.read<HomeCubit>();
 
         return Scaffold(
