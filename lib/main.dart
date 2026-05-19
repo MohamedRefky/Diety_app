@@ -1,10 +1,9 @@
 import 'dart:developer';
 
 import 'package:diety/Core/model/UserInfoProvider.dart';
-import 'package:diety/Core/model/firebase_options.dart';
+import 'package:diety/Core/services/app_initializer.dart';
 import 'package:diety/Core/model/firenotifications.dart';
 import 'package:diety/Core/model/notifications.dart';
-import 'package:diety/Core/model/workmanagerservice.dart';
 import 'package:diety/features/Asks/cubit/user_info_cubit.dart';
 import 'package:diety/features/Auth/views/login_view.dart';
 import 'package:diety/features/Auth/views/signup_view.dart';
@@ -12,40 +11,17 @@ import 'package:diety/features/main/MainNavBarScreen.dart';
 import 'package:diety/features/Onboarding/view/onbording_screan.dart';
 import 'package:diety/features/Search_Food/view/Dinner.dart';
 import 'package:diety/features/Splash/Splash.dart';
-import 'package:diety/features/profile/view/gemini.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  try {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  } catch (e) {
-    if (!e.toString().contains('duplicate-app')) {
-      rethrow;
-    }
-  }
-
-  // Initialize Gemini AI Coach Service
-  Gemini.init(apiKey: GEMINI_API_KEY);
-
-  // Initialize Notification Services
-  await localnotificationservice.init();
-  log("Local notification service initialized");
-
-  // Load essential background and notification streams
-  await Future.wait([
-    WorkManagerSercice().repetedwater(),
-    FirebaseApi().initNotifications(),
-  ]);
+  // Initialize all application-level services
+  await AppInitializer.init();
 
   runApp(
     MultiProvider(
