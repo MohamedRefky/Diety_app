@@ -80,36 +80,80 @@ Whether you want to **lose weight**, **gain muscle**, or **maintain a healthy li
 
 ## 🏗️ Architecture
 
-The project follows a **Feature-First Clean Architecture** pattern, utilizing **BLoC/Cubit** for robust State Management and highly modularized components:
+The project follows a **Feature-First Clean Architecture** pattern. Business logic is fully separated from the UI via **BLoC/Cubit**, and each feature is broken down into modular, reusable components.
 
 ```
 lib/
-├── Core/
-│   ├── model/                         # Global models and providers
-│   ├── services/                      # API, Notifications, WorkManager
-│   ├── utils/                         # Shared utilities, Colors, Themes
-│   └── widget/                        # Reusable global UI components (e.g., CusomTextFormFeald)
+├── main.dart                                  # App entry point & routing
+│
+├── Core/                                      # Shared, cross-feature code
+│   ├── model/
+│   │   ├── UserInfo.dart                      # User data model
+│   │   └── UserInfoProvider.dart              # Global state (Provider)
+│   ├── services/
+│   │   ├── app_initializer.dart               # Firebase & services bootstrap
+│   │   ├── firenotifications.dart             # Firebase Cloud Messaging setup
+│   │   ├── notifications.dart                 # Local notification scheduler
+│   │   └── workmanagerservice.dart            # Background task scheduler
+│   ├── utils/
+│   │   ├── Colors.dart                        # App color palette
+│   │   └── snack_bar.dart                     # Global SnackBar helper
+│   └── widget/                                # Shared reusable UI components
+│       ├── Custom_Button.dart
+│       ├── Custom_TextFormFealed.dart          # Unified text field widget
+│       ├── Container_Activites.dart
+│       └── challenges_carousel.dart           # Shared challenges carousel
 │
 └── features/
-    ├── Auth/                          # Authentication (Login, SignUp)
-    ├── Home/                          # Main dashboard & Calories Tracking
+    ├── Splash/                                # Animated splash screen
+    │   └── Splash.dart
+    ├── Onboarding/                            # App introduction flow
+    │   ├── view/
+    │   └── widget/
+    ├── Auth/                                  # Authentication
+    │   ├── cubit/                             # AuthCubit & states
+    │   ├── views/                             # login_view.dart, signup_view.dart
+    │   └── widgets/
+    ├── User_Detials/                          # Onboarding: personal data entry
     │   ├── cubit/
     │   ├── view/
     │   └── widget/
-    ├── Planes/                        # Meal plans & Schedules
-    │   ├── cubit/                     # PlanesCubit for fetching plans
+    ├── User_Goals/                            # Onboarding: goal selection
+    │   ├── cubit/
     │   ├── view/
-    │   └── widget/                    # Modularized tabs (Overview, Schedule)
-    ├── Exersise/                      # Exercise tracking
+    │   └── Widget/
+    ├── Asks/                                  # AI Chatbot (Gemini)
+    │   ├── cubit/
+    │   ├── model/
+    │   ├── view/
+    │   └── widget/
+    ├── Home/                                  # Main dashboard & calorie tracking
+    │   ├── cubit/                             # HomeCubit & states
+    │   ├── view/                              # Home.dart
+    │   └── widget/                            # CaloriesIndicator, MealSlots, WaterTracker...
+    ├── Search_Food/                           # Food search & meal logging
     │   ├── cubit/
     │   ├── view/
     │   └── widget/
-    └── profile/                       # User profile, Contact Us & Settings
-        ├── cubit/                     # ProfileCubit, ContactUsCubit
-        ├── view/                      # profile.dart, contact_us_view.dart
-        └── widget/                    # Modularized cards (ProfileHeader, GoalsCard...)
+    ├── Planes/                                # Meal plans & schedules
+    │   ├── cubit/                             # PlanesCubit & states
+    │   ├── model/
+    │   ├── view/                              # Plane.dart, PlaneDetails.dart
+    │   └── widget/                            # PlanCard, OverviewTab, ScheduleTab...
+    ├── Exersise/                              # Exercise tracker
+    │   ├── cubit/                             # ExerciseCubit & states
+    │   ├── extensions/                        # DayDataExtension
+    │   ├── view/                              # Exercise.dart, DayDetailsScreen.dart
+    │   └── widget/                            # DayDetailsSliverAppBar, DayDetailsHeader...
+    ├── profile/                               # User profile & settings
+    │   ├── cubit/                             # ProfileCubit, ContactUsCubit & states
+    │   ├── view/                              # profile.dart, contact_us_view.dart, gemini.dart
+    │   └── widget/                            # ProfileHeader, PersonalDataCard, GoalsCard...
+    ├── Admin/                                 # Admin analytics panel
+    │   └── view/
+    └── main/                                  # Bottom navigation host
+        └── MainNavBarScreen.dart
 ```
-*Note: We have actively refactored massive monolithic files into smaller, manageable widgets and extracted business logic into Cubits.*
 
 ---
 
