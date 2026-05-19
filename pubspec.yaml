@@ -48,6 +48,8 @@ dependencies:
   flutter_gemini: ^2.0.3
   modal_bottom_sheet: ^3.0.0
   connectivity_plus: ^7.1.1
+  equatable: ^2.0.8
+  intl: ^0.20.2
  
 
 dev_dependencies:

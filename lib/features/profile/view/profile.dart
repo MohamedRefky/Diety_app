@@ -5,9 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/views/signup_view.dart';
-import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:diety/features/Home/view/widget/chalenges.dart';
-import 'package:diety/features/Home/view/widget/navbar.dart';
 import 'package:diety/features/profile/view/contact%20us%20.dart';
 import 'package:diety/features/profile/view/gemini.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -232,19 +230,7 @@ class _ProfileState extends State<Profile> {
               ),
             )
           ],
-          leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(MaterialPageRoute(
-                  builder: (context) => const Home(),
-                ));
-              },
-              icon: Icon(
-                Icons.arrow_back,
-                color: AppColors.white,
-                size: 30,
-              )),
         ),
-        bottomNavigationBar: const salomon_bottom_bar(),
         body: Column(
           children: [
             Container(

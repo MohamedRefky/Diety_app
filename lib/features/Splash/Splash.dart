@@ -1,5 +1,5 @@
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Home/view/view/Home.dart';
+import 'package:diety/features/Home/view/view/MainNavBarScreen.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatefulWidget {
@@ -17,7 +17,7 @@ class _SplashViewState extends State<SplashView> {
     Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => const Home(),
+          builder: (context) => const MainNavBarScreen(),
         ));
       }
     });

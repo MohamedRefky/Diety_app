@@ -1,6 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:diety/features/Home/view/view/Home.dart';
-import 'package:diety/features/Home/view/widget/navbar.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import '../widget/plan_model.dart';
@@ -29,18 +27,7 @@ class _PlaneState extends State<Plane> {
           "Diety Recipes",
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => const Home(),
-              ));
-            },
-            icon: const Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            )),
       ),
-      bottomNavigationBar: const salomon_bottom_bar(),
       body: StreamBuilder<List<Plan>>(
         stream: _firestoreService.getPlans(),
         builder: (context, snapshot) {

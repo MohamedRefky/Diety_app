@@ -1,8 +1,9 @@
-import 'dart:async';
 import 'dart:developer';
-
+import 'package:flutter/material.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void handlemessage(RemoteMessage? message) {
   if (message == null) return;

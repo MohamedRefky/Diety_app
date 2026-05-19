@@ -1,5 +1,5 @@
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Home/view/view/Home.dart';
+import 'package:diety/features/Home/view/view/MainNavBarScreen.dart';
 import 'package:diety/features/User_Detials/view/UserDitails.dart';
 import 'package:diety/features/User_Goals/Widget/GoalHeaderToggle.dart';
 import 'package:diety/features/User_Goals/Widget/GoalPaceSelector.dart';
@@ -18,7 +18,7 @@ class Wishes extends StatelessWidget {
         if (state.status == UserGoalsStatus.success) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
-              builder: (context) => const Home(),
+              builder: (context) => const MainNavBarScreen(),
             ),
           );
         } else if (state.status == UserGoalsStatus.error) {

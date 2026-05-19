@@ -9,8 +9,6 @@ import 'package:diety/features/Exersise/view/Day5.dart';
 import 'package:diety/features/Exersise/view/Day6.dart';
 import 'package:diety/features/Exersise/view/Day7.dart';
 import 'package:diety/features/Exersise/widget/Container_Exercise.dart';
-import 'package:diety/features/Home/view/view/Home.dart';
-import 'package:diety/features/Home/view/widget/navbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -223,15 +221,7 @@ class _ExerciseState extends State<Exercise> {
           style: TextStyle(color: AppColors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: AppColors.background,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) => const Home(),
-              ));
-            },
-            icon: Icon(Icons.arrow_back, color: AppColors.white)),
       ),
-      bottomNavigationBar: const salomon_bottom_bar(),
       body: Center(
         child: _isLoading
             ? Center(

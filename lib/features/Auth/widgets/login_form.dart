@@ -7,7 +7,7 @@ import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/cubit/auth_cubit.dart';
 import 'package:diety/features/Auth/widgets/login_form_fields.dart';
 import 'package:diety/features/Auth/widgets/login_social_and_footer.dart';
-import 'package:diety/features/Home/view/view/Home.dart';
+import 'package:diety/features/Home/view/view/MainNavBarScreen.dart';
 import 'package:diety/features/Auth/views/signup_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -91,7 +91,7 @@ class _LoginFormState extends State<LoginForm> {
       if (userAge == '0' || userAge.isEmpty) {
         return const Gender();
       } else {
-        return const Home();
+        return const MainNavBarScreen();
       }
     }
     return const Gender();
