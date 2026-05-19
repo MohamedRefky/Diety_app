@@ -1,7 +1,7 @@
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
-import 'package:diety/features/Search%20Food/widget/AppBar.dart';
-import 'package:diety/features/Search%20Food/widget/CustomSearchFood.dart';
+import 'package:diety/features/Search_Food/widget/AppBar.dart';
+import 'package:diety/features/Search_Food/widget/CustomSearchFood.dart';
 import 'package:flutter/material.dart';
 
 class Snacks extends StatefulWidget {

@@ -7,7 +7,7 @@ import 'package:diety/features/Auth/Login.dart';
 import 'package:diety/features/Auth/SignUp.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:diety/features/Onboarding/view/onbording_screan.dart';
-import 'package:diety/features/Search%20Food/view/Dinner.dart';
+import 'package:diety/features/Search_Food/view/Dinner.dart';
 import 'package:diety/features/Splash/Splash.dart';
 import 'package:diety/features/profile/view/gemini.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -1,8 +1,8 @@
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/Core/widget/Custom_Button.dart';
-import 'package:diety/features/User%20Detials/view/UserDitails.dart';
-import 'package:diety/features/User%20Goals/view/Gain_weight.dart';
-import 'package:diety/features/User%20Goals/view/Lose_weight.dart';
+import 'package:diety/features/User_Detials/view/UserDitails.dart';
+import 'package:diety/features/User_Goals/view/Gain_weight.dart';
+import 'package:diety/features/User_Goals/view/Lose_weight.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 

@@ -43,9 +43,10 @@ class _LoginState extends State<Login> {
 
       DocumentSnapshot userDoc =
           await _firestore.collection('users').doc(_uid).get();
+      final data = userDoc.data() as Map<String, dynamic>?;
       setState(() {
-        age = userDoc.get('age') ?? '0';
-        gender = userDoc.get('gender') ?? '';
+        age = data?['age']?.toString() ?? '0';
+        gender = data?['gender']?.toString() ?? '';
       });
     }
   }
@@ -432,7 +433,6 @@ class _LoginState extends State<Login> {
     );
   }
 }
-
 
 /*
 void phoneauth () async{

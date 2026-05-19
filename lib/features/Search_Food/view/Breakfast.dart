@@ -1,24 +1,23 @@
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
-import 'package:diety/features/Search%20Food/widget/AppBar.dart';
-import 'package:diety/features/Search%20Food/widget/CustomSearchFood.dart';
+import 'package:diety/features/Search_Food/widget/AppBar.dart';
+import 'package:diety/features/Search_Food/widget/CustomSearchFood.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-class Dinner extends StatefulWidget {
-  const Dinner({super.key, this.response});
-  final NotificationResponse? response;
+class Breakfast extends StatefulWidget {
+  const Breakfast({super.key});
+
   @override
-  State<Dinner> createState() => _DinnerState();
+  State<Breakfast> createState() => _BreakfastState();
 }
 
-class _DinnerState extends State<Dinner> {
+class _BreakfastState extends State<Breakfast> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: CustomAppBarFood(
-        text: 'Dinner',
+        text: 'Breakfast',
         onPressed: () {
           Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (context) => const Home(),
