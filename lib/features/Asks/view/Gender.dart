@@ -98,6 +98,7 @@ class Gender extends StatelessWidget {
                       text: 'Continue',
                       onPressed: () async {
                         await cubit.saveGender();
+                        if (!context.mounted) return;
 
                         final userInfoProvider = Provider.of<UserInfoProvider>(
                             context,

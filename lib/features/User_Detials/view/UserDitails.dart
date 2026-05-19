@@ -211,9 +211,9 @@ class UserDetailsView extends StatelessWidget {
                             ),
                             gradient: LinearGradient(
                               colors: [
-                                AppColors.button.withOpacity(0.4),
-                                AppColors.button.withOpacity(0.5),
-                                AppColors.button.withOpacity(1),
+                                AppColors.button.withValues(alpha: 0.4),
+                                AppColors.button.withValues(alpha: 0.5),
+                                AppColors.button.withValues(alpha: 1.0),
                               ],
                               stops: const [0.0, 0.75, 1.0],
                               begin: Alignment.topLeft,
@@ -260,7 +260,7 @@ class UserDetailsView extends StatelessWidget {
               ),
               if (isSaving)
                 Container(
-                  color: Colors.black.withOpacity(0.3),
+                  color: Colors.black.withValues(alpha: 0.3),
                   child: const Center(
                     child: CircularProgressIndicator(),
                   ),

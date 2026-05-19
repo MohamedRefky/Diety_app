@@ -90,17 +90,19 @@ class _MyAppState extends State<MyApp> {
         .listen((NotificationResponse) {
       log(NotificationResponse.id!.toString());
       log(NotificationResponse.payload!.toString());
-      if (NotificationResponse.id == 3) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => Dinner(
-                      response: NotificationResponse,
-                    )));
-      } else if (NotificationResponse.id == 1) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Home()));
-      } else {}
+      if (mounted) {
+        if (NotificationResponse.id == 3) {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => Dinner(
+                        response: NotificationResponse,
+                      )));
+        } else if (NotificationResponse.id == 1) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const Home()));
+        } else {}
+      }
     });
   }
 

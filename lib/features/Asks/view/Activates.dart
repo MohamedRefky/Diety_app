@@ -129,6 +129,7 @@ firefighter''',
                     text: 'Body Details',
                     onPressed: () async {
                       await cubit.saveActivity();
+                      if (!context.mounted) return;
 
                       // Update legacy provider
                       final userInfoProvider =
