@@ -7,7 +7,7 @@ import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/cubit/auth_cubit.dart';
 import 'package:diety/features/Auth/widgets/login_form_fields.dart';
 import 'package:diety/features/Auth/widgets/login_social_and_footer.dart';
-import 'package:diety/features/Home/view/view/MainNavBarScreen.dart';
+import 'package:diety/features/main/MainNavBarScreen.dart';
 import 'package:diety/features/Auth/views/signup_view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

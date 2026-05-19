@@ -1,11 +1,11 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Admin/view/AdminHome.dart';
-import 'package:diety/features/Home/view/widget/HomeCaloriesIndicator.dart';
-import 'package:diety/features/Home/view/widget/HomeChallenges.dart';
-import 'package:diety/features/Home/view/widget/HomeMealSlots.dart';
-import 'package:diety/features/Home/view/widget/HomeSummary.dart';
-import 'package:diety/features/Home/view/widget/watertracker.dart';
+import 'package:diety/features/Home/widget/HomeCaloriesIndicator.dart';
+import 'package:diety/features/Home/widget/HomeChallenges.dart';
+import 'package:diety/features/Home/widget/HomeMealSlots.dart';
+import 'package:diety/features/Home/widget/HomeSummary.dart';
+import 'package:diety/features/Home/widget/watertracker.dart';
 import 'package:diety/features/Home/cubit/home_cubit.dart';
 import 'package:diety/features/Home/cubit/home_state.dart';
 import 'package:diety/features/User_Detials/view/UserDitails.dart';

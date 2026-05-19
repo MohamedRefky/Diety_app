@@ -5,7 +5,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/views/signup_view.dart';
-import 'package:diety/features/Home/view/widget/chalenges.dart';
+import 'package:diety/features/Home/widget/chalenges.dart';
 import 'package:diety/features/profile/view/contact%20us%20.dart';
 import 'package:diety/features/profile/view/gemini.dart';
 import 'package:firebase_auth/firebase_auth.dart';

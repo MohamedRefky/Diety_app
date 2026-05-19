@@ -1,5 +1,5 @@
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Home/view/widget/chalenges.dart';
+import 'package:diety/features/Home/widget/chalenges.dart';
 import 'package:diety/features/profile/view/profile.dart';
 import 'package:flutter/material.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Home/view/widget/Custom-Container.dart';
+import 'package:diety/features/Home/widget/Custom-Container.dart';
 import 'package:diety/features/Search_Food/view/Breakfast.dart';
 import 'package:diety/features/Search_Food/view/Dinner.dart';
 import 'package:diety/features/Search_Food/view/Lunch.dart';

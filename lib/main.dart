@@ -5,7 +5,7 @@ import 'package:diety/Core/model/notifications.dart';
 import 'package:diety/Core/model/workmanagerservice.dart';
 import 'package:diety/features/Auth/views/login_view.dart';
 import 'package:diety/features/Auth/views/signup_view.dart';
-import 'package:diety/features/Home/view/view/MainNavBarScreen.dart';
+import 'package:diety/features/main/MainNavBarScreen.dart';
 import 'package:diety/features/Onboarding/view/onbording_screan.dart';
 import 'package:diety/features/Search_Food/view/Dinner.dart';
 import 'package:diety/features/Splash/Splash.dart';

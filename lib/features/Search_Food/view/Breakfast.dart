@@ -1,5 +1,5 @@
 import 'package:diety/Core/utils/Colors.dart';
-import 'package:diety/features/Home/view/view/MainNavBarScreen.dart';
+import 'package:diety/features/main/MainNavBarScreen.dart';
 import 'package:diety/features/Search_Food/widget/AppBar.dart';
 import 'package:diety/features/Search_Food/widget/CustomSearchFood.dart';
 import 'package:flutter/material.dart';
