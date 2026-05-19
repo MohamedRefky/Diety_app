@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-
 import '../../../Core/utils/Colors.dart';
 import '../cubit/profile_cubit.dart';
 import '../cubit/profile_state.dart';
