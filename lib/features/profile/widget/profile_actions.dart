@@ -4,7 +4,7 @@ import '../../../Core/utils/Colors.dart';
 import '../../Auth/views/login_view.dart';
 import '../cubit/profile_cubit.dart';
 import '../cubit/profile_state.dart';
-import '../view/contact us .dart';
+import '../view/contact_us_view.dart';
 import '../widget/styles.dart';
 
 class ProfileActions extends StatelessWidget {
@@ -35,7 +35,7 @@ class ProfileActions extends StatelessWidget {
             color: Colors.blue,
             onTap: () {
               Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const contactus()),
+                MaterialPageRoute(builder: (context) => const ContactUsView()),
               );
             },
           ),
