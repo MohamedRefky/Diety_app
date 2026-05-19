@@ -8,12 +8,12 @@ import 'package:diety/Core/widget/Custom_TextFormFealed.dart';
 import 'package:diety/features/Admin/view/AdminHome.dart';
 import 'package:diety/features/Asks/view/Gender.dart';
 import 'package:diety/features/Auth/SignUp.dart';
+import 'package:diety/features/Auth/cubit/auth_cubit.dart';
 import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -22,87 +22,27 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-bool isInternetAvailable = true;
-bool isNotVisable = true;
-FirebaseAuth auth = FirebaseAuth.instance;
-bool isLoading = false;
-String age = '0';
-final FirebaseAuth _auth = FirebaseAuth.instance;
-final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-late String _uid;
-
 class _LoginState extends State<Login> {
-  @override
-  // ignore: override_on_non_overriding_member
-  Future<void> _getUserdData() async {
-    User? user = _auth.currentUser;
-    if (user != null) {
-      setState(() {
-        _uid = user.uid;
-      });
-
-      DocumentSnapshot userDoc =
-          await _firestore.collection('users').doc(_uid).get();
-      final data = userDoc.data() as Map<String, dynamic>?;
-      setState(() {
-        age = data?['age']?.toString() ?? '0';
-        gender = data?['gender']?.toString() ?? '';
-      });
-    }
-  }
-
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-//google signin
-  Future signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    if (googleUser == null) {
-      return;
-    }
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication googleAuth =
-        await googleUser.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
-
-    // Once signed in, return the UserCredential
-    await FirebaseAuth.instance.signInWithCredential(credential);
-    Navigator.of(context).pushNamedAndRemoveUntil("Gender", (route) => false);
-  }
-
-  //facebock signin
-
-  Future<UserCredential> signInWithFacebook() async {
-    // Trigger the sign-in flow
-    final LoginResult loginResult = await FacebookAuth.instance.login();
-
-    // Create a credential from the access token
-    final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
-
-    // Once signed in, return the UserCredential
-    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
-  }
-
-//---------------------------------
-  Future<bool> checkInternetConnectivity() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    return !connectivityResult.contains(ConnectivityResult.none);
-  }
+  bool isInternetAvailable = true;
+  bool isNotVisible = true;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-    _getUserdData();
-    // Initialize the connectivity plugin
+    _listenToConnectivity();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void _listenToConnectivity() {
     Connectivity().onConnectivityChanged.listen((dynamic result) {
       setState(() {
         if (result is List) {
@@ -114,346 +54,302 @@ class _LoginState extends State<Login> {
     });
   }
 
+  Future<bool> _checkInternetConnectivity() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    return !connectivityResult.contains(ConnectivityResult.none);
+  }
+
+  Future<void> _handlePostLoginNavigation(User user) async {
+    if (user.email == 'mustaphamahmoud952@gmail.com') {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const Admin_Home()),
+      );
+      return;
+    }
+
+    try {
+      DocumentSnapshot userDoc =
+          await FirebaseFirestore.instance.collection('users').doc(user.uid).get();
+      
+      final Widget nextScreen = _determineNextScreen(userDoc);
+      
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => nextScreen),
+      );
+    } catch (e) {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const Gender()),
+      );
+    }
+  }
+
+  Widget _determineNextScreen(DocumentSnapshot userDoc) {
+    if (userDoc.exists) {
+      final data = userDoc.data() as Map<String, dynamic>?;
+      final String userAge = data?['age']?.toString() ?? '0';
+      if (userAge == '0' || userAge.isEmpty) {
+        return const Gender();
+      } else {
+        return const Home();
+      }
+    }
+    return const Gender();
+  }
+
+  void _showSnackBar(String message, {Color color = Colors.red}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 3),
+        backgroundColor: color,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // double screenWidth =MediaQuery.of(context).size.width;
-    // double screenheight =MediaQuery.of(context).size.height;
+    return BlocProvider(
+      create: (context) => AuthCubit(),
+      child: BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          if (state is AuthSuccess) {
+            _handlePostLoginNavigation(state.user);
+          } else if (state is AuthFailure) {
+            _showSnackBar(state.errorMessage);
+          }
+        },
+        builder: (context, state) {
+          final bool isLoading = state is AuthLoading;
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.background,
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: SingleChildScrollView(
-              child: Form(
-                key: formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Login',
-                      style: TextStyle(
-                          fontSize: 40,
-                          color: AppColors.text,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    const Gap(40),
-                    //Email
-                    CusomTextFormFeald(
-                      mycontroller: email,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'PLease Enter Your Email';
-                        }
-                        return null;
-                      },
-                      prefixIcon: Icons.email,
-                      lable: 'Email',
-                      suffixIcon: null,
-                    ),
-                    const Gap(25),
-                    //Pasword
-                    CusomTextFormFeald(
-                      mycontroller: password,
-                      obscureText: isNotVisable,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'PLease Enter Your Password';
-                        }
-                        return null;
-                      },
-                      prefixIcon: Icons.lock,
-                      lable: 'Password',
-                      suffixIcon: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            isNotVisable = !isNotVisable;
-                          });
-                        },
-                        icon: Icon((isNotVisable)
-                            ? Icons.visibility_off
-                            : Icons.remove_red_eye_rounded),
-                        color: AppColors.text,
+          return SafeArea(
+            child: Scaffold(
+              backgroundColor: AppColors.background,
+              body: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: SingleChildScrollView(
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildHeader(),
+                          const Gap(40),
+                          _buildEmailField(),
+                          const Gap(25),
+                          _buildPasswordField(),
+                          const Gap(5),
+                          _buildForgotPasswordButton(context),
+                          const Gap(15),
+                          _buildLoginButton(context, isLoading),
+                          const Gap(40),
+                          _buildDivider(),
+                          const Gap(20),
+                          _buildSocialLoginButtons(context),
+                          const Gap(20),
+                          _buildFooter(context),
+                        ],
                       ),
                     ),
-                    const Gap(5),
-                    //Forget Password
-                    Container(
-                      margin: const EdgeInsets.only(top: 5, bottom: 10),
-                      alignment: Alignment.topRight,
-                      child: InkWell(
-                        onTap: () async {
-                          if (email.text == "") {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text(
-                                "please enter your email first",
-                              ),
-                              duration: Duration(seconds: 2),
-                              backgroundColor: Colors.red,
-                            ));
-                            return;
-                          }
-                          try {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            await FirebaseAuth.instance
-                                .sendPasswordResetEmail(email: email.text);
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text(
-                                  "we sent Reset password link to your email"),
-                              duration: Duration(seconds: 2),
-                              backgroundColor: Colors.green,
-                            ));
-
-                            setState(() {
-                              isLoading = false;
-                            });
-                          } on FirebaseAuthException catch (e) {
-                            if (e.code == 'invalid-email') {
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text(
-                                    "The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
-                                duration: Duration(seconds: 2),
-                                backgroundColor: Colors.red,
-                              ));
-                            } else if (e.code == 'user-not-found') {
-                              // ignore: avoid_print
-                              print('No user found for that email.');
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(const SnackBar(
-                                content: Text("No user found for that email"),
-                                duration: Duration(seconds: 2),
-                                backgroundColor: Colors.red,
-                              ));
-                            }
-                          }
-                        },
-                        child: Text(
-                          "Forget Password ?",
-                          style: TextStyle(fontSize: 12, color: AppColors.text),
-                        ),
-                      ),
-                    ),
-                    const Gap(15),
-                    //Login Buttom
-
-                    isLoading
-                        ? CircularProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(AppColors.button),
-                          )
-                        : Custom_Button(
-                            text: 'Login',
-                            onPressed: () async {
-                              if (!await checkInternetConnectivity()) {
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(const SnackBar(
-                                  content:
-                                      Text("No internet connection available"),
-                                  duration: Duration(seconds: 2),
-                                  backgroundColor: Colors.red,
-                                ));
-                                return; // Return early if no internet connection
-                              }
-
-                              if (formKey.currentState!.validate()) {
-                                setState(() {
-                                  isLoading = true; // Set loading state to true
-                                });
-                                try {
-                                  final credential = await FirebaseAuth.instance
-                                      .signInWithEmailAndPassword(
-                                    email: email.text,
-                                    password: password.text,
-                                  );
-                                  if (credential.user!.emailVerified) {
-                                    if (age.isEmpty) {
-                                      Navigator.of(context)
-                                          .pushReplacement(MaterialPageRoute(
-                                        builder: (context) => const Gender(),
-                                      ));
-                                    }
-
-                                    if (email.text ==
-                                        'mustaphamahmoud952@gmail.com') {
-                                      Navigator.of(context)
-                                          .pushReplacement(MaterialPageRoute(
-                                        builder: (context) =>
-                                            const Admin_Home(),
-                                      ));
-                                    } else {
-                                      Navigator.of(context)
-                                          .pushReplacement(MaterialPageRoute(
-                                        builder: (context) => const Home(),
-                                      ));
-                                    }
-                                  } else {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                      content:
-                                          Text("Please verify your email ♥"),
-                                      duration: Duration(seconds: 2),
-                                      backgroundColor: Colors.blueAccent,
-                                    ));
-                                  }
-                                } on FirebaseAuthException catch (e) {
-                                  if (e.code == 'user-not-found') {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                      content:
-                                          Text("No user found for that email"),
-                                      duration: Duration(seconds: 2),
-                                      backgroundColor: Colors.red,
-                                    ));
-                                  } else if (e.code == 'wrong-password') {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                      content: Text(
-                                          "Wrong password provided for that user"),
-                                      duration: Duration(seconds: 2),
-                                      backgroundColor: Colors.red,
-                                    ));
-                                  } else if (e.code == 'invalid-email') {
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(const SnackBar(
-                                      content: Text(
-                                          "The email address is badly formatted \n make sure that email like xxx@xxx.xx"),
-                                      duration: Duration(seconds: 5),
-                                      backgroundColor: Colors.red,
-                                    ));
-                                  }
-                                } finally {
-                                  setState(() {
-                                    isLoading =
-                                        false; // Set loading state to false
-                                  });
-                                }
-                              }
-                            },
-                          ),
-                    const Gap(40),
-                    //Divider
-                    Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Divider(color: AppColors.text),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Text(
-                            'or',
-                            style:
-                                TextStyle(color: AppColors.text, fontSize: 18),
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(color: AppColors.text),
-                        ),
-                      ],
-                    ),
-                    const Gap(20),
-                    // login with Google and facebook
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () async {
-                            await signInWithGoogle();
-                          },
-                          child: Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              color: AppColors.background,
-                            ),
-                            child: const Padding(
-                                padding: EdgeInsets.all(5),
-                                child: CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('assets/Images/Google.png'),
-                                )),
-                          ),
-                        ),
-                        const Gap(10),
-                        InkWell(
-                          onTap: () async {
-                            await signInWithFacebook();
-                          },
-                          child: Container(
-                            height: 60,
-                            width: 60,
-                            decoration: BoxDecoration(
-                              color: AppColors.background,
-                            ),
-                            child: const Padding(
-                                padding: EdgeInsets.all(5),
-                                child: CircleAvatar(
-                                  backgroundImage:
-                                      AssetImage('assets/Images/facebook.jpg'),
-                                )),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const Gap(20),
-                    //Create Acc
-                    Row(
-                      children: [
-                        Text('If you don\'t have account.',
-                            style: TextStyle(
-                                color: AppColors.text,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w500)),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const SignUp()));
-                            },
-                            child: Text(
-                              'Create one !',
-                              style: TextStyle(
-                                  color: AppColors.button,
-                                  fontSize: 19,
-                                  fontWeight: FontWeight.w500),
-                            ))
-                      ],
-                    )
-                  ],
+                  ),
                 ),
               ),
             ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildHeader() {
+    return Text(
+      'Login',
+      style: TextStyle(
+        fontSize: 40,
+        color: AppColors.text,
+        fontWeight: FontWeight.w600,
+      ),
+    );
+  }
+
+  Widget _buildEmailField() {
+    return CusomTextFormFeald(
+      mycontroller: emailController,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please Enter Your Email';
+        }
+        if (!value.trim().toLowerCase().endsWith('@gmail.com')) {
+          return 'Only @gmail.com emails are allowed';
+        }
+        return null;
+      },
+      prefixIcon: Icons.email,
+      lable: 'Email',
+      suffixIcon: null,
+    );
+  }
+
+  Widget _buildPasswordField() {
+    return CusomTextFormFeald(
+      mycontroller: passwordController,
+      obscureText: isNotVisible,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Please Enter Your Password';
+        }
+        if (value.length < 6) {
+          return 'Password must be at least 6 characters';
+        }
+        return null;
+      },
+      prefixIcon: Icons.lock,
+      lable: 'Password',
+      suffixIcon: IconButton(
+        onPressed: () {
+          setState(() {
+            isNotVisible = !isNotVisible;
+          });
+        },
+        icon: Icon(
+          isNotVisible ? Icons.visibility_off : Icons.remove_red_eye_rounded,
+        ),
+        color: AppColors.text,
+      ),
+    );
+  }
+
+  Widget _buildForgotPasswordButton(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(top: 5, bottom: 10),
+      alignment: Alignment.topRight,
+      child: InkWell(
+        onTap: () async {
+          final String email = emailController.text.trim();
+          if (email.isEmpty) {
+            _showSnackBar("Please enter your email first");
+            return;
+          }
+          if (!email.toLowerCase().endsWith('@gmail.com')) {
+            _showSnackBar("Only @gmail.com emails are allowed");
+            return;
+          }
+
+          context.read<AuthCubit>().sendPasswordResetEmail(email);
+          _showSnackBar("Reset link requested if email exists", color: Colors.green);
+        },
+        child: Text(
+          "Forget Password ?",
+          style: TextStyle(fontSize: 12, color: AppColors.text),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLoginButton(BuildContext context, bool isLoading) {
+    if (isLoading) {
+      return CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(AppColors.button),
+      );
+    }
+
+    return Custom_Button(
+      text: 'Login',
+      onPressed: () async {
+        if (!await _checkInternetConnectivity()) {
+          _showSnackBar("No internet connection available");
+          return;
+        }
+
+        if (formKey.currentState!.validate()) {
+          context.read<AuthCubit>().loginWithEmailAndPassword(
+                email: emailController.text,
+                password: passwordController.text,
+              );
+        }
+      },
+    );
+  }
+
+  Widget _buildDivider() {
+    return Row(
+      children: <Widget>[
+        Expanded(child: Divider(color: AppColors.text)),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: Text(
+            'or',
+            style: TextStyle(color: AppColors.text, fontSize: 18),
+          ),
+        ),
+        Expanded(child: Divider(color: AppColors.text)),
+      ],
+    );
+  }
+
+  Widget _buildSocialLoginButtons(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _buildSocialIcon(
+          assetPath: 'assets/Images/Google.png',
+          onTap: () => context.read<AuthCubit>().signInWithGoogle(),
+        ),
+        const Gap(10),
+        _buildSocialIcon(
+          assetPath: 'assets/Images/facebook.jpg',
+          onTap: () => context.read<AuthCubit>().signInWithFacebook(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildSocialIcon({required String assetPath, required VoidCallback onTap}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: 60,
+        width: 60,
+        decoration: BoxDecoration(
+          color: AppColors.background,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(5),
+          child: CircleAvatar(
+            backgroundImage: AssetImage(assetPath),
           ),
         ),
       ),
     );
   }
-}
 
-/*
-void phoneauth () async{
-  await FirebaseAuth.instance.verifyPhoneNumber(
-  phoneNumber: '+44 7123 123 456',
-  verificationCompleted: (PhoneAuthCredential credential) {},
-  verificationFailed: (FirebaseAuthException e) {},
-  codeSent: (String verificationId, int? resendToken) async{
-    try {
-  String smsCode = 'xxxx';
-  
-  PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: verificationId, smsCode: smsCode);
-  
-  await auth.signInWithCredential(credential);
-} on Exception catch (e) {
-  
+  Widget _buildFooter(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          'If you don\'t have account.',
+          style: TextStyle(
+            color: AppColors.text,
+            fontSize: 17,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const SignUp()),
+            );
+          },
+          child: Text(
+            'Create one !',
+            style: TextStyle(
+              color: AppColors.button,
+              fontSize: 19,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
-  },
-  codeAutoRetrievalTimeout: (String verificationId) {},
-);
-
-
-}
-*/

@@ -33,8 +33,7 @@ void main() async {
     }
   }
 
-        Gemini.init(apiKey: GEMINI_API_KEY);
-
+  Gemini.init(apiKey: GEMINI_API_KEY);
 
   await localnotificationservice.init();
   log("localnotificationservice init");
@@ -86,7 +85,7 @@ class _MyAppState extends State<MyApp> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context)  => Dinner(
+                builder: (context) => Dinner(
                       response: NotificationResponse,
                     )));
       } else if (NotificationResponse.id == 1) {
@@ -104,8 +103,7 @@ class _MyAppState extends State<MyApp> {
           fontFamily: GoogleFonts.poppins().fontFamily,
         ),
         debugShowCheckedModeBanner: false,
-        home: (FirebaseAuth.instance.currentUser != null &&
-                FirebaseAuth.instance.currentUser!.emailVerified)
+        home: (FirebaseAuth.instance.currentUser != null)
             ? const SplashView()
             : const OnboardingScreen(),
         routes: {

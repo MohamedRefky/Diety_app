@@ -25,7 +25,7 @@ class Gender extends StatefulWidget {
 late String gender;
 bool isMale = true;
 CollectionReference users = FirebaseFirestore.instance.collection('users');
-String uid = FirebaseAuth.instance.currentUser!.uid;
+String? get uid => FirebaseAuth.instance.currentUser?.uid;
 
 class _GenderState extends State<Gender> {
   @override
@@ -150,10 +150,12 @@ class _GenderState extends State<Gender> {
 
   Future<void> test() async {
     final String userGender = isMale ? 'Male' : 'Female';
+    final String? currentUid = uid;
+    if (currentUid == null) return;
     return users
-        .doc(uid)
+        .doc(currentUid)
         .set({
-          "email": FirebaseAuth.instance.currentUser!.email,
+          "email": FirebaseAuth.instance.currentUser?.email ?? '',
           "gender": userGender,
         })
         .then((value) => print('user added'))
