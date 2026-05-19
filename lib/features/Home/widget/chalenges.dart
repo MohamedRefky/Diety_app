@@ -1,5 +1,6 @@
 import 'dart:async';
-import 'package:diety/features/profile/widget/challenges_carousel.dart';
+
+import 'package:diety/Core/widget/challenges_carousel.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

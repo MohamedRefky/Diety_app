@@ -11,7 +11,7 @@ import '../widget/profile_header.dart';
 import '../widget/personal_data_card.dart';
 import '../widget/goals_card.dart';
 import '../widget/health_data_card.dart';
-import '../widget/challenges_carousel.dart';
+import '../../../Core/widget/challenges_carousel.dart';
 import '../widget/profile_actions.dart';
 
 class Profile extends StatelessWidget {
