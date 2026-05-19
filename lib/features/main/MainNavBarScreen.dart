@@ -1,7 +1,7 @@
 import 'package:community_material_icon/community_material_icon.dart';
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Exersise/view/Exercise.dart';
-import 'package:diety/features/Home/view/view/Home.dart';
+import 'package:diety/features/Home/view/Home.dart';
 import 'package:diety/features/Planes/view/Plane.dart';
 import 'package:diety/features/profile/view/profile.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,8 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class MainNavBarScreen extends StatefulWidget {
   const MainNavBarScreen({super.key});
-  static const route = "/Homee"; // Keep Home's original route to prevent breaking references
+  static const route =
+      "/Homee"; // Keep Home's original route to prevent breaking references
 
   @override
   State<MainNavBarScreen> createState() => _MainNavBarScreenState();

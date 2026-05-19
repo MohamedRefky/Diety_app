@@ -1,6 +1,6 @@
 import 'dart:developer';
+import 'package:diety/features/Home/view/Home.dart';
 import 'package:flutter/material.dart';
-import 'package:diety/features/Home/view/view/Home.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
