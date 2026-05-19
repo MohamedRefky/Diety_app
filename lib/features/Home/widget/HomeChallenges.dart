@@ -1,6 +1,7 @@
 import 'package:diety/Core/utils/Colors.dart';
 import 'package:diety/features/Home/widget/chalenges.dart';
-import 'package:diety/features/profile/view/profile.dart';
+
+import 'package:diety/features/profile/widget/challenges_carousel.dart';
 import 'package:flutter/material.dart';
 
 class HomeChallenges extends StatelessWidget {
