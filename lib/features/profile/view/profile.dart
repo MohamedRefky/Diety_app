@@ -76,27 +76,33 @@ class _ProfileState extends State<Profile> {
         _uid = user.uid;
       });
 
-      // Query Firestore for the user document using UID
+      // Query Firestore for the user document using UID safely
       DocumentSnapshot userDoc =
           await _firestore.collection('users').doc(_uid).get();
-      setState(() {
-        email = userDoc.get('email');
-        height = userDoc.get('height');
-        weight = userDoc.get('weight');
-        activity = userDoc.get('activity');
-        age = userDoc.get('age');
-        gender = userDoc.get('gender');
-        caloriesRemining = userDoc.get('Calories Remining');
-        dailyCalories = userDoc.get('dailyCalories');
-        goalweight = userDoc.get('Goal Weight');
-        waterIntake = userDoc.get('waterIntake');
-        sleepDuration = userDoc.get('sleepDuration');
-        HealthStatus = userDoc.get('HealthStatus');
-        BMI = userDoc.get('BMI');
-        idealweight = userDoc.get('idealWeight');
-        FirstName = userDoc.get('firstName') ?? '';
-        LastName = userDoc.get('lastName');
-      });
+      
+      if (userDoc.exists) {
+        final Map<String, dynamic>? data =
+            userDoc.data() as Map<String, dynamic>?;
+
+        setState(() {
+          email = data?['email']?.toString() ?? '';
+          height = data?['height']?.toString() ?? '';
+          weight = data?['weight']?.toString() ?? '';
+          activity = data?['activity']?.toString() ?? '';
+          age = data?['age']?.toString() ?? '';
+          gender = data?['gender']?.toString() ?? '';
+          caloriesRemining = data?['Calories Remining']?.toString() ?? '';
+          dailyCalories = data?['dailyCalories']?.toString() ?? '';
+          goalweight = data?['Goal Weight']?.toString() ?? '';
+          waterIntake = data?['waterIntake']?.toString() ?? '';
+          sleepDuration = data?['sleepDuration']?.toString() ?? '';
+          HealthStatus = data?['HealthStatus']?.toString() ?? '';
+          BMI = data?['BMI']?.toString() ?? '';
+          idealweight = data?['idealWeight']?.toString() ?? '';
+          FirstName = data?['firstName']?.toString() ?? '';
+          LastName = data?['lastName']?.toString() ?? '';
+        });
+      }
     }
   }
 
