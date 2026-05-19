@@ -1,6 +1,6 @@
 // ignore_for_file: deprecated_member_use
 import 'dart:developer';
-import 'package:diety/Core/model/notifications.dart';
+import 'package:diety/Core/services/notifications.dart';
 import 'package:workmanager/workmanager.dart';
 import 'dart:async';
 
