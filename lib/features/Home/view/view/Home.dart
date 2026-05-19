@@ -24,7 +24,6 @@ import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-
 import '../../../Exersise/view/Exercise.dart';
 import '../../../profile/view/profile.dart';
 import '../../../profile/widget/styles.dart';
