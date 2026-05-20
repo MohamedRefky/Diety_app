@@ -44,7 +44,8 @@ class MyApp extends StatelessWidget {
       title: 'Diety',
       theme: ThemeData(
         fontFamily: GoogleFonts.poppins().fontFamily,
-        brightness: Brightness.dark, // Standardize dark mode support across the app
+        brightness:
+            Brightness.dark, // Standardize dark mode support across the app
       ),
       debugShowCheckedModeBanner: false,
       home: FirebaseAuth.instance.currentUser != null
@@ -52,7 +53,8 @@ class MyApp extends StatelessWidget {
           : const OnboardingScreen(),
       routes: {
         "SignUp": (context) => const SignUpView(),
-        "SingUp": (context) => const SignUpView(), // Keep legacy route name to prevent breakages
+        "SingUp": (context) =>
+            const SignUpView(), // Keep legacy route name to prevent breakages
         "Login": (context) => const LoginView(),
         "home": (context) => const MainNavBarScreen(),
       },
