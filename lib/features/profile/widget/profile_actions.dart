@@ -54,9 +54,10 @@ class ProfileActions extends StatelessWidget {
             icon: Icons.delete,
             color: Colors.red,
             onTap: () async {
+              final profileCubit = context.read<ProfileCubit>();
               bool confirmDelete = await _showConfirmationDialog(context);
               if (confirmDelete) {
-                context.read<ProfileCubit>().deleteAccount();
+                profileCubit.deleteAccount();
               }
             },
           ),

@@ -14,14 +14,19 @@ app = Flask(__name__)
 # Define the path to save the LabelEncoder state
 label_encoder_path = 'label_encoder.pkl'
 
-# Initialize LabelEncoder
+# Initialize and load the LabelEncoder state
 le = LabelEncoder()
-
-# Define a function to fit and save the LabelEncoder
-def fit_and_save_label_encoder(data):
-    le.fit(data)
-    with open(label_encoder_path, 'wb') as f:
-        pickle.dump(le, f)
+if os.path.exists(label_encoder_path):
+    try:
+        with open(label_encoder_path, 'rb') as f:
+            le = pickle.load(f)
+        print("LabelEncoder loaded successfully with classes:", le.classes_)
+    except Exception as e:
+        print(f"Error loading label encoder from file: {e}. Falling back to standard encoding.")
+        le.fit(['Female', 'Male'])
+else:
+    print("LabelEncoder file not found. Fitting on standard ['Female', 'Male'].")
+    le.fit(['Female', 'Male'])
 
 # Define a route for prediction
 @app.route('/predict', methods=['POST'])
@@ -30,13 +35,14 @@ def predict():
         # Get input data from request
         data = request.json
 
-        # Fit and save LabelEncoder with 'Gender' data
-        fit_and_save_label_encoder(data['Gender'])
-
         # Convert input data to DataFrame
         input_data = pd.DataFrame(data)
 
-        # Transform 'Gender' using the fitted LabelEncoder
+        # Scale Height to meters if it is provided in centimeters (e.g. > 3.0)
+        if 'Height' in input_data.columns:
+            input_data['Height'] = input_data['Height'].apply(lambda x: x / 100.0 if x > 3.0 else x)
+
+        # Transform 'Gender' using the pre-loaded LabelEncoder
         input_data['Gender'] = le.transform(input_data['Gender'])
 
         # Make predictions using the loaded model

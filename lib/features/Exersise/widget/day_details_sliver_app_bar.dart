@@ -20,7 +20,7 @@ class DayDetailsSliverAppBar extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.4),
+            color: Colors.black.withValues(alpha: 0.4),
             shape: BoxShape.circle,
           ),
           child: IconButton(
@@ -53,7 +53,7 @@ class DayDetailsSliverAppBar extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: [
                     Colors.transparent,
-                    AppColors.background.withOpacity(0.6),
+                    AppColors.background.withValues(alpha: 0.6),
                     AppColors.background,
                   ],
                   begin: Alignment.topCenter,

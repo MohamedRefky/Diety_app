@@ -27,9 +27,9 @@ class DayDetailsHeader extends StatelessWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
-                color: AppColors.button.withOpacity(0.15),
+                color: AppColors.button.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: AppColors.button.withOpacity(0.3)),
+                border: Border.all(color: AppColors.button.withValues(alpha: 0.3)),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,

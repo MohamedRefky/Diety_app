@@ -23,7 +23,7 @@ class ExerciseCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1E2630),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
@@ -38,7 +38,7 @@ class ExerciseCard extends StatelessWidget {
                   width: 32,
                   height: 32,
                   decoration: BoxDecoration(
-                    color: AppColors.button.withOpacity(0.15),
+                    color: AppColors.button.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
                   ),
                   child: Center(
@@ -90,7 +90,7 @@ class ExerciseCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Divider(color: Colors.white.withOpacity(0.08)),
+                    Divider(color: Colors.white.withValues(alpha: 0.08)),
                     const Gap(8),
                     Text(
                       'Instructions',

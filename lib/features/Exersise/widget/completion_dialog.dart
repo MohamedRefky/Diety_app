@@ -20,7 +20,7 @@ void showCompletionDialog(BuildContext context) {
                 width: 72,
                 height: 72,
                 decoration: BoxDecoration(
-                  color: AppColors.button.withOpacity(0.15),
+                  color: AppColors.button.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(Icons.star_rounded, color: AppColors.button, size: 40),

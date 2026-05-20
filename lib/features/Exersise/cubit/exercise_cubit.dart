@@ -44,7 +44,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
       var url = Uri.parse('http://10.0.2.2:5000/predict');
       var data = {
         'Weight': [weight],
-        'Height': [height],
+        'Height': [height / 100.0],
         'Gender': [gender],
         'Age': [age]
       };
