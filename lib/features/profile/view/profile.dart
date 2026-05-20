@@ -4,7 +4,7 @@ import 'package:gap/gap.dart';
 import '../../../Core/utils/Colors.dart';
 import '../cubit/profile_cubit.dart';
 import '../cubit/profile_state.dart';
-import '../view/gemini.dart';
+import '../../gemini/view/gemini_ai_screen.dart';
 import '../widget/styles.dart';
 import '../widget/profile_header.dart';
 import '../widget/personal_data_card.dart';

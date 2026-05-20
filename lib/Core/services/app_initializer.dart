@@ -3,11 +3,11 @@ import 'dart:developer';
 import 'package:diety/Core/services/firenotifications.dart';
 import 'package:diety/Core/services/notifications.dart';
 import 'package:diety/Core/services/workmanagerservice.dart';
-import 'package:diety/features/profile/view/gemini.dart';
 import 'package:diety/Core/services/firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AppInitializer {
   /// Entry point to initialize all application-level services before launching the app UI.
@@ -33,9 +33,15 @@ class AppInitializer {
       }
     }
 
-    // 2. Initialize Gemini AI service
-    Gemini.init(apiKey: GEMINI_API_KEY);
-    log("AppInitializer: Gemini AI coach service initialized.");
+    // 2. Initialize Gemini AI service securely from environment
+    try {
+      await dotenv.load(fileName: ".env");
+      final apiKey = dotenv.env['GEMINI_API_KEY'] ?? "";
+      Gemini.init(apiKey: apiKey);
+      log("AppInitializer: Gemini AI coach service initialized.");
+    } catch (e) {
+      log("AppInitializer [Error]: Failed to load .env or initialize Gemini: $e");
+    }
 
     // 3. Initialize local notification channel configs
     await localnotificationservice.init();

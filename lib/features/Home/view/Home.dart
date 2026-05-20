@@ -9,7 +9,7 @@ import 'package:diety/features/Home/widget/watertracker.dart';
 import 'package:diety/features/Home/cubit/home_cubit.dart';
 import 'package:diety/features/Home/cubit/home_state.dart';
 import 'package:diety/features/User_Detials/view/UserDitails.dart';
-import 'package:diety/features/profile/view/gemini.dart';
+import 'package:diety/features/gemini/view/gemini_ai_screen.dart';
 import 'package:diety/features/profile/widget/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
