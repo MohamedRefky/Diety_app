@@ -19,6 +19,7 @@ class _GeminiAi extends State<GeminiAi> {
   final Gemini gemini = Gemini.instance;
 
   List<ChatMessage> messages = [];
+  final List<ChatUser> _typingUsers = [];
 
   ChatUser currentUser = ChatUser(id: "0", firstName: "You");
   ChatUser geminiUser = ChatUser(
@@ -91,6 +92,7 @@ class _GeminiAi extends State<GeminiAi> {
       currentUser: currentUser,
       onSend: _sendMessage,
       messages: messages,
+      typingUsers: _typingUsers,
       messageOptions: MessageOptions(
         showTime: true,
         timeFontSize: 10,
@@ -156,6 +158,7 @@ class _GeminiAi extends State<GeminiAi> {
   void _sendMessage(ChatMessage chatMessage) {
     setState(() {
       messages = [chatMessage, ...messages];
+      _typingUsers.add(geminiUser);
     });
     try {
       String question = chatMessage.text;
@@ -171,9 +174,7 @@ class _GeminiAi extends State<GeminiAi> {
       
       gemini.streamGenerateContent(question, images: images).listen(
         (event) {
-          String response = event.content?.parts?.fold(
-                  "", (previous, current) => "$previous${current.text}") ??
-              "";
+          String response = event.output ?? "";
           
           if (messages.isNotEmpty && messages.first.user == geminiUser) {
             setState(() {
@@ -182,6 +183,9 @@ class _GeminiAi extends State<GeminiAi> {
               messages = [lastMessage, ...messages];
             });
           } else {
+            setState(() {
+              _typingUsers.remove(geminiUser);
+            });
             ChatMessage message = ChatMessage(
               user: geminiUser,
               createdAt: DateTime.now(),
@@ -194,10 +198,35 @@ class _GeminiAi extends State<GeminiAi> {
         },
         onError: (error) {
           log("Gemini stream error: $error");
+          setState(() {
+            _typingUsers.remove(geminiUser);
+          });
+          
+          String errorMessageText = "I'm sorry, I ran into an error connecting to the intelligence engine. Please check your internet connection or try again shortly.";
+          final errStr = error.toString();
+          
+          if (errStr.contains("429")) {
+            errorMessageText = "⚠️ **API Key Rate-Limited or Blocked (Error 429)**\n\n"
+                "The current Gemini API Key has exceeded its quota or has been deactivated (this commonly happens when a key is leaked/exposed publicly on GitHub).\n\n"
+                "**How to Fix This:**\n"
+                "1. Go to [Google AI Studio](https://aistudio.google.com/) and create a new free API key.\n"
+                "2. Open the file `.env` in the project root directory.\n"
+                "3. Update the key:\n"
+                "   `GEMINI_API_KEY=YOUR_NEW_KEY_HERE`\n"
+                "4. Restart the app to apply the new key!";
+          } else if (errStr.contains("403") || errStr.contains("400")) {
+            errorMessageText = "⚠️ **Invalid API Key (Error 400/403)**\n\n"
+                "The current Gemini API Key is invalid or restricted.\n\n"
+                "**How to Fix This:**\n"
+                "1. Verify that your API Key is correct in the `.env` file.\n"
+                "2. Make sure there are no spaces or extra characters around `GEMINI_API_KEY`.\n"
+                "3. Restart the app.";
+          }
+          
           ChatMessage errorMessage = ChatMessage(
             user: geminiUser,
             createdAt: DateTime.now(),
-            text: "I'm sorry, I ran into an error connecting to the intelligence engine. Please check your internet connection or try again shortly.",
+            text: errorMessageText,
           );
           setState(() {
             messages = [errorMessage, ...messages];
@@ -206,6 +235,9 @@ class _GeminiAi extends State<GeminiAi> {
       );
     } catch (e) {
       log("Error in sending message: $e");
+      setState(() {
+        _typingUsers.remove(geminiUser);
+      });
     }
   }
 
