@@ -89,12 +89,12 @@ class HomeCaloriesIndicator extends StatelessWidget {
               const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
+                  FaIcon(
                     FontAwesomeIcons.bolt,
                     color: Colors.yellow,
                   ),
                   Gap(20),
-                  Icon(
+                  FaIcon(
                     FontAwesomeIcons.utensils,
                     color: Colors.blueAccent,
                   ),

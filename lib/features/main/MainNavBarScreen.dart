@@ -58,19 +58,19 @@ class _MainNavBarScreenState extends State<MainNavBarScreen> {
               unselectedColor: AppColors.white,
             ),
             SalomonBottomBarItem(
-              icon: const Icon(FontAwesomeIcons.utensils, size: 22),
+              icon: const FaIcon(FontAwesomeIcons.utensils, size: 22),
               title: const Text("Recipes"),
               selectedColor: AppColors.button,
               unselectedColor: AppColors.white,
             ),
             SalomonBottomBarItem(
-              icon: const Icon(FontAwesomeIcons.personRunning, size: 22),
+              icon: const FaIcon(FontAwesomeIcons.personRunning, size: 22),
               title: const Text("Plans"),
               selectedColor: AppColors.button,
               unselectedColor: AppColors.white,
             ),
             SalomonBottomBarItem(
-              icon: const Icon(FontAwesomeIcons.user, size: 22),
+              icon: const FaIcon(FontAwesomeIcons.user, size: 22),
               title: const Text("Profile"),
               selectedColor: AppColors.button,
               unselectedColor: AppColors.white,
