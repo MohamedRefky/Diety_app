@@ -26,9 +26,13 @@ class ExerciseLoaded extends ExerciseState {
 
 class ExerciseError extends ExerciseState {
   final String message;
+  final bool isMissingUserData;
 
-  const ExerciseError({required this.message});
+  const ExerciseError({
+    required this.message,
+    this.isMissingUserData = false,
+  });
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [message, isMissingUserData];
 }

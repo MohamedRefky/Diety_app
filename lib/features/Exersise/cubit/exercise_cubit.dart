@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,7 +13,7 @@ class ExerciseCubit extends Cubit<ExerciseState> {
 
   ExerciseCubit() : super(ExerciseInitial());
 
-  Future<void> fetchExerciseData() async {
+  Future<void> fetchExerciseData({bool useDefaultFallback = false}) async {
     emit(ExerciseLoading());
 
     try {
@@ -23,20 +24,37 @@ class ExerciseCubit extends Cubit<ExerciseState> {
         return;
       }
 
-      DocumentSnapshot userDoc = await _firestore.collection('users').doc(user.uid).get();
+      DocumentSnapshot userDoc =
+          await _firestore.collection('users').doc(user.uid).get();
       if (!userDoc.exists) {
-        emit(const ExerciseError(message: 'User data not found'));
-        return;
+        if (!useDefaultFallback) {
+          emit(const ExerciseError(
+            message: 'Incomplete user physical data',
+            isMissingUserData: true,
+          ));
+          return;
+        }
       }
 
-      int weight = int.tryParse(userDoc.get('weight')?.toString() ?? '0') ?? 0;
-      int height = int.tryParse(userDoc.get('height')?.toString() ?? '0') ?? 0;
-      int age = int.tryParse(userDoc.get('age')?.toString() ?? '0') ?? 0;
-      String gender = userDoc.get('gender')?.toString() ?? '';
+      final userData = userDoc.data() as Map<String, dynamic>?;
+      int weight = int.tryParse(userData?['weight']?.toString() ?? '0') ?? 0;
+      int height = int.tryParse(userData?['height']?.toString() ?? '0') ?? 0;
+      int age = int.tryParse(userData?['age']?.toString() ?? '0') ?? 0;
+      String gender = userData?['gender']?.toString() ?? '';
 
       if (weight == 0 || height == 0 || age == 0) {
-        emit(const ExerciseError(message: 'Incomplete user physical data'));
-        return;
+        if (!useDefaultFallback) {
+          emit(const ExerciseError(
+            message: 'Incomplete user physical data',
+            isMissingUserData: true,
+          ));
+          return;
+        } else {
+          weight = 70;
+          height = 175;
+          age = 25;
+          gender = 'Male';
+        }
       }
 
       // 2. Fetch Prediction
@@ -64,7 +82,8 @@ class ExerciseCubit extends Cubit<ExerciseState> {
           }
         }
       } catch (error) {
-        print('Prediction API call failed or timed out: $error. Utilizing robust BMI fallback.');
+        print(
+            'Prediction API call failed or timed out: $error. Utilizing robust BMI fallback.');
       }
 
       // Fallback if API fails
@@ -90,25 +109,60 @@ class ExerciseCubit extends Cubit<ExerciseState> {
       // 3. Fetch Plan from Firestore
       String plan;
       switch (predictionResult) {
-        case 1.0: plan = 'plan1'; break;
-        case 2.0: plan = 'plan2'; break;
-        case 3.0: plan = 'plan3'; break;
-        case 4.0: plan = 'plan4'; break;
-        case 5.0: plan = 'plan5'; break;
+        case 1.0:
+          plan = 'plan1';
+          break;
+        case 2.0:
+          plan = 'plan2';
+          break;
+        case 3.0:
+          plan = 'plan3';
+          break;
+        case 4.0:
+          plan = 'plan4';
+          break;
+        case 5.0:
+          plan = 'plan5';
+          break;
         case 6.0:
-        case 7.0: plan = 'plan6'; break;
-        default: plan = 'plan4';
+        case 7.0:
+          plan = 'plan6';
+          break;
+        default:
+          plan = 'plan4';
       }
 
-      DocumentSnapshot planDoc = await _firestore.collection('exercise_plans').doc(plan).get();
-      
-      if (!planDoc.exists) {
-        emit(ExerciseError(message: 'Exercise plan ($plan) not found in database'));
+      Map<String, dynamic>? planData;
+      try {
+        DocumentSnapshot planDoc =
+            await _firestore.collection('exercise_plans').doc(plan).get();
+        if (planDoc.exists && planDoc.data() != null) {
+          planData = planDoc.data() as Map<String, dynamic>?;
+        }
+      } catch (err) {
+        print('Error fetching remote plan: $err');
+      }
+
+      // If remote plan is not found, fallback to local assets/plan.json
+      if (planData == null) {
+        try {
+          String fileContent =
+              await rootBundle.loadString('assets/plan.json');
+          List<dynamic> jsonDataList = jsonDecode(fileContent);
+          if (jsonDataList.isNotEmpty) {
+            planData = jsonDataList.first as Map<String, dynamic>?;
+          }
+        } catch (assetErr) {
+          print('Error loading asset plan: $assetErr');
+        }
+      }
+
+      if (planData == null) {
+        emit(ExerciseError(
+            message: 'Exercise plan ($plan) not found in database'));
         return;
       }
 
-      Map<String, dynamic> planData = planDoc.data() as Map<String, dynamic>;
-      
       List<Map<String, dynamic>?> daysData = [
         planData['Day1'] is Map<String, dynamic> ? planData['Day1'] : null,
         planData['Day2'] is Map<String, dynamic> ? planData['Day2'] : null,
@@ -119,8 +173,8 @@ class ExerciseCubit extends Cubit<ExerciseState> {
         planData['Day7'] is Map<String, dynamic> ? planData['Day7'] : null,
       ];
 
-      emit(ExerciseLoaded(predictionResult: predictionResult, daysData: daysData));
-
+      emit(ExerciseLoaded(
+          predictionResult: predictionResult, daysData: daysData));
     } catch (e) {
       emit(ExerciseError(message: 'An unexpected error occurred: $e'));
     }

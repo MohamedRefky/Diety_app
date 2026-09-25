@@ -8,6 +8,7 @@ import '../cubit/exercise_state.dart';
 import '../extensions/prediction_extension.dart';
 import '../widget/Container_Exercise.dart';
 import 'DayDetailsScreen.dart';
+import '../../Asks/view/Gender.dart';
 
 class Exercise extends StatelessWidget {
   const Exercise({Key? key}) : super(key: key);
@@ -45,6 +46,86 @@ class ExerciseView extends StatelessWidget {
               ),
             );
           } else if (state is ExerciseError) {
+            if (state.isMissingUserData) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.accessibility_new_rounded,
+                          color: AppColors.button, size: 64),
+                      const Gap(20),
+                      Text(
+                        'Physical Data Required',
+                        style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      const Gap(12),
+                      Text(
+                        'Please complete your physical measurements (weight, height, age) to calculate your personalized exercise plan.',
+                        style: TextStyle(color: AppColors.grey, fontSize: 14, height: 1.5),
+                        textAlign: TextAlign.center,
+                      ),
+                      const Gap(28),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(
+                              MaterialPageRoute(
+                                builder: (context) => const Gender(),
+                              ),
+                            )
+                                .then((_) {
+                              if (context.mounted) {
+                                context
+                                    .read<ExerciseCubit>()
+                                    .fetchExerciseData();
+                              }
+                            });
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.button,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: const Text(
+                            'Complete Your Data',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      const Gap(12),
+                      TextButton(
+                        onPressed: () {
+                          context
+                              .read<ExerciseCubit>()
+                              .fetchExerciseData(useDefaultFallback: true);
+                        },
+                        child: Text(
+                          'Explore Default Plan',
+                          style: TextStyle(
+                              color: AppColors.button,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }
+
             return Center(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
